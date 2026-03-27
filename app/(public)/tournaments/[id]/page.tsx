@@ -14,6 +14,7 @@ import {
   Megaphone,
   CheckCircle2
 } from 'lucide-react';
+import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -98,6 +99,16 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               {tournament.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
+
+          {/* Entry Form Section */}
+          {!isExpired && tournament.status === 'open' && (
+            <section id="entry">
+              <TournamentRegistrationForm 
+                tournamentId={tournament.id} 
+                tournamentTitle={tournament.title} 
+              />
+            </section>
+          )}
 
           {/* Details Grid */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -185,9 +196,12 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             </p>
             
             {tournament.status === 'open' && !isExpired ? (
-              <button className="w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+              <a 
+                href="#entry"
+                className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center"
+              >
                 大会にエントリーする
-              </button>
+              </a>
             ) : (
               <button disabled className="w-full py-4 bg-white/5 text-gray-500 font-bold rounded-xl cursor-not-allowed">
                 エントリー不可
@@ -201,34 +215,42 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             )}
           </section>
 
-          {/* Organizer Card */}
-          {organizer && (
-            <section className="glass-panel p-6">
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 text-center">主催者</p>
-              <div className="flex items-center gap-4 mb-6">
-                <img 
-                  src={organizer.image_url || `https://unavatar.io/x/${organizer.name}`} 
-                  alt={organizer.name} 
-                  className="w-16 h-16 rounded-xl object-cover border border-white/10"
-                />
-                <div>
-                  <h4 className="font-bold text-lg">{organizer.name}</h4>
-                  <p className="text-xs text-[var(--color-brand-blue)]">{organizer.title}</p>
-                </div>
+          {/* Organizers Section */}
+          {tournament.organizers && tournament.organizers.length > 0 && (
+            <section className="space-y-4">
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">主催者</p>
+              <div className="space-y-4">
+                {tournament.organizers.map((org: any) => (
+                  <div key={org.id} className="glass-panel p-6">
+                    <div className="flex items-center gap-4 mb-6">
+                      <img 
+                        src={org.image_url || `https://unavatar.io/x/${org.name}`} 
+                        alt={org.name} 
+                        className="w-16 h-16 rounded-xl object-cover border border-white/10"
+                      />
+                      <div>
+                        <h4 className="font-bold text-lg">{org.name}</h4>
+                        <p className="text-xs text-[var(--color-brand-blue)]">{org.title}</p>
+                      </div>
+                    </div>
+                    {org.description && (
+                      <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                        {org.description}
+                      </p>
+                    )}
+                    {org.x_id && (
+                      <a 
+                        href={`https://x.com/${org.x_id}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-gray-900 border border-white/10 text-white rounded-lg text-sm font-bold transition-transform hover:scale-102"
+                      >
+                        𝕏 @{org.x_id} をフォロー
+                      </a>
+                    )}
+                  </div>
+                ))}
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                {organizer.description}
-              </p>
-              {organizer.x_id && (
-                <a 
-                  href={`https://x.com/${organizer.x_id}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-gray-900 border border-white/10 text-white rounded-lg text-sm font-bold transition-transform hover:scale-102"
-                >
-                  𝕏 @{organizer.x_id} をフォロー
-                </a>
-              )}
             </section>
           )}
 

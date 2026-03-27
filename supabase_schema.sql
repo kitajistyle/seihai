@@ -1,8 +1,10 @@
 -- ==========================================
 -- (開発・検証用) 古いデータとテーブルをリセット
 -- ==========================================
+DROP TABLE IF EXISTS tournament_registrations CASCADE;
 DROP TABLE IF EXISTS tournament_results CASCADE;
 DROP TABLE IF EXISTS event_reports CASCADE;
+DROP TABLE IF EXISTS tournament_organizers CASCADE;
 DROP TABLE IF EXISTS players CASCADE;
 DROP TABLE IF EXISTS tournaments CASCADE;
 DROP TABLE IF EXISTS organizers CASCADE;
@@ -35,7 +37,6 @@ CREATE POLICY "Public organizers are viewable by everyone." ON organizers FOR SE
 -- ==========================================
 CREATE TABLE tournaments (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-  organizer_id UUID REFERENCES organizers(id) ON DELETE SET NULL,
   title TEXT NOT NULL,
   date TIMESTAMPTZ NOT NULL,
   participants INTEGER DEFAULT 0,
@@ -55,7 +56,6 @@ CREATE TABLE tournaments (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_tournaments_organizer ON tournaments(organizer_id);
 ALTER TABLE tournaments ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public tournaments are viewable by everyone." ON tournaments FOR SELECT USING (true);
 
@@ -66,8 +66,9 @@ CREATE POLICY "Public tournaments are viewable by everyone." ON tournaments FOR 
 CREATE TABLE players (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   name TEXT NOT NULL,
+  email TEXT UNIQUE, -- Email address
   points INTEGER DEFAULT 0,
-  x_id TEXT, -- X (Twitter) ID
+  x_id TEXT UNIQUE, -- X (Twitter) ID
   avatar_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -115,8 +116,43 @@ ALTER TABLE tournament_results ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public tournament results are viewable by everyone." ON tournament_results FOR SELECT USING (true);
 
 
+-- ==========================================
+-- 6. Tournament Organizers (中間テーブル)
+-- ==========================================
+CREATE TABLE tournament_organizers (
+  tournament_id UUID REFERENCES tournaments(id) ON DELETE CASCADE,
+  organizer_id UUID REFERENCES organizers(id) ON DELETE CASCADE,
+  PRIMARY KEY (tournament_id, organizer_id)
+);
+
+ALTER TABLE tournament_organizers ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public tournament organizers are viewable by everyone." ON tournament_organizers FOR SELECT USING (true);
+
+
+-- ==========================================
+-- 7. Tournament Registrations (大会予約/エントリー)
+-- ==========================================
+CREATE TABLE tournament_registrations (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  tournament_id UUID REFERENCES tournaments(id) ON DELETE CASCADE,
+  player_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  x_id TEXT,
+  message TEXT,
+  status TEXT CHECK (status IN ('pending', 'confirmed', 'cancelled')) DEFAULT 'pending',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (tournament_id, email)
+);
+
+CREATE INDEX idx_registrations_tournament ON tournament_registrations(tournament_id);
+ALTER TABLE tournament_registrations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Registrations are insertable by everyone." ON tournament_registrations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public registrations are viewable by everyone." ON tournament_registrations FOR SELECT USING (true);
+
+
 -- ==============================================================
--- 🚀 MOCK DATA SEEDING (With Comprehensive UI Fields)
+-- 🚀 MOCK DATA SEEDING (With Multiple Organizers support)
 -- ==============================================================
 
 -- Inserting sample organizers
@@ -125,10 +161,16 @@ INSERT INTO organizers (id, name, title, description, x_id, image_url) VALUES
 ('c38f9e8a-e555-4a7b-a4db-1e5b84b65632', 'Megumi', 'ネクストコンペ代表', '女性向け大会を中心に運営。', 'Nintendo', 'https://unavatar.io/x/Nintendo'),
 ('d47f9e8a-e555-4a7b-a4db-1e5b84b65633', 'Suzuki', 'ストリームアリーナ担当', '配信ゲームイベントに精通。', 'Xbox', 'https://unavatar.io/x/Xbox');
 
--- Inserting sample tournaments (Now with Location, Prizes, etc.)
-INSERT INTO tournaments (id, organizer_id, title, date, participants, max_participants, image_url, status, location, location_url, description, first_prize, participation_prize, entry_fee, contact_info, guests, format) VALUES
-('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', 'b29f9e8a-e555-4a7b-a4db-1e5b84b65631', 'バトルカップ 予選', '2026-06-15T10:00:00Z', 45, 50, 'https://picsum.photos/seed/tcg1/800/400', 'closed', '東京ビッグサイト 西展示棟', 'https://maps.app.goo.gl/example', '全国から猛者が集う公式予選大会。成績上位者はそのまま本戦への出場権を獲得できます。', 'ゲーミングPC (Core i7 / RTX 4070)', '特製クリアファイル', '1500円', '当日は必ず身分証と参加チケットをお持ちください。', 'プロゲーマー Tanaka, 実況: Sato', 'スイスドロー（予選）＋ シングルエリミネーション'),
-('f65f9e8a-e555-4a7b-a4db-1e5b84b65635', 'c38f9e8a-e555-4a7b-a4db-1e5b84b65632', 'オールスター杯', '2026-06-18T12:00:00Z', 20, 32, 'https://picsum.photos/seed/tcg2/800/400', 'open', 'オンライン開催 (Discord)', 'https://discord.gg/example', 'どなたでも気軽に参加できるカジュアルなオンライン大会です。初心者大歓迎！', '限定プロモカード（ホイル仕様）', '参加記念限定アバター', '無料', 'Discordサーバーへの事前参加が必須です。', NULL, 'ダブルエリミネーション');
+-- Inserting sample tournaments
+INSERT INTO tournaments (id, title, date, participants, max_participants, image_url, status, location, location_url, description, first_prize, participation_prize, entry_fee, contact_info, guests, format) VALUES
+('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', 'バトルカップ 予選', '2026-06-15T10:00:00Z', 45, 50, 'https://picsum.photos/seed/tcg1/800/400', 'closed', '東京ビッグサイト 西展示棟', 'https://maps.app.goo.gl/example', '全国から猛者が集う公式予選大会。成績上位者はそのまま本戦への出場権を獲得できます。', 'ゲーミングPC (Core i7 / RTX 4070)', '特製クリアファイル', '1500円', '当日は必ず身分証と参加チケットをお持ちください。', 'プロゲーマー Tanaka, 実況: Sato', 'スイスドロー（予選）＋ シングルエリミネーション'),
+('f65f9e8a-e555-4a7b-a4db-1e5b84b65635', 'オールスター杯', '2026-06-18T12:00:00Z', 20, 32, 'https://picsum.photos/seed/tcg2/800/400', 'open', 'オンライン開催 (Discord)', 'https://discord.gg/example', 'どなたでも気軽に参加できるカジュアルなオンライン大会です。初心者大歓迎！', '限定プロモカード（ホイル仕様）', '参加記念限定アバター', '無料', 'Discordサーバーへの事前参加が必須です。', NULL, 'ダブルエリミネーション');
+
+-- Seeding tournament organizers
+INSERT INTO tournament_organizers (tournament_id, organizer_id) VALUES
+('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', 'b29f9e8a-e555-4a7b-a4db-1e5b84b65631'),
+('f65f9e8a-e555-4a7b-a4db-1e5b84b65635', 'c38f9e8a-e555-4a7b-a4db-1e5b84b65632'),
+('f65f9e8a-e555-4a7b-a4db-1e5b84b65635', 'd47f9e8a-e555-4a7b-a4db-1e5b84b65633'); -- Multiple organizers example
 
 -- Inserting sample players
 INSERT INTO players (id, name, points, x_id, avatar_url) VALUES
@@ -140,14 +182,13 @@ INSERT INTO players (id, name, points, x_id, avatar_url) VALUES
 
 -- Inserting tournament results (上位入賞者)
 INSERT INTO tournament_results (tournament_id, player_id, rank, display_name) VALUES
--- バトルカップ予選の1~3位
 ('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', 'a1111111-1111-1111-1111-111111111111', 1, NULL),
 ('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', 'a2222222-2222-2222-2222-222222222222', 2, NULL),
-('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', NULL, 3, '一般参加プレイヤーA'); -- サイト未登録者の例
+('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', NULL, 3, '一般参加プレイヤーA');
 
 -- Inserting sample reports
 INSERT INTO event_reports (tournament_id, title, image_url, content, is_external, url) VALUES
 ('e56f9e8a-e555-4a7b-a4db-1e5b84b65634', '「Xross Stars はっちcs（個人戦）」イベントレポート', 'https://picsum.photos/seed/rep1/400/250', 
-E'## 波乱の予選を制したのはKAZUYA選手！\n\n今回のバトルカップ予選は、例年以上の熱気に包まれました。参加者45名の中から見事1位をもぎ取ったのはKAZUYA選手。スイスドローから無敗での優勝という圧倒的な強さを見せつけました！\n\n**会場の様子**\n当日は東京ビッグサイト西展示棟にて開催され、プロゲーマーのTanaka氏をゲストに迎え、大盛況のまま幕を閉じました。次回の本戦に向けて、ますます盛り上がりが期待されます！', 
+E'## 波乱の予選を制したのはKAZUYA選手！\n\n今回のバトルカップ予選は、例年以上の熱気に包まれました。参加者45名の中から見事1位をもぎ取ったのはKAZUYA選手。スイスドローから無敗での優勝という圧倒的な強さを見せつけました！\n\n**会場の様子**\n当日は東京ビッグサイト西展示棟にて開催され、プロゲーマーのTanaka氏を迎え、大盛況のまま幕を閉じました。次回の本戦に向けて、ますます盛り上がりが期待されます！', 
 false, NULL),
 (NULL, '【外部サイト】「混沌の女神様CS in はっちEXPO2025」イベントレポート', 'https://picsum.photos/seed/rep2/400/250', NULL, true, 'https://example.com/report2');

@@ -1,22 +1,25 @@
-import { getTournaments, getReportDetail } from '@/lib/supabase/queries';
+import { getTournaments, getReportDetail, getRankings } from '@/lib/supabase/queries';
 import ReportForm from '@/components/admin/ReportForm';
 import { notFound } from 'next/navigation';
 
 export default async function EditReportPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  const [report, tournaments] = await Promise.all([
+  const [reportDetail, tournaments, players] = await Promise.all([
     getReportDetail(params.id),
-    getTournaments()
+    getTournaments(),
+    getRankings(100)
   ]);
 
-  if (!report) {
+  if (!reportDetail) {
     notFound();
   }
 
   return (
     <ReportForm 
-      initialData={report.report} 
+      initialData={reportDetail.report} 
+      initialResults={reportDetail.results}
       tournaments={tournaments} 
+      players={players}
     />
   );
 }

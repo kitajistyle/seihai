@@ -23,6 +23,7 @@ export interface PlayerRank {
   id: string;
   rank: number;
   name: string;
+  email?: string;
   points: number;
   x_id?: string;
   avatar_url: string;
@@ -54,4 +55,15 @@ export interface EventReport {
   content?: string;
   is_external?: boolean;
   url?: string;
+}
+
+export interface Registration {
+  id: string;
+  tournament_id: string;
+  player_name: string;
+  email: string;
+  x_id?: string;
+  message?: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
+  created_at: string;
 }

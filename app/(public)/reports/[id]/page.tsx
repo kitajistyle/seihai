@@ -35,7 +35,8 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
     notFound();
   }
 
-  const { report, tournament, organizer, results } = data;
+  const { report, tournament, organizers, results } = data;
+  const organizer = organizers?.[0]; // 最初の主催者を表示
 
   return (
     <article id={`report-article-${report.id}`} className="min-h-screen pb-20 text-gray-200">
@@ -205,7 +206,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Organizer</h3>
                 <div className="relative w-24 h-24 mx-auto mb-4">
                   <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md animate-pulse"></div>
-                  <img src={organizer.imageUrl} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
+                  <img src={organizer.image_url} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
                 </div>
                 <p className="text-xl font-extrabold text-white mb-2">{organizer.name}</p>
                 <p className="text-sm font-semibold text-blue-400 mb-4 bg-blue-500/10 inline-block px-3 py-1 rounded-full">{organizer.title}</p>

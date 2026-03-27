@@ -29,26 +29,6 @@ export default async function OrganizersPage() {
           </div>
         ))}
       </div>
-
-      <div className="mt-16 text-center">
-        <h3 className="text-lg font-bold text-gray-500 mb-8 flex items-center justify-center gap-4">
-          <div className="h-px w-12 bg-white/10" />
-          その他の主催者
-          <div className="h-px w-12 bg-white/10" />
-        </h3>
-        <div className="flex flex-wrap justify-center gap-8">
-          {['Yamada', 'Sato', 'Gaming Bros', 'Nakamura'].map((name) => (
-            <div key={name} className="text-center group cursor-pointer">
-              <div className="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-transparent group-hover:border-[var(--color-brand-blue)] transition-all">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`https://i.pravatar.cc/150?u=${name}`} className="w-full h-full object-cover" alt="" />
-              </div>
-              <p className="font-bold text-sm">{name}</p>
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest">Staff</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

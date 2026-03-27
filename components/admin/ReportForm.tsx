@@ -2,21 +2,33 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { upsertReport } from '@/lib/supabase/mutations';
-import { Save, ArrowLeft, Image as ImageIcon, Link as LinkIcon, FileText } from 'lucide-react';
+import { syncTournamentResults, upsertReport } from '@/lib/supabase/mutations';
+import { Save, ArrowLeft, Image as ImageIcon, Link as LinkIcon, FileText, Plus, Trash2, Trophy, Eye } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
+import PreviewModal from './PreviewModal';
 
 interface ReportFormProps {
   initialData?: any;
+  initialResults?: any[];
   tournaments: any[];
+  players: any[];
 }
 
-export default function ReportForm({ initialData, tournaments }: ReportFormProps) {
+export default function ReportForm({ initialData, initialResults = [], tournaments, players }: ReportFormProps) {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isExternal, setIsExternal] = useState(initialData?.is_external || false);
+  const [results, setResults] = useState<any[]>(initialResults);
+  const [selectedTournamentId, setSelectedTournamentId] = useState(initialData?.tournament_id || '');
+  const [showPreview, setShowPreview] = useState(false);
+  const [formData, setFormData] = useState<any>(initialData || {});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
+  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,11 +39,19 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
     const data = Object.fromEntries(formData.entries());
     
     try {
-      await upsertReport({
+      const reportId = initialData?.id;
+      const result = await upsertReport({
         ...initialData,
         ...data,
         is_external: isExternal,
       });
+
+      // 入賞者情報の同期 (大会IDが紐づいている場合)
+      const tournamentId = data.tournament_id as string;
+      if (tournamentId) {
+        await syncTournamentResults(tournamentId, results);
+      }
+
       router.push('/admin/reports');
       router.refresh();
     } catch (err: any) {
@@ -41,8 +61,36 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
     }
   }
 
+  const addResult = () => {
+    setResults([...results, { rank: results.length + 1, player_id: '', display_name: '' }]);
+  };
+
+  const removeResult = (index: number) => {
+    setResults(results.filter((_, i) => i !== index));
+  };
+
+  const updateResult = (index: number, field: string, value: any) => {
+    const newResults = [...results];
+    newResults[index] = { ...newResults[index], [field]: value };
+    setResults(newResults);
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
+      {showPreview && (
+        <PreviewModal 
+          type="report" 
+          data={{
+            report: { ...formData, is_external: isExternal },
+            tournament: tournaments.find(t => t.id === selectedTournamentId),
+            organizers: tournaments.find(t => t.id === selectedTournamentId)?.organizers || [],
+            results: results,
+            players: players
+          }} 
+          onClose={() => setShowPreview(false)} 
+        />
+      )}
+
       <div className="flex items-center gap-4 mb-8">
         <Link href="/admin/reports" className="p-2 hover:bg-white/5 rounded-lg text-gray-500">
           <ArrowLeft size={20} />
@@ -56,7 +104,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-8 pb-20">
         <div className="glass-panel p-8 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -64,6 +112,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               <input 
                 name="title" 
                 defaultValue={initialData?.title} 
+                onChange={handleInputChange}
                 className="admin-input w-full" 
                 required 
                 placeholder="例: 第1回 せい杯 決勝レポート"
@@ -73,7 +122,11 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">関連する大会</label>
               <select 
                 name="tournament_id" 
-                defaultValue={initialData?.tournament_id} 
+                value={selectedTournamentId}
+                onChange={(e) => {
+                  setSelectedTournamentId(e.target.value);
+                  handleInputChange(e);
+                }}
                 className="admin-input w-full"
               >
                 <option value="">(なし)</option>
@@ -84,7 +137,80 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
             </div>
           </div>
 
-            <div className="space-y-2">
+          {/* 入賞者管理セクション (大会が選択されている場合のみ) */}
+          {selectedTournamentId && (
+            <div className="space-y-4 pt-6 border-t border-white/5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-[var(--color-brand-blue)] uppercase tracking-widest flex items-center gap-2">
+                  <Trophy size={14} /> 入賞者管理
+                </label>
+                <button 
+                  type="button"
+                  onClick={addResult}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-300 rounded-lg transition-all"
+                >
+                  <Plus size={14} /> 追加
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {results.length === 0 && (
+                  <p className="text-[10px] text-gray-600 italic">入賞者データはありません。「追加」ボタンで登録してください。</p>
+                )}
+                {results.sort((a,b) => a.rank - b.rank).map((res, idx) => (
+                  <div key={idx} className="flex flex-col sm:flex-row gap-3 bg-white/5 p-4 rounded-xl relative group">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10">
+                        <label className="block text-[8px] font-bold text-gray-600 uppercase mb-1">順位</label>
+                        <input 
+                          type="number"
+                          value={res.rank}
+                          onChange={(e) => updateResult(idx, 'rank', parseInt(e.target.value))}
+                          className="admin-input w-full px-2"
+                        />
+                      </div>
+                      <div className="flex-grow min-w-[150px]">
+                        <label className="block text-[8px] font-bold text-gray-600 uppercase mb-1">登録プレイヤー</label>
+                        <select 
+                          value={res.player_id || ''}
+                          onChange={(e) => updateResult(idx, 'player_id', e.target.value)}
+                          className="admin-input w-full text-xs"
+                        >
+                          <option value="">(未登録プレイヤーまたは選択解除)</option>
+                          {players.map(p => (
+                            <option key={p.id} value={p.id}>{p.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    
+                    {!res.player_id && (
+                      <div className="flex-grow">
+                        <label className="block text-[8px] font-bold text-gray-600 uppercase mb-1">表示名（未登録時）</label>
+                        <input 
+                          type="text"
+                          value={res.display_name || ''}
+                          onChange={(e) => updateResult(idx, 'display_name', e.target.value)}
+                          placeholder="例: 一般参加者A"
+                          className="admin-input w-full text-xs"
+                        />
+                      </div>
+                    )}
+
+                    <button 
+                      type="button"
+                      onClick={() => removeResult(idx)}
+                      className="absolute top-2 right-2 p-1.5 text-gray-600 hover:text-red-500 transition-colors"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-2 pt-6 border-t border-white/5">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">レポート形式</label>
               <div className="flex gap-4 mt-2">
                 <button 
@@ -115,6 +241,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
                   id="image_url_input"
                   name="image_url" 
                   defaultValue={initialData?.image_url} 
+                  onChange={handleInputChange}
                   className="admin-input w-full" 
                   required
                   placeholder="https://..."
@@ -123,7 +250,10 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
                   folder="reports"
                   onUploadSuccess={(url) => {
                     const el = document.getElementById('image_url_input') as HTMLInputElement;
-                    if (el) el.value = url;
+                    if (el) {
+                      el.value = url;
+                      setFormData((prev: any) => ({ ...prev, image_url: url }));
+                    }
                   }} 
                 />
               </div>
@@ -136,6 +266,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               <input 
                 name="url" 
                 defaultValue={initialData?.url} 
+                onChange={handleInputChange}
                 className="admin-input w-full" 
                 required={isExternal}
                 placeholder="https://x.com/... または https://note.com/..."
@@ -147,6 +278,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               <textarea 
                 name="content" 
                 defaultValue={initialData?.content} 
+                onChange={handleInputChange}
                 className="admin-input w-full h-64 resize-none py-4 font-mono text-sm" 
                 placeholder="# 大会結果報告\n\n今回の優勝者は..."
               />
@@ -155,6 +287,13 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
         </div>
 
         <div className="flex items-center justify-end gap-4">
+          <button 
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 font-bold rounded-xl transition-all"
+          >
+            <Eye size={18} /> プレビュー
+          </button>
           <Link 
             href="/admin/reports"
             className="px-6 py-2.5 text-sm font-bold text-gray-500 hover:text-white transition-colors"
