@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { upsertTournament } from '@/lib/supabase/mutations';
 import { Save, ArrowLeft, Image as ImageIcon } from 'lucide-react';
+import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 
 interface TournamentFormProps {
@@ -122,12 +123,22 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
               <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500">
                 <ImageIcon size={20} />
               </div>
-              <input 
-                name="image_url" 
-                defaultValue={initialData?.image_url} 
-                className="admin-input w-full" 
-                placeholder="https://..."
-              />
+              <div className="flex-grow space-y-2">
+                <input 
+                  id="image_url_input"
+                  name="image_url" 
+                  defaultValue={initialData?.image_url} 
+                  className="admin-input w-full" 
+                  placeholder="https://..."
+                />
+                <CloudinaryUpload 
+                  folder="tournaments"
+                  onUploadSuccess={(url) => {
+                    const el = document.getElementById('image_url_input') as HTMLInputElement;
+                    if (el) el.value = url;
+                  }} 
+                />
+              </div>
             </div>
           </div>
 

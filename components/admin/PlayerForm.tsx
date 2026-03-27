@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { upsertPlayer } from '@/lib/supabase/mutations';
 import { Save, ArrowLeft, UserCircle } from 'lucide-react';
+import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 
 interface PlayerFormProps {
@@ -80,12 +81,12 @@ export default function PlayerForm({ initialData }: PlayerFormProps) {
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">X (Twitter) ID</label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-bold">@</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-500 font-bold">@</span>
               <input 
                 name="x_id" 
                 defaultValue={initialData?.x_id} 
-                className="admin-input w-full pl-10" 
+                className="admin-input w-full" 
                 placeholder="username"
               />
             </div>
@@ -97,12 +98,22 @@ export default function PlayerForm({ initialData }: PlayerFormProps) {
               <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500">
                 <UserCircle size={20} />
               </div>
-              <input 
-                name="avatar_url" 
-                defaultValue={initialData?.avatar_url} 
-                className="admin-input w-full" 
-                placeholder="https://..."
-              />
+              <div className="flex-grow space-y-2">
+                <input 
+                  id="avatar_url_input"
+                  name="avatar_url" 
+                  defaultValue={initialData?.avatar_url} 
+                  className="admin-input w-full" 
+                  placeholder="https://..."
+                />
+                <CloudinaryUpload 
+                  folder="players"
+                  onUploadSuccess={(url) => {
+                    const el = document.getElementById('avatar_url_input') as HTMLInputElement;
+                    if (el) el.value = url;
+                  }} 
+                />
+              </div>
             </div>
           </div>
         </div>

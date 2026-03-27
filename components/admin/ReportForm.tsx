@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { upsertReport } from '@/lib/supabase/mutations';
 import { Save, ArrowLeft, Image as ImageIcon, Link as LinkIcon, FileText } from 'lucide-react';
+import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 
 interface ReportFormProps {
@@ -83,18 +84,7 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">日付 *</label>
-              <input 
-                type="date" 
-                name="date" 
-                defaultValue={initialData?.date ? new Date(initialData.date).toISOString().split('T')[0] : ''} 
-                className="admin-input w-full" 
-                required 
-              />
-            </div>
-            <div className="space-y-2 md:col-span-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">レポート形式</label>
               <div className="flex gap-4 mt-2">
                 <button 
@@ -113,7 +103,6 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
                 </button>
               </div>
             </div>
-          </div>
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">画像 URL *</label>
@@ -121,13 +110,23 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500">
                 <ImageIcon size={20} />
               </div>
-              <input 
-                name="image_url" 
-                defaultValue={initialData?.image_url} 
-                className="admin-input w-full" 
-                required
-                placeholder="https://..."
-              />
+              <div className="flex-grow space-y-2">
+                <input 
+                  id="image_url_input"
+                  name="image_url" 
+                  defaultValue={initialData?.image_url} 
+                  className="admin-input w-full" 
+                  required
+                  placeholder="https://..."
+                />
+                <CloudinaryUpload 
+                  folder="reports"
+                  onUploadSuccess={(url) => {
+                    const el = document.getElementById('image_url_input') as HTMLInputElement;
+                    if (el) el.value = url;
+                  }} 
+                />
+              </div>
             </div>
           </div>
 
@@ -135,8 +134,8 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">外部リンク URL *</label>
               <input 
-                name="external_url" 
-                defaultValue={initialData?.external_url} 
+                name="url" 
+                defaultValue={initialData?.url} 
                 className="admin-input w-full" 
                 required={isExternal}
                 placeholder="https://x.com/... または https://note.com/..."
@@ -153,16 +152,6 @@ export default function ReportForm({ initialData, tournaments }: ReportFormProps
               />
             </div>
           )}
-
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">概要 (短文)</label>
-            <textarea 
-              name="summary" 
-              defaultValue={initialData?.summary} 
-              className="admin-input w-full h-20 resize-none py-3" 
-              placeholder="一覧ページに表示される短い説明文..."
-            />
-          </div>
         </div>
 
         <div className="flex items-center justify-end gap-4">

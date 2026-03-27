@@ -22,7 +22,7 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
         {rankings.slice(0, 3).map((player, idx) => (
           <div
-            key={player.name}
+            key={player.id}
             className={`relative overflow-hidden rounded-2xl p-6 border border-white/10 hover:scale-105 transition-transform duration-300 ${
               idx === 0 ? 'bg-yellow-500/10 border-yellow-500/30' :
               idx === 1 ? 'bg-gray-400/10 border-gray-400/30' :
@@ -74,7 +74,7 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
           </thead>
           <tbody className="divide-y divide-white/5">
             {rankings.map((player) => (
-              <tr key={player.name} className="hover:bg-white/5 transition-colors group">
+              <tr key={player.id} className="hover:bg-white/5 transition-colors group">
                 <td className="px-6 py-4 font-mono text-[var(--color-brand-blue)]">{player.rank}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">

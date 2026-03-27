@@ -15,7 +15,7 @@ export default async function EditReportPage(props: { params: Promise<{ id: stri
 
   return (
     <ReportForm 
-      initialData={report} 
+      initialData={report.report} 
       tournaments={tournaments} 
     />
   );

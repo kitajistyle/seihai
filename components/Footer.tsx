@@ -48,10 +48,11 @@ export default function Footer() {
               );
             })}
           </div>
-
-          <p className="text-gray-500 text-xs mt-4">
-            © 2026 Card Game Championship Hub. All rights reserved.
-          </p>
+          <Link href="/admin">
+            <p className="text-gray-500 text-xs mt-4">
+              © 2026 せい杯. All rights reserved.
+            </p>
+          </Link>
         </div>
       </div>
     </footer>

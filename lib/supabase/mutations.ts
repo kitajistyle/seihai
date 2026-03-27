@@ -1,15 +1,16 @@
 'use server';
 
-import { createClient } from './server';
+import { createAdminClient } from './server';
 import { revalidatePath } from 'next/cache';
 
 /**
  * 大会情報の作成・更新
  */
 export async function upsertTournament(formData: any) {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   
-  const { id, ...rest } = formData;
+  // organizers などの結合データを除外する
+  const { id, organizers, ...rest } = formData;
   
   let result;
   if (id) {
@@ -36,7 +37,7 @@ export async function upsertTournament(formData: any) {
  * 大会の削除
  */
 export async function deleteTournament(id: string) {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { error } = await supabase.from('tournaments').delete().eq('id', id);
   
   if (error) throw new Error(error.message);
@@ -49,8 +50,9 @@ export async function deleteTournament(id: string) {
  * プレイヤー情報の作成・更新
  */
 export async function upsertPlayer(formData: any) {
-  const supabase = await createClient();
-  const { id, ...rest } = formData;
+  const supabase = await createAdminClient();
+  // rank は手動付与されたデータなので除外する
+  const { id, rank, ...rest } = formData;
   
   let result;
   if (id) {
@@ -75,7 +77,7 @@ export async function upsertPlayer(formData: any) {
  * プレイヤーの削除
  */
 export async function deletePlayer(id: string) {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { error } = await supabase.from('players').delete().eq('id', id);
   
   if (error) throw new Error(error.message);
@@ -88,8 +90,9 @@ export async function deletePlayer(id: string) {
  * レポートの作成・更新
  */
 export async function upsertReport(formData: any) {
-  const supabase = await createClient();
-  const { id, ...rest } = formData;
+  const supabase = await createAdminClient();
+  // 関係のない結合データや、スキーマにないフィールドを除外する
+  const { id, tournament, organizer, results, date, summary, ...rest } = formData;
   
   let result;
   if (id) {
@@ -114,7 +117,7 @@ export async function upsertReport(formData: any) {
  * レポートの削除
  */
 export async function deleteReport(id: string) {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { error } = await supabase.from('event_reports').delete().eq('id', id);
   
   if (error) throw new Error(error.message);
