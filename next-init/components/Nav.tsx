@@ -15,15 +15,18 @@ export default function Nav() {
     <nav className="sticky top-0 z-50 bg-[var(--color-bg-dark)]/80 backdrop-blur-lg border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <Link href="/" id="nav-brand-logo" className="flex items-center">
-            <span className="text-xl font-bold tracking-tighter uppercase">せい杯</span>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-[var(--color-brand-blue)] rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(0,162,255,0.5)]">
+              <Trophy className="text-white w-6 h-6" />
+            </div>
+            <span className="text-xl font-bold tracking-tighter uppercase">せい杯
+            </span>
           </Link>
 
           <div className="hidden md:flex space-x-8">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item}
-                id={`nav-desktop-link-${item}`}
                 href={NAV_LINKS[item]}
                 className={`text-sm font-medium transition-colors ${
                   pathname === NAV_LINKS[item]
@@ -37,7 +40,6 @@ export default function Nav() {
           </div>
 
           <button
-            id="nav-mobile-menu-toggle"
             className="md:hidden p-2 text-gray-400"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="メニューを開く"
@@ -59,7 +61,6 @@ export default function Nav() {
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item}
-                  id={`nav-mobile-link-${item}`}
                   href={NAV_LINKS[item]}
                   onClick={() => setIsMenuOpen(false)}
                   className="block px-3 py-4 text-base font-medium text-gray-300 hover:text-[var(--color-brand-blue)] hover:bg-white/5 rounded-md"

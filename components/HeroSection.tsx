@@ -9,10 +9,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=2000"
-          className="w-full h-full object-cover opacity-30"
+          src="/logo.jpg"
+          className="w-full h-full object-cover opacity-30 blur-sm"
           alt="Background"
-          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg-dark)]/0 via-[var(--color-bg-dark)]/50 to-[var(--color-bg-dark)]" />
       </div>
