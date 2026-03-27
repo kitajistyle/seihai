@@ -16,7 +16,7 @@ export default async function TournamentsPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
             <div className="w-1 h-8 bg-[var(--color-brand-red)]" />
-            大会一覧 <span className="text-sm font-normal text-gray-500 ml-2 uppercase tracking-widest">Tournaments</span>
+            大会一覧
           </h1>
 
           <div className="flex flex-wrap gap-3">

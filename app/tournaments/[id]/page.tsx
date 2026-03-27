@@ -155,13 +155,13 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               <div className="space-y-6">
                 {tournament.guests && (
                   <div>
-                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Special Guests</p>
+                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">スペシャルゲスト</p>
                     <p className="text-green-300 font-bold text-lg">{tournament.guests}</p>
                   </div>
                 )}
                 {tournament.contact_info && (
                   <div>
-                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Notes / Contact</p>
+                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">注意事項 / 連絡先</p>
                     <p className="text-gray-400 leading-relaxed">{tournament.contact_info}</p>
                   </div>
                 )}
@@ -204,7 +204,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           {/* Organizer Card */}
           {organizer && (
             <section className="glass-panel p-6">
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 text-center">Organizer</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 text-center">主催者</p>
               <div className="flex items-center gap-4 mb-6">
                 <img 
                   src={organizer.image_url || `https://unavatar.io/x/${organizer.name}`} 
@@ -226,7 +226,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-gray-900 border border-white/10 text-white rounded-lg text-sm font-bold transition-transform hover:scale-102"
                 >
-                  𝕏 Follow @{organizer.x_id}
+                  𝕏 @{organizer.x_id} をフォロー
                 </a>
               )}
             </section>
@@ -239,7 +239,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Archive</p>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">アーカイブ</p>
                 <h4 className="font-bold text-sm">過去の大会レポートを見る</h4>
               </div>
               <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-[var(--color-brand-blue)] transition-colors" />
