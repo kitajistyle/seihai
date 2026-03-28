@@ -101,11 +101,11 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           </section>
 
           {/* Entry Form Section */}
-          {!isExpired && tournament.status === 'open' && (
+          {!isExpired && tournament.status === 'open' && !tournament.external_registration_url && (
             <section id="entry">
-              <TournamentRegistrationForm 
-                tournamentId={tournament.id} 
-                tournamentTitle={tournament.title} 
+              <TournamentRegistrationForm
+                tournamentId={tournament.id}
+                tournamentTitle={tournament.title}
               />
             </section>
           )}
@@ -196,12 +196,23 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             </p>
             
             {tournament.status === 'open' && !isExpired ? (
-              <a 
-                href="#entry"
-                className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center"
-              >
-                大会にエントリーする
-              </a>
+              tournament.external_registration_url ? (
+                <a
+                  href={tournament.external_registration_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2"
+                >
+                  大会にエントリーする
+                </a>
+              ) : (
+                <a
+                  href="#entry"
+                  className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center"
+                >
+                  大会にエントリーする
+                </a>
+              )
             ) : (
               <button disabled className="w-full py-4 bg-white/5 text-gray-500 font-bold rounded-xl cursor-not-allowed">
                 エントリー不可
@@ -210,7 +221,8 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
 
             {tournament.status === 'open' && !isExpired && (
               <p className="mt-4 text-[10px] text-gray-500 flex items-center justify-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> 外部サイトまたは公式フォームへ遷移します
+                <CheckCircle2 className="w-3 h-3" />
+                {tournament.external_registration_url ? '外部サイトへ移動します' : '公式フォームへ遷移します'}
               </p>
             )}
           </section>

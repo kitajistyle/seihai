@@ -245,6 +245,18 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
               <input name="format" defaultValue={initialData?.format} onChange={handleInputChange} className="admin-input w-full" placeholder="例: スイスドロー, Bo3" />
             </div>
           </div>
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">外部申し込み URL</label>
+            <input
+              name="external_registration_url"
+              defaultValue={initialData?.external_registration_url}
+              onChange={handleInputChange}
+              className="admin-input w-full"
+              placeholder="https://... (設定すると外部サイトへのリンクが表示されます)"
+            />
+            <p className="text-[10px] text-gray-500">設定した場合、申し込みフォームの代わりに外部リンクボタンが表示されます</p>
+          </div>
         </div>
 
         <div className="flex items-center justify-end gap-4">

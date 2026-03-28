@@ -52,6 +52,7 @@ CREATE TABLE tournaments (
   contact_info TEXT,
   guests TEXT,
   format TEXT,
+  external_registration_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
