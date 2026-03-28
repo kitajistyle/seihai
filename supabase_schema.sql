@@ -140,6 +140,8 @@ CREATE TABLE tournament_registrations (
   x_id TEXT,
   message TEXT,
   status TEXT CHECK (status IN ('pending', 'confirmed', 'cancelled')) DEFAULT 'pending',
+  approval_token TEXT UNIQUE,
+  token_expires_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
   UNIQUE (tournament_id, email)

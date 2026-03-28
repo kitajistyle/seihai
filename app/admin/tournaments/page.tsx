@@ -53,12 +53,20 @@ export default async function AdminTournamentsPage() {
               }`}>
                 {t.status === 'open' ? 'エントリー中' : t.status === 'closed' ? '終了' : '準備中'}
               </span>
-              <Link 
-                href={`/admin/tournaments/${t.id}/edit`}
-                className="p-2 bg-white/5 text-gray-400 rounded-lg"
-              >
-                <Edit3 size={16} />
-              </Link>
+              <div className="flex gap-2">
+                <Link 
+                  href={`/admin/tournaments/${t.id}/registrations`}
+                  className="p-2 bg-white/5 text-gray-400 rounded-lg"
+                >
+                  <Users size={16} />
+                </Link>
+                <Link 
+                  href={`/admin/tournaments/${t.id}/edit`}
+                  className="p-2 bg-white/5 text-gray-400 rounded-lg"
+                >
+                  <Edit3 size={16} />
+                </Link>
+              </div>
             </div>
             
             <div>
@@ -130,6 +138,13 @@ export default async function AdminTournamentsPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
+                    <Link 
+                      href={`/admin/tournaments/${t.id}/registrations`}
+                      className="p-2 hover:bg-blue-500/10 text-gray-500 hover:text-blue-500 rounded-lg transition-all"
+                      title="エントリーリストを表示"
+                    >
+                      <Users size={16} />
+                    </Link>
                     <Link 
                       href={`/admin/tournaments/${t.id}/edit`}
                       className="p-2 hover:bg-blue-500/10 text-gray-500 hover:text-blue-500 rounded-lg transition-all"

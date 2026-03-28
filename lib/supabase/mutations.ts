@@ -2,6 +2,8 @@
 
 import { createAdminClient } from './server';
 import { revalidatePath } from 'next/cache';
+import { sendApprovalEmail } from '@/lib/resend';
+import crypto from 'crypto';
 
 /**
  * 大会情報の作成・更新
@@ -253,19 +255,31 @@ export async function registerForTournament(data: {
     .maybeSingle();
 
   if (existing) {
-    return existing; // 既に存在する場合は新規作成せずに終了
+    if (existing.status === 'confirmed') {
+      console.log('User already registered and confirmed');
+      return existing;
+    }
+    console.log('User already registered but pending. Updating token and resending email.');
+    // 下の処理に進んでトークンを更新し、メールを再送する
   }
 
   // 1.5. プレイヤーが players テーブルに存在するかチェック、なければ作成
-  // email または x_id で検索
+  // 空文字を null に変換して UNIQUE 制約エラーを回避
+  const playerEmail = data.email.trim();
+  const playerXId = data.x_id?.trim() || null;
+
   let playerQuery = supabase.from('players').select('id');
-  if (data.x_id) {
-    playerQuery = playerQuery.or(`email.eq.${data.email},x_id.eq.${data.x_id}`);
+  if (playerXId) {
+    playerQuery = playerQuery.or(`email.eq.${playerEmail},x_id.eq.${playerXId}`);
   } else {
-    playerQuery = playerQuery.eq('email', data.email);
+    playerQuery = playerQuery.eq('email', playerEmail);
   }
 
-  const { data: existingPlayer } = await playerQuery.maybeSingle();
+  const { data: existingPlayer, error: playerFetchError } = await playerQuery.maybeSingle();
+
+  if (playerFetchError) {
+    console.error('Error fetching existing player:', playerFetchError.message);
+  }
 
   if (!existingPlayer) {
     // 新規プレイヤーとして登録
@@ -273,42 +287,227 @@ export async function registerForTournament(data: {
       .from('players')
       .insert([{
         name: data.player_name,
-        email: data.email,
-        x_id: data.x_id,
-        avatar_url: data.x_id ? `https://unavatar.io/x/${data.x_id}` : `https://unavatar.io/gravatar/${data.email}`,
+        email: playerEmail,
+        x_id: playerXId,
+        avatar_url: playerXId ? `https://unavatar.io/x/${playerXId}` : `https://unavatar.io/gravatar/${playerEmail}`,
         points: 0
       }]);
-    if (playerError) console.error('Error creating player auto-entry:', playerError.message);
+    if (playerError) {
+      console.error('Error creating player auto-entry:', playerError.message);
+      // UNIQUE 制約エラーなどの場合は無視して続行（既に別のメール/X ID で登録されている可能性があるため）
+    }
   }
 
-  // 2. エントリー情報の挿入
-  const { data: registration, error: regError } = await supabase
-    .from('tournament_registrations')
-    .insert([{
-      ...data,
-      status: 'pending'
-    }])
-    .select()
+  // 2. エントリー情報の保存 (承認トークン付き)
+  console.log('Saving registration for:', data.player_name, data.email);
+  const approvalToken = crypto.randomUUID();
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+  let registrationResult;
+  if (existing) {
+    // 既存レコード（保留中）を更新
+    registrationResult = await supabase
+      .from('tournament_registrations')
+      .update({
+        player_name: data.player_name,
+        x_id: playerXId,
+        message: data.message,
+        approval_token: approvalToken,
+        token_expires_at: expiresAt,
+        status: 'pending' // 念のため再設定
+      })
+      .eq('id', existing.id)
+      .select()
+      .single();
+  } else {
+    // 新規挿入
+    registrationResult = await supabase
+      .from('tournament_registrations')
+      .insert([{
+        ...data,
+        x_id: playerXId,
+        status: 'pending',
+        approval_token: approvalToken,
+        token_expires_at: expiresAt
+      }])
+      .select()
+      .single();
+  }
+
+  const { data: registration, error: regError } = registrationResult;
+
+  if (regError) {
+    console.error('Registration save error:', regError.message);
+    throw new Error(regError.message);
+  }
+  console.log('Registration saved successfully:', registration.id);
+
+  // 3. 大会情報の取得 (メール用)
+  const { data: tournament } = await supabase
+    .from('tournaments')
+    .select('title')
+    .eq('id', data.tournament_id)
     .single();
 
-  if (regError) throw new Error(regError.message);
+  // 4. 承認メールの送信
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const approvalLink = `${appUrl}/approve?token=${approvalToken}`;
+  console.log('App URL:', appUrl);
+  console.log('Approval Link:', approvalLink);
+  
+  if (tournament) {
+    console.log('Sending approval email for tournament:', tournament.title);
+    const emailResult = await sendApprovalEmail({
+      email: data.email,
+      player_name: data.player_name,
+      tournament_title: tournament.title,
+      approval_link: approvalLink
+    });
+    console.log('Email send result:', emailResult);
+  } else {
+    console.warn('Tournament not found for notification:', data.tournament_id);
+  }
 
-  // 3. 大会の参加者数を更新 (簡易的にインクリメント)
+  revalidatePath(`/tournaments/${data.tournament_id}`);
+  revalidatePath('/tournaments');
+  revalidatePath('/admin/tournaments');
+  
+  return registration;
+}
+
+/**
+ * エントリーの作成・更新 (管理者用)
+ */
+export async function upsertRegistration(formData: any) {
+  const supabase = await createAdminClient();
+  const { id, tournament_id, ...rest } = formData;
+  
+  let result;
+  if (id) {
+    result = await supabase
+      .from('tournament_registrations')
+      .update(rest)
+      .eq('id', id);
+  } else {
+    // 新規追加の場合は参加人数をインクリメント
+    result = await supabase
+      .from('tournament_registrations')
+      .insert([{ ...rest, tournament_id, status: rest.status || 'pending' }]);
+      
+    if (!result.error) {
+      const { data: tournament } = await supabase
+        .from('tournaments')
+        .select('participants')
+        .eq('id', tournament_id)
+        .single();
+      if (tournament) {
+        await supabase
+          .from('tournaments')
+          .update({ participants: (tournament.participants || 0) + 1 })
+          .eq('id', tournament_id);
+      }
+    }
+  }
+
+  if (result.error) throw new Error(result.error.message);
+  
+  revalidatePath(`/admin/tournaments/${tournament_id}/registrations`);
+  revalidatePath('/admin/tournaments');
+  return result.data;
+}
+
+/**
+ * エントリーの削除
+ */
+export async function deleteRegistration(id: string, tournamentId: string) {
+  const supabase = await createAdminClient();
+  
+  // 削除前に存在確認
+  const { data: existing } = await supabase
+    .from('tournament_registrations')
+    .select('id')
+    .eq('id', id)
+    .single();
+    
+  if (!existing) return;
+
+  const { error } = await supabase.from('tournament_registrations').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+  
+  // 参加人数をデクリメント
   const { data: tournament } = await supabase
     .from('tournaments')
     .select('participants')
-    .eq('id', data.tournament_id)
+    .eq('id', tournamentId)
+    .single();
+    
+  if (tournament && (tournament.participants || 0) > 0) {
+    await supabase
+      .from('tournaments')
+      .update({ participants: tournament.participants - 1 })
+      .eq('id', tournamentId);
+  }
+  
+  revalidatePath(`/admin/tournaments/${tournamentId}/registrations`);
+  revalidatePath('/admin/tournaments');
+}
+
+/**
+ * トークンによるエントリー承認
+ */
+export async function approveRegistration(token: string) {
+  const supabase = await createAdminClient();
+  
+  // 1. トークンでエントリーを検索
+  const { data: registration, error: fetchError } = await supabase
+    .from('tournament_registrations')
+    .select('*')
+    .eq('approval_token', token)
+    .single();
+
+  if (fetchError || !registration) {
+    throw new Error('無効な承認トークンです。');
+  }
+
+  // 2. 有効期限チェック
+  if (registration.token_expires_at && new Date(registration.token_expires_at) < new Date()) {
+    throw new Error('承認トークンの有効期限が切れています。再度エントリーをお願いします。');
+  }
+
+  // 3. 既に承認済みかチェック
+  if (registration.status === 'confirmed') {
+    return { success: true, message: '既に承認済みです。', tournament_id: registration.tournament_id };
+  }
+
+  // 4. ステータスを承認済みに更新
+  const { error: updateError } = await supabase
+    .from('tournament_registrations')
+    .update({ 
+      status: 'confirmed',
+      approval_token: null // 使用済みトークンをクリア
+    })
+    .eq('id', registration.id);
+
+  if (updateError) throw new Error('承認処理に失敗しました。');
+
+  // 5. 大会の参加者数を更新
+  const { data: tournament } = await supabase
+    .from('tournaments')
+    .select('participants')
+    .eq('id', registration.tournament_id)
     .single();
 
   if (tournament) {
     await supabase
       .from('tournaments')
       .update({ participants: (tournament.participants || 0) + 1 })
-      .eq('id', data.tournament_id);
+      .eq('id', registration.tournament_id);
   }
 
-  revalidatePath(`/tournaments/${data.tournament_id}`);
+  revalidatePath(`/tournaments/${registration.tournament_id}`);
   revalidatePath('/tournaments');
-  
-  return registration;
+  revalidatePath('/admin/tournaments');
+  revalidatePath(`/admin/tournaments/${registration.tournament_id}/registrations`);
+
+  return { success: true, tournament_id: registration.tournament_id };
 }

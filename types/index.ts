@@ -65,5 +65,7 @@ export interface Registration {
   x_id?: string;
   message?: string;
   status: 'pending' | 'confirmed' | 'cancelled';
+  approval_token?: string;
+  token_expires_at?: string;
   created_at: string;
 }

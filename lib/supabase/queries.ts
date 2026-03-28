@@ -1,5 +1,5 @@
 import { createClient } from './server';
-import { Tournament, PlayerRank, Organizer, EventReport, TournamentResult } from '@/types';
+import { Tournament, PlayerRank, Organizer, EventReport, TournamentResult, Registration } from '@/types';
 
 /**
  * 大会一覧を取得します
@@ -142,6 +142,24 @@ export async function getTournamentDetail(id: string) {
   if (error || !data) {
     console.error('Error fetching tournament detail:', error);
     return null;
+  }
+  return data;
+}
+
+/**
+ * 大会のエントリー（予約）一覧を取得します
+ */
+export async function getTournamentRegistrations(tournamentId: string): Promise<Registration[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('tournament_registrations')
+    .select('*')
+    .eq('tournament_id', tournamentId)
+    .order('created_at', { ascending: false });
+
+  if (error || !data) {
+    console.error('Error fetching registrations:', error);
+    return [];
   }
   return data;
 }
