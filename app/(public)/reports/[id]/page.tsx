@@ -1,28 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { REPORTS, TOURNAMENTS, ORGANIZERS, TOURNAMENT_RESULTS, RANKINGS } from '@/lib/data';
+import { getReportDetail } from '@/lib/supabase/queries';
 import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink } from 'lucide-react';
-
-// Helper to fetch joined data
-function getReportData(id: string) {
-  const report = REPORTS.find((r) => r.id === id);
-  if (!report) return null;
-  const tournament = TOURNAMENTS.find((t) => t.id === report.tournamentId);
-  const organizer = tournament && tournament.organizerId ? ORGANIZERS.find((o) => o.id === tournament.organizerId) : null;
-  const results = tournament 
-    ? TOURNAMENT_RESULTS.filter((tr) => tr.tournamentId === tournament.id).map(tr => {
-        const player = RANKINGS.find(p => p.id === tr.playerId);
-        return { ...tr, player };
-      }).sort((a, b) => a.rank - b.rank)
-    : [];
-
-  return { report, tournament, organizer, results };
-}
 
 // Generate dynamic SEO metadata
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
-  const data = getReportData(params.id);
+  const data = await getReportDetail(params.id);
   
   if (!data) return { title: '見つかりません | せい杯' };
   
@@ -37,7 +21,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
     openGraph: {
       title: data.report.title,
       description,
-      images: [data.report.imageUrl],
+      images: [data.report.image_url],
       type: 'article',
     },
   };
@@ -45,20 +29,21 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
 
 export default async function ReportDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  const data = getReportData(params.id);
+  const data = await getReportDetail(params.id);
   
   if (!data) {
     notFound();
   }
 
-  const { report, tournament, organizer, results } = data;
+  const { report, tournament, organizers, results } = data;
+  const organizer = organizers?.[0]; // 最初の主催者を表示
 
   return (
     <article id={`report-article-${report.id}`} className="min-h-screen pb-20 text-gray-200">
       {/* Header Banner */}
       <header id="report-header" className="relative w-full h-[40vh] min-h-[350px] overflow-hidden">
         <div className="absolute inset-0">
-          <img src={report.imageUrl || 'https://picsum.photos/seed/default/1200/500'} alt="Report Cover" className="w-full h-full object-cover opacity-40 blur-sm scale-105" />
+          <img src={report.image_url || 'https://picsum.photos/seed/default/1200/500'} alt="Report Cover" className="w-full h-full object-cover opacity-40 blur-sm scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/60 to-transparent" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center p-6">
@@ -99,8 +84,8 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                 <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><MapPin className="w-4 h-4"/> 開催場所</p>
                 <p className="font-medium text-lg">
                   {tournament.location || '未定'}
-                  {tournament.locationUrl && (
-                    <a href={tournament.locationUrl} target="_blank" rel="noopener noreferrer" className="ml-2 inline-block text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                  {tournament.location_url && (
+                    <a href={tournament.location_url} target="_blank" rel="noopener noreferrer" className="ml-2 inline-block text-xs text-blue-400 hover:text-blue-300 transition-colors">
                       [MAP]
                     </a>
                   )}
@@ -112,27 +97,27 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                   <p className="font-medium text-lg">{tournament.format}</p>
                 </div>
               )}
-              {tournament.entryFee && (
+              {tournament.entry_fee && (
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Gift className="w-4 h-4"/> 参加費</p>
-                  <p className="font-medium text-lg">{tournament.entryFee}</p>
+                  <p className="font-medium text-lg">{tournament.entry_fee}</p>
                 </div>
               )}
-              {tournament.firstPrize && (
+              {tournament.first_prize && (
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Award className="w-4 h-4 text-yellow-500"/> 優勝賞品</p>
-                  <p className="font-medium text-sm leading-relaxed">{tournament.firstPrize}</p>
+                  <p className="font-medium text-sm leading-relaxed">{tournament.first_prize}</p>
                 </div>
               )}
-              {tournament.participationPrize && (
+              {tournament.participation_prize && (
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Gift className="w-4 h-4"/> 参加賞</p>
-                  <p className="font-medium text-sm leading-relaxed">{tournament.participationPrize}</p>
+                  <p className="font-medium text-sm leading-relaxed">{tournament.participation_prize}</p>
                 </div>
               )}
             </div>
 
-            {(tournament.guests || tournament.contactInfo) && (
+            {(tournament.guests || tournament.contact_info) && (
               <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {tournament.guests && (
                   <div className="flex flex-col gap-2">
@@ -140,10 +125,10 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                     <p className="font-medium text-green-300">{tournament.guests}</p>
                   </div>
                 )}
-                {tournament.contactInfo && (
+                {tournament.contact_info && (
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-semibold text-gray-400">特記事項・連絡先</p>
-                    <p className="font-medium text-gray-300 text-sm leading-relaxed">{tournament.contactInfo}</p>
+                    <p className="font-medium text-gray-300 text-sm leading-relaxed">{tournament.contact_info}</p>
                   </div>
                 )}
               </div>
@@ -163,7 +148,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                   大会上位入賞者
                 </h2>
                 <div className="space-y-4">
-                  {results.map((res) => (
+                  {results.map((res: any) => (
                     <div key={res.id} id={`winner-row-${res.id}`} className="group flex items-center gap-5 bg-white/5 p-4 md:px-6 md:py-5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0
                         ${res.rank === 1 ? 'bg-gradient-to-br from-yellow-300 to-yellow-600 text-black shadow-[0_0_20px_rgba(234,179,8,0.4)]' :
@@ -172,21 +157,21 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                         {res.rank}
                       </div>
                       
-                      {res.player ? (
+                      {res.players ? (
                         <div className="flex items-center gap-4 w-full">
-                          <img src={res.player.avatarUrl || `https://i.pravatar.cc/150?u=${res.player.id}`} alt={`${res.player.name} icon`} className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-blue-400/50 transition-colors object-cover" />
+                          <img src={res.players.avatar_url || `https://i.pravatar.cc/150?u=${res.players.id}`} alt={`${res.players.name} icon`} className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-blue-400/50 transition-colors object-cover" />
                           <div>
-                            <p className="font-extrabold text-xl text-white">{res.player.name}</p>
-                            {res.player.xId && (
-                              <a href={`https://x.com/${res.player.xId}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
-                                𝕏 @{res.player.xId}
+                            <p className="font-extrabold text-xl text-white">{res.players.name}</p>
+                            {res.players.x_id && (
+                              <a href={`https://x.com/${res.players.x_id}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                𝕏 @{res.players.x_id}
                               </a>
                             )}
                           </div>
                         </div>
                       ) : (
                         <div>
-                          <p className="font-bold text-xl text-gray-200">{res.displayName}</p>
+                          <p className="font-bold text-xl text-gray-200">{res.display_name}</p>
                           <p className="text-sm text-gray-500">一般参加プレイヤー</p>
                         </div>
                       )}
@@ -202,7 +187,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                 <h2 id="report-content-title" className="text-xl font-bold mb-6 text-white tracking-widest uppercase border-b border-white/10 pb-4">Report</h2>
                 <div className="prose prose-invert prose-lg prose-blue max-w-none">
                   {/* Simplistic markdown rendering mapping \n to <br> for mock data */}
-                  {report.content.split('\n').map((line, idx) => {
+                  {report.content.split('\n').map((line: string, idx: number) => {
                     if (line.startsWith('## ')) return <h3 key={idx} className="text-2xl font-bold mt-8 mb-4 text-white">{line.replace('## ', '')}</h3>;
                     if (line.startsWith('**') && line.endsWith('**')) return <strong key={idx} className="block mt-6 mb-2 text-xl text-blue-300">{line.replace(/\*\*/g, '')}</strong>;
                     if (!line.trim()) return <br key={idx} className="my-2" />;
@@ -221,21 +206,21 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Organizer</h3>
                 <div className="relative w-24 h-24 mx-auto mb-4">
                   <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md animate-pulse"></div>
-                  <img src={organizer.imageUrl} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
+                  <img src={organizer.image_url} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
                 </div>
                 <p className="text-xl font-extrabold text-white mb-2">{organizer.name}</p>
                 <p className="text-sm font-semibold text-blue-400 mb-4 bg-blue-500/10 inline-block px-3 py-1 rounded-full">{organizer.title}</p>
                 <p className="text-sm text-gray-400 leading-relaxed mb-6">{organizer.description}</p>
-                {organizer.xId && (
-                  <a href={`https://x.com/${organizer.xId}`} target="_blank" rel="noopener noreferrer" id={`btn-org-twitter-${organizer.id}`} className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#000000] hover:bg-[#111111] text-white rounded-lg text-sm font-bold transition-transform hover:scale-105 shadow-[0_4px_14px_0_rgba(255,255,255,0.1)]">
-                    𝕏 Follow @{organizer.xId}
+                {organizer.x_id && (
+                  <a href={`https://x.com/${organizer.x_id}`} target="_blank" rel="noopener noreferrer" id={`btn-org-twitter-${organizer.id}`} className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#000000] hover:bg-[#111111] text-white rounded-lg text-sm font-bold transition-transform hover:scale-105 shadow-[0_4px_14px_0_rgba(255,255,255,0.1)]">
+                    𝕏 Follow @{organizer.x_id}
                   </a>
                 )}
               </section>
             )}
             
             {/* Action Card */}
-            {report.external && report.url && (
+            {report.is_external && report.url && (
               <section id="external-link-card" className="bg-gradient-to-br from-blue-600/30 to-purple-600/30 border border-blue-500/40 rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(37,99,235,0.2)]">
                  <h3 className="font-bold text-white mb-3 text-lg">外部サイトで続きを読む</h3>
                  <p className="text-sm text-gray-300 mb-6 leading-relaxed">このレポートの完全版は主催者の公式Webサイト、または外部メディアで公開されています。</p>

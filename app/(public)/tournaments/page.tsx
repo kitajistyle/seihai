@@ -1,21 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Search, Filter, Calendar, Users, ChevronRight } from 'lucide-react';
-import { TOURNAMENTS } from '@/lib/data';
+import { getTournaments } from '@/lib/supabase/queries';
 
 export const metadata: Metadata = {
   title: '大会一覧',
   description: '現在受付中および過去のeスポーツ・カードゲーム大会一覧です。',
 };
 
-export default function TournamentsPage() {
+export default async function TournamentsPage() {
+  const tournaments = await getTournaments();
   return (
     <section className="bg-white/5 py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
             <div className="w-1 h-8 bg-[var(--color-brand-red)]" />
-            大会一覧 <span className="text-sm font-normal text-gray-500 ml-2 uppercase tracking-widest">Tournaments</span>
+            大会一覧
           </h1>
 
           <div className="flex flex-wrap gap-3">
@@ -37,14 +38,14 @@ export default function TournamentsPage() {
         </div>
 
         <div className="space-y-4">
-          {TOURNAMENTS.map((t) => (
+          {tournaments.map((t) => (
             <div
               key={t.id}
               className="glass-panel p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 group hover:translate-x-2 transition-transform duration-300"
             >
               <div className="w-full md:w-48 h-32 rounded-lg overflow-hidden shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={t.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
+                <img src={t.image_url || ''} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
               </div>
 
               <div className="flex-grow">
@@ -52,11 +53,13 @@ export default function TournamentsPage() {
                 <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4 text-[var(--color-brand-blue)]" />
-                    開催日: {t.date}
+                    開催日: {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
+                    {' '}
+                    {new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Users className="w-4 h-4 text-[var(--color-brand-blue)]" />
-                    残り {t.maxParticipants - t.participants}人 / 定員 {t.maxParticipants}人
+                    残り {t.max_participants - (t.participants || 0)}人 / 定員 {t.max_participants}人
                   </div>
                 </div>
               </div>

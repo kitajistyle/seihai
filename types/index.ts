@@ -1,28 +1,32 @@
 export interface Tournament {
   id: string;
+  organizer_id?: string;
   title: string;
   date: string;
   participants: number;
-  maxParticipants: number;
-  imageUrl: string;
+  max_participants: number;
+  image_url: string;
   status: 'open' | 'closed' | 'upcoming';
   location?: string;
-  locationUrl?: string;
+  location_url?: string;
   description?: string;
-  firstPrize?: string;
-  participationPrize?: string;
-  entryFee?: string;
-  contactInfo?: string;
+  first_prize?: string;
+  participation_prize?: string;
+  entry_fee?: string;
+  contact_info?: string;
   guests?: string;
   format?: string;
+  organizers?: Organizer;
 }
 
 export interface PlayerRank {
+  id: string;
   rank: number;
   name: string;
+  email?: string;
   points: number;
-  xId?: string;
-  avatarUrl: string;
+  x_id?: string;
+  avatar_url: string;
 }
 
 export interface Organizer {
@@ -30,22 +34,38 @@ export interface Organizer {
   name: string;
   title: string;
   description: string;
-  xId?: string;
-  imageUrl: string;
+  x_id?: string;
+  image_url: string;
 }
 
 export interface TournamentResult {
   id: string;
-  tournamentId: string;
-  playerId?: string;
+  tournament_id: string;
+  player_id?: string;
   rank: number;
-  displayName?: string;
+  display_name?: string;
+  players?: PlayerRank;
 }
 
 export interface EventReport {
   id: string;
+  tournament_id?: string;
   title: string;
-  imageUrl: string;
+  image_url: string;
   content?: string;
-  external?: boolean;
+  is_external?: boolean;
+  url?: string;
+}
+
+export interface Registration {
+  id: string;
+  tournament_id: string;
+  player_name: string;
+  email: string;
+  x_id?: string;
+  message?: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
+  approval_token?: string;
+  token_expires_at?: string;
+  created_at: string;
 }
