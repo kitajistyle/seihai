@@ -62,40 +62,39 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
         ))}
       </div>
 
-      <div className="glass-panel overflow-x-auto">
-        <table className="w-full text-left whitespace-nowrap">
-          <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-wider">
+      <div className="glass-panel overflow-hidden">
+        <table className="w-full text-left whitespace-nowrap md:table block">
+          <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-wider hidden md:table-header-group">
             <tr>
               <th className="px-6 py-4 font-medium">Rank</th>
               <th className="px-6 py-4 font-medium">Player</th>
               <th className="px-6 py-4 font-medium">Points</th>
-              <th className="px-6 py-4 font-medium text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-white/5 flex flex-col md:table-row-group">
             {rankings.map((player) => (
-              <tr key={player.id} className="hover:bg-white/5 transition-colors group">
-                <td className="px-6 py-4 font-mono text-[var(--color-brand-blue)]">{player.rank}</td>
-                <td className="px-6 py-4">
+              <tr key={player.id} className="hover:bg-white/5 transition-colors group flex items-center p-4 md:p-0 md:table-row gap-4 md:gap-0">
+                <td className="md:px-6 md:py-4 font-mono text-[var(--color-brand-blue)] font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
+                <td className="md:px-6 md:py-4 flex-1 overflow-hidden">
                   <div className="flex items-center gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={player.avatar_url} className="w-8 h-8 rounded-full" alt="" />
-                    <div className="flex flex-col">
-                      <span className="font-bold">{player.name}</span>
+                    <img src={player.avatar_url} className="w-10 h-10 md:w-8 md:h-8 rounded-full shrink-0" alt="" />
+                    <div className="flex flex-col gap-1 items-start min-w-0">
+                      <span className="font-bold text-base md:text-base truncate w-full">{player.name}</span>
                       {player.x_id && (
-                        <a href={`https://x.com/${player.x_id}`} target="_blank" rel="noopener noreferrer" className="text-[10px] text-gray-500 hover:text-blue-400 transition-colors">
-                          𝕏 @{player.x_id}
+                        <a 
+                          href={`https://x.com/${player.x_id}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="inline-flex items-center gap-1.5 px-2 py-1 md:px-3 md:py-1.5 bg-black/40 hover:bg-[var(--color-brand-blue)] border border-white/10 rounded-lg text-[10px] md:text-xs font-medium text-gray-300 hover:text-white transition-all w-fit"
+                        >
+                          𝕏 <span className="hidden sm:inline">Follow </span>@{player.x_id}
                         </a>
                       )}
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 font-mono">{player.points}</td>
-                <td className="px-6 py-4 text-right">
-                  <button className="text-gray-500 group-hover:text-[var(--color-brand-blue)] transition-colors">
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </td>
+                <td className="md:px-6 md:py-4 font-mono text-lg font-bold text-right shrink-0">{player.points}<span className="md:hidden text-xs text-gray-500 ml-1 font-sans font-normal block">PT</span></td>
               </tr>
             ))}
           </tbody>
