@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
-export async function proxy(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl
   
   // Basic Auth for /admin
@@ -44,9 +44,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - logo.jpg (logo image)
-     * - favicon.ico (favicon file)
+     * - icon.jpg (favicon image)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|logo.jpg|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|logo.jpg|icon.jpg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

@@ -39,8 +39,8 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
                   {player.rank}
                 </div>
               </div>
-              <div className="flex-grow">
-                <h3 className="text-xl font-bold mb-1">{player.name}</h3>
+              <div className="flex-grow min-w-0">
+                <h3 className="text-xl font-bold mb-1 truncate" title={player.name}>{player.name}</h3>
                 <p className="text-[var(--color-brand-blue)] font-mono text-sm">{player.points} PT</p>
                 {player.x_id && (
                   <a 
@@ -62,8 +62,8 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
         ))}
       </div>
 
-      <div className="glass-panel overflow-hidden">
-        <table className="w-full text-left">
+      <div className="glass-panel overflow-x-auto">
+        <table className="w-full text-left whitespace-nowrap">
           <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-wider">
             <tr>
               <th className="px-6 py-4 font-medium">Rank</th>
