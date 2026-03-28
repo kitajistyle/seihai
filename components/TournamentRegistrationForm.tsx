@@ -61,7 +61,8 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         <h3 className="text-2xl font-black mb-4">エントリー完了！</h3>
         <p className="text-gray-400 leading-relaxed mb-8">
           {tournamentTitle} へのエントリーを受け付けました。<br />
-          ご登録いただいたメールアドレス宛に確認メールをお送りします（※デモ）。
+          ご登録いただいたメールアドレス宛に確認メールをお送りします。
+          メールが届かない場合は、迷惑メールフォルダもご確認ください。
         </p>
         <button 
           onClick={() => setIsSuccess(false)}
