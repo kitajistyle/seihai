@@ -1,8 +1,27 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
+const MAIN_DOMAIN = 'seihai-esports.vercel.app'
+const ADMIN_DOMAIN = 'seihai-admin.vercel.app'
+
 export async function proxy(req: NextRequest) {
   const url = req.nextUrl
+  const host = req.headers.get('host') ?? ''
+
+  const isAdminDomain = host === ADMIN_DOMAIN
+  const isMainDomain = host === MAIN_DOMAIN
+
+  // admin ドメイン: ルートへのアクセスは /admin にリダイレクト
+  if (isAdminDomain && url.pathname === '/') {
+    return NextResponse.redirect(new URL('/admin', req.url))
+  }
+
+  // メインドメイン: /admin へのアクセスは admin ドメインにリダイレクト
+  if (isMainDomain && url.pathname.startsWith('/admin')) {
+    return NextResponse.redirect(
+      new URL(url.pathname + url.search, `https://${ADMIN_DOMAIN}`)
+    )
+  }
 
   // Basic Auth for /admin
   if (url.pathname.startsWith('/admin')) {
@@ -39,14 +58,6 @@ export async function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - logo.jpg (logo image)
-     * - icon.jpg (favicon image)
-     * Feel free to modify this pattern to include more paths.
-     */
     '/((?!_next/static|_next/image|logo.jpg|icon.jpg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
