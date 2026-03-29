@@ -22,6 +22,10 @@ export default function CloudinaryUpload({ onUploadSuccess, folder = 'seihai' }:
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
+  useEffect(() => {
+    if (window.cloudinary) setIsReady(true);
+  }, []);
+
   const handleUpload = () => {
     if (!isReady || !window.cloudinary) return;
 
@@ -54,6 +58,7 @@ export default function CloudinaryUpload({ onUploadSuccess, folder = 'seihai' }:
       }
     );
 
+    setIsUploading(true);
     widget.open();
   };
 

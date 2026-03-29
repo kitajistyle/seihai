@@ -62,7 +62,7 @@ export interface Registration {
   id: string;
   tournament_id: string;
   player_name: string;
-  email: string;
+  email?: string | null;
   x_id?: string;
   message?: string;
   status: 'pending' | 'confirmed' | 'cancelled';

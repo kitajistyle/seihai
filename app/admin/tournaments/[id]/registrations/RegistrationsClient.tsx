@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   Users, 
   Mail, 
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export default function RegistrationsClient({ tournamentId, initialRegistrations }: Props) {
+  const router = useRouter();
   const [registrations, setRegistrations] = useState(initialRegistrations);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRegistration, setSelectedRegistration] = useState<Registration | null>(null);
@@ -146,9 +148,10 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
         )}
       </div>
 
-      <RegistrationModal 
+      <RegistrationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onSuccess={() => router.refresh()}
         tournamentId={tournamentId}
         registration={selectedRegistration}
       />

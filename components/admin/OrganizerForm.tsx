@@ -58,12 +58,12 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">主催者名 *</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+              <div className="flex items-center gap-2">
+                <User className="text-gray-500" size={18} />
                 <input 
                   name="name" 
                   defaultValue={initialData?.name} 
-                  className="admin-input w-full pl-10" 
+                  className="admin-input w-full" 
                   required 
                   placeholder="例: 高橋 誠"
                 />
@@ -82,12 +82,12 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">X (Twitter) ID</label>
-            <div className="relative">
-              <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+            <div className="flex items-center gap-2">
+              <Globe className="text-gray-500" size={18} />
               <input 
                 name="x_id" 
                 defaultValue={initialData?.x_id} 
-                className="admin-input w-full pl-10" 
+                className="admin-input w-full" 
                 placeholder="Twitter ID（@なし）"
               />
             </div>

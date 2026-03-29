@@ -1,15 +1,14 @@
 import Link from 'next/link';
-import { 
-  Plus, 
-  Search, 
-  Edit3, 
-  Trash2, 
+import {
+  Plus,
+  Search,
+  Edit3,
   FileText,
   ExternalLink,
-  ChevronRight
 } from 'lucide-react';
 import { getReports } from '@/lib/supabase/queries';
 import { deleteReport } from '@/lib/supabase/mutations';
+import DeleteButton from '@/components/admin/DeleteButton';
 
 export default async function AdminReportsPage() {
   const reports = await getReports(50);
@@ -53,12 +52,16 @@ export default async function AdminReportsPage() {
                 <p className="font-bold text-white mb-1 truncate">{r.title}</p>
                 <p className="text-[10px] text-gray-500">{new Date(r.date).toLocaleDateString('ja-JP')}</p>
               </div>
-              <Link 
+              <Link
                 href={`/admin/reports/${r.id}/edit`}
                 className="p-2 bg-white/5 text-gray-400 rounded-lg shrink-0"
               >
                 <Edit3 size={16} />
               </Link>
+              <DeleteButton
+                action={deleteReport.bind(null, r.id)}
+                confirmMessage={`「${r.title}」を削除しますか？`}
+              />
             </div>
             
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
@@ -124,12 +127,16 @@ export default async function AdminReportsPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <Link 
+                    <Link
                       href={`/admin/reports/${r.id}/edit`}
                       className="p-2 hover:bg-blue-500/10 text-gray-500 hover:text-blue-500 rounded-lg transition-all"
                     >
                       <Edit3 size={16} />
                     </Link>
+                    <DeleteButton
+                      action={deleteReport.bind(null, r.id)}
+                      confirmMessage={`「${r.title}」を削除しますか？`}
+                    />
                   </div>
                 </td>
               </tr>

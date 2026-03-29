@@ -9,11 +9,12 @@ import { Registration } from '@/types';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   tournamentId: string;
   registration?: Registration | null;
 }
 
-export default function RegistrationModal({ isOpen, onClose, tournamentId, registration }: Props) {
+export default function RegistrationModal({ isOpen, onClose, onSuccess, tournamentId, registration }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,8 +59,10 @@ export default function RegistrationModal({ isOpen, onClose, tournamentId, regis
         id: registration?.id,
         tournament_id: tournamentId,
         ...formData,
+        email: formData.email.trim() || null,
         x_id: formData.x_id?.trim() || null
       });
+      onSuccess?.();
       onClose();
     } catch (err: any) {
       setError(err.message || '保存に失敗しました。');
@@ -113,11 +116,10 @@ export default function RegistrationModal({ isOpen, onClose, tournamentId, regis
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1">メールアドレス</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1">メールアドレス <span className="text-gray-600 normal-case font-normal">(任意)</span></label>
                   <input
                     name="email"
                     type="email"
-                    required
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all"

@@ -132,27 +132,39 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">開催日時 *</label>
-              <input 
-                type="datetime-local" 
-                name="date" 
-                defaultValue={initialData?.date ? new Date(initialData.date).toISOString().slice(0, 16) : ''} 
+              <input
+                type="datetime-local"
+                name="date"
+                defaultValue={initialData?.date ? new Date(initialData.date).toISOString().slice(0, 16) : ''}
                 onChange={handleInputChange}
-                className="admin-input w-full" 
-                required 
+                className="admin-input w-full"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">現在の参加人数</label>
+              <input
+                type="number"
+                name="participants"
+                defaultValue={initialData?.participants ?? 0}
+                onChange={handleInputChange}
+                className="admin-input w-full"
+                min={0}
               />
             </div>
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">最大参加人数 *</label>
-              <input 
-                type="number" 
-                name="max_participants" 
-                defaultValue={initialData?.max_participants} 
+              <input
+                type="number"
+                name="max_participants"
+                defaultValue={initialData?.max_participants}
                 onChange={handleInputChange}
-                className="admin-input w-full" 
-                required 
+                className="admin-input w-full"
+                required
+                min={1}
               />
             </div>
             <div className="space-y-2">

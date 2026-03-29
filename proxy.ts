@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const url = req.nextUrl
-  
+
   // Basic Auth for /admin
   if (url.pathname.startsWith('/admin')) {
     const authHeader = req.headers.get('authorization')
-    
+
     if (!authHeader) {
       return new NextResponse('Authentication required', {
         status: 401,
