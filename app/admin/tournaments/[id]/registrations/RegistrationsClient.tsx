@@ -12,7 +12,6 @@ import {
   Edit3,
   Trash2
 } from 'lucide-react';
-import { motion } from 'motion/react';
 import { deleteRegistration } from '@/lib/supabase/mutations';
 import RegistrationModal from '@/components/admin/RegistrationModal';
 import { Registration } from '@/types';
@@ -45,6 +44,7 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
       await deleteRegistration(id, tournamentId);
       // 再検証は mutations 側で行われるが、クライアント側でも即座に反映
       setRegistrations(prev => prev.filter(r => r.id !== id));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       alert('削除に失敗しました: ' + err.message);
     }

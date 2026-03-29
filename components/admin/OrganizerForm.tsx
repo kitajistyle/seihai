@@ -8,6 +8,7 @@ import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 
 interface OrganizerFormProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialData?: any;
 }
 
@@ -31,6 +32,7 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
       });
       router.push('/admin/organizers');
       router.refresh();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -98,6 +100,7 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
             <div className="flex gap-2">
               <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500 overflow-hidden">
                 {initialData?.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={initialData.image_url} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
                   <ImageIcon size={20} />

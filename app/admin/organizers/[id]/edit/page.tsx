@@ -1,4 +1,3 @@
-import { getOrganizers } from '@/lib/supabase/queries';
 import OrganizerForm from '@/components/admin/OrganizerForm';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';

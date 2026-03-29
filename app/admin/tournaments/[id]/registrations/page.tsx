@@ -1,12 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { 
-  ChevronLeft, 
-  Users, 
-  Mail, 
-  Calendar,
-  User,
-  MessageSquare
+import {
+  ChevronLeft,
+  Users
 } from 'lucide-react';
 import { getTournamentDetail, getTournamentRegistrations } from '@/lib/supabase/queries';
 import RegistrationsClient from './RegistrationsClient';

@@ -1,10 +1,10 @@
 'use client';
 
-import { X, Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink, Clock, Megaphone, CheckCircle2, ChevronRight } from 'lucide-react';
-import { Tournament, EventReport, TournamentResult } from '@/types';
+import { X, Trophy, Calendar, MapPin, Gift, Users, Award, Clock, Megaphone, ChevronRight } from 'lucide-react';
 
 interface PreviewModalProps {
   type: 'tournament' | 'report';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
   onClose: () => void;
 }
@@ -42,6 +42,7 @@ export default function PreviewModal({ type, data, onClose }: PreviewModalProps)
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TournamentPreview({ data }: { data: any }) {
   const isExpired = data.date && new Date(data.date) < new Date();
   const statusLabel = isExpired ? '終了' : data.status === 'open' ? 'エントリー受付中' : '準備中';
@@ -53,9 +54,10 @@ function TournamentPreview({ data }: { data: any }) {
     <div className="min-h-screen text-gray-200 pointer-events-none pb-20">
        <header className="relative w-full h-[45vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src={data.image_url || 'https://picsum.photos/seed/tournament/1200/600'} 
-            alt="Tournament Cover" 
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={data.image_url || 'https://picsum.photos/seed/tournament/1200/600'}
+            alt="Tournament Cover"
             className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/40 to-transparent" />
@@ -184,12 +186,14 @@ function TournamentPreview({ data }: { data: any }) {
             <section className="space-y-4">
               <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">主催者</p>
               <div className="space-y-4">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {organizers.map((org: any, idx: number) => (
                   <div key={idx} className="glass-panel p-6">
                     <div className="flex items-center gap-4 mb-6">
-                      <img 
-                        src={org.image_url || `https://unavatar.io/x/${org.name}`} 
-                        alt={org.name} 
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={org.image_url || `https://unavatar.io/x/${org.name}`}
+                        alt={org.name}
                         className="w-16 h-16 rounded-xl object-cover border border-white/10"
                       />
                       <div>
@@ -213,6 +217,7 @@ function TournamentPreview({ data }: { data: any }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ReportPreview({ data }: { data: any }) {
   const { report, tournament, organizers = [], results = [] } = data;
 
@@ -220,6 +225,7 @@ function ReportPreview({ data }: { data: any }) {
     <div className="min-h-screen pb-20 text-gray-200 pointer-events-none">
       <header className="relative w-full h-[40vh] min-h-[350px] overflow-hidden">
         <div className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={report.image_url || 'https://picsum.photos/seed/default/1200/500'} alt="Report Cover" className="w-full h-full object-cover opacity-40 blur-sm scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/60 to-transparent" />
         </div>
@@ -286,7 +292,9 @@ function ReportPreview({ data }: { data: any }) {
                   大会上位入賞者
                 </h2>
                 <div className="space-y-4">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {results.sort((a: any, b: any) => a.rank - b.rank).map((res: any, idx: number) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const playerData = res.player_id ? data.players?.find((p: any) => p.id === res.player_id) : null;
                     return (
                       <div key={idx} className="flex items-center gap-5 bg-white/5 p-4 md:px-6 md:py-5 rounded-xl border border-white/5">
@@ -299,6 +307,7 @@ function ReportPreview({ data }: { data: any }) {
                         
                         {playerData ? (
                           <div className="flex items-center gap-4 w-full">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={playerData.avatar_url || `https://unavatar.io/x/${playerData.name}`} alt="" className="w-12 h-12 rounded-full border-2 border-white/10 object-cover" />
                             <div>
                               <p className="font-extrabold text-xl text-white">{playerData.name}</p>
@@ -334,10 +343,12 @@ function ReportPreview({ data }: { data: any }) {
             {organizers.length > 0 && (
               <div className="space-y-4">
                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center">Organizers</p>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {organizers.map((org: any, idx: number) => (
                   <section key={idx} className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-center shadow-xl">
                     <div className="relative w-24 h-24 mx-auto mb-4">
                       <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md"></div>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={org.image_url || `https://unavatar.io/x/${org.name}`} alt="" className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
                     </div>
                     <p className="text-xl font-extrabold text-white mb-2">{org.name}</p>

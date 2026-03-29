@@ -23,6 +23,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
     email: '',
     x_id: '',
     message: '',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     status: 'pending' as any
   });
 
@@ -64,6 +65,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
       });
       onSuccess?.();
       onClose();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || '保存に失敗しました。');
     } finally {

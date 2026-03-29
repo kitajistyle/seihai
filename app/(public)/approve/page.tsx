@@ -52,6 +52,7 @@ export default async function ApprovePage(props: { searchParams: Promise<{ token
         </div>
       </div>
     );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return <ErrorState message={err.message} />;
   }

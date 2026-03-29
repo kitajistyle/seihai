@@ -1,15 +1,11 @@
 import Link from 'next/link';
-import { 
-  Plus, 
-  Search, 
-  Edit3, 
-  Trash2, 
-  Award,
-  ExternalLink,
-  Users
+import {
+  Plus,
+  Search,
+  Edit3,
+  Award
 } from 'lucide-react';
 import { getRankings } from '@/lib/supabase/queries';
-import { deletePlayer } from '@/lib/supabase/mutations';
 
 export default async function AdminPlayersPage() {
   // Use a larger limit for admin
@@ -56,6 +52,7 @@ export default async function AdminPlayersPage() {
                 }`}>
                   {p.rank}
                 </span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.avatar_url || `https://unavatar.io/x/${p.name}`} className="w-8 h-8 rounded-full border border-white/10" alt="" />
                 <p className="font-bold text-white">{p.name}</p>
               </div>
@@ -118,6 +115,7 @@ export default async function AdminPlayersPage() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.avatar_url || `https://unavatar.io/x/${p.name}`} className="w-10 h-10 rounded-full border border-white/10" alt="" />
                     <div>
                       <p className="font-bold text-white mb-0.5">{p.name}</p>

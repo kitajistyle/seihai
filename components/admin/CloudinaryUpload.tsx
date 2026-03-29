@@ -11,6 +11,7 @@ interface CloudinaryUploadProps {
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     cloudinary: any;
   }
 }
@@ -22,6 +23,7 @@ export default function CloudinaryUpload({ onUploadSuccess, folder = 'seihai' }:
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     if (window.cloudinary) setIsReady(true);
   }, []);
@@ -47,6 +49,7 @@ export default function CloudinaryUpload({ onUploadSuccess, folder = 'seihai' }:
         clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
         maxFileSize: 2000000, // 2MB
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (error: any, result: any) => {
         if (!error && result && result.event === 'success') {
           onUploadSuccess(result.info.secure_url);

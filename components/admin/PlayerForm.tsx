@@ -8,6 +8,7 @@ import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 
 interface PlayerFormProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialData?: any;
 }
 
@@ -32,6 +33,7 @@ export default function PlayerForm({ initialData }: PlayerFormProps) {
       });
       router.push('/admin/players');
       router.refresh();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     } finally {

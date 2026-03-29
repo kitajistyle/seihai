@@ -46,6 +46,7 @@ export default async function AdminReportsPage() {
           <div key={r.id} className="glass-panel p-4 space-y-4">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-lg bg-white/5 overflow-hidden shrink-0 border border-white/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={r.image_url} className="w-full h-full object-cover" alt="" />
               </div>
               <div className="flex-grow min-w-0">
@@ -103,6 +104,7 @@ export default async function AdminReportsPage() {
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-lg bg-white/5 overflow-hidden shrink-0 border border-white/10">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={r.image_url} className="w-full h-full object-cover" alt="" />
                     </div>
                     <div>

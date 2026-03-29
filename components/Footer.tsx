@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { Play, MessageSquare, Mail } from 'lucide-react';
 import { FaXTwitter } from "react-icons/fa6"
 
 export default function Footer() {

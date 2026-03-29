@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { registerForTournament } from '@/lib/supabase/mutations';
 import { CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 
 interface Props {
   tournamentId: string;
@@ -35,6 +35,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
       });
       setIsSuccess(true);
       if (onSuccess) onSuccess();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.message || 'エントリーに失敗しました。時間をおいて再度お試しください。');

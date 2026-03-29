@@ -1,7 +1,7 @@
 import { getOrganizers } from '@/lib/supabase/queries';
 import { deleteOrganizer } from '@/lib/supabase/mutations';
 import Link from 'next/link';
-import { Plus, Edit, Trash2, User, Globe, ExternalLink } from 'lucide-react';
+import { Plus, Edit, Trash2, User, Globe } from 'lucide-react';
 
 export default async function AdminOrganizersPage() {
   const organizers = await getOrganizers();
@@ -39,6 +39,7 @@ export default async function AdminOrganizersPage() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0">
                       {org.image_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={org.image_url} alt={org.name} className="w-full h-full object-cover" />
                       ) : (
                         <User className="text-gray-500" size={20} />
@@ -97,6 +98,7 @@ export default async function AdminOrganizersPage() {
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0">
                 {org.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={org.image_url} alt={org.name} className="w-full h-full object-cover" />
                 ) : (
                   <User className="text-gray-500" size={24} />

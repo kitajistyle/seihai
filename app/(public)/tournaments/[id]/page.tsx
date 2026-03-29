@@ -2,15 +2,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTournamentDetail } from '@/lib/supabase/queries';
-import { 
-  Trophy, 
-  Calendar, 
-  MapPin, 
-  Gift, 
-  Users, 
-  Award, 
-  ChevronRight, 
-  Clock, 
+import {
+  Calendar,
+  MapPin,
+  Gift,
+  Users,
+  ChevronRight,
+  Clock,
   Megaphone,
   CheckCircle2
 } from 'lucide-react';
@@ -36,7 +34,6 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
     notFound();
   }
 
-  const organizer = tournament.organizers;
   const isExpired = new Date(tournament.date) < new Date();
   const statusLabel = isExpired ? '終了' : tournament.status === 'open' ? 'エントリー受付中' : '準備中';
   const statusColor = isExpired ? 'bg-gray-500' : tournament.status === 'open' ? 'bg-green-500' : 'bg-yellow-500';
@@ -46,9 +43,10 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
       {/* Hero Header */}
       <header className="relative w-full h-[45vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src={tournament.image_url || 'https://picsum.photos/seed/tournament/1200/600'} 
-            alt="Tournament Cover" 
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={tournament.image_url || 'https://picsum.photos/seed/tournament/1200/600'}
+            alt="Tournament Cover"
             className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/40 to-transparent" />
@@ -232,12 +230,14 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             <section className="space-y-4">
               <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">主催者</p>
               <div className="space-y-4">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {tournament.organizers.map((org: any) => (
                   <div key={org.id} className="glass-panel p-6">
                     <div className="flex items-center gap-4 mb-6">
-                      <img 
-                        src={org.image_url || `https://unavatar.io/x/${org.name}`} 
-                        alt={org.name} 
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={org.image_url || `https://unavatar.io/x/${org.name}`}
+                        alt={org.name}
                         className="w-16 h-16 rounded-xl object-cover border border-white/10"
                       />
                       <div>

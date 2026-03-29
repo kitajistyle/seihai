@@ -43,6 +43,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
       {/* Header Banner */}
       <header id="report-header" className="relative w-full h-[40vh] min-h-[350px] overflow-hidden">
         <div className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={report.image_url || 'https://picsum.photos/seed/default/1200/500'} alt="Report Cover" className="w-full h-full object-cover opacity-40 blur-sm scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/60 to-transparent" />
         </div>
@@ -148,6 +149,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                   大会上位入賞者
                 </h2>
                 <div className="space-y-4">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {results.map((res: any) => (
                     <div key={res.id} id={`winner-row-${res.id}`} className="group flex items-center gap-5 bg-white/5 p-4 md:px-6 md:py-5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0
@@ -159,6 +161,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                       
                       {res.players ? (
                         <div className="flex items-center gap-4 w-full">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={res.players.avatar_url || `https://i.pravatar.cc/150?u=${res.players.id}`} alt={`${res.players.name} icon`} className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-blue-400/50 transition-colors object-cover" />
                           <div>
                             <p className="font-extrabold text-xl text-white">{res.players.name}</p>
@@ -206,6 +209,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Organizer</h3>
                 <div className="relative w-24 h-24 mx-auto mb-4">
                   <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md animate-pulse"></div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={organizer.image_url} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
                 </div>
                 <p className="text-xl font-extrabold text-white mb-2">{organizer.name}</p>

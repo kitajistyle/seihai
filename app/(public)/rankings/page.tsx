@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Trophy, ChevronRight } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import { getRankings } from '@/lib/supabase/queries';
 import { PlayerRank } from '@/types';
 
