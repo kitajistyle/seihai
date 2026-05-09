@@ -4,7 +4,8 @@ let _pool: Pool | null = null;
 
 function getPool(): Pool {
   if (!_pool) {
-    _pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+    const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+    _pool = new Pool({ connectionString });
   }
   return _pool;
 }
