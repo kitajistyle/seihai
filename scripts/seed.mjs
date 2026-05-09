@@ -1,6 +1,3 @@
-import { config } from 'dotenv';
-config({ path: '.env.local' });
-
 import pg from 'pg';
 const { Pool } = pg;
 
