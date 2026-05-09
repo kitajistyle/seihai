@@ -17,7 +17,7 @@ export interface Tournament {
   guests?: string;
   format?: string;
   external_registration_url?: string;
-  organizers?: Organizer;
+  organizers?: Organizer[];
 }
 
 export interface PlayerRank {
@@ -56,6 +56,8 @@ export interface EventReport {
   content?: string;
   is_external?: boolean;
   url?: string;
+  date: string;
+  created_at?: string;
 }
 
 export interface Registration {

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getOrganizers } from '@/lib/supabase/queries';
+import { getOrganizers } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: '主催者一覧',

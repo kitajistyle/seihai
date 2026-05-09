@@ -7,8 +7,8 @@ import {
   Users,
   ExternalLink
 } from 'lucide-react';
-import { getTournaments } from '@/lib/supabase/queries';
-import { deleteTournament } from '@/lib/supabase/mutations';
+import { getTournaments } from '@/lib/db/queries';
+import { deleteTournament } from '@/lib/db/mutations';
 import DeleteButton from '@/components/admin/DeleteButton';
 
 export default async function AdminTournamentsPage() {

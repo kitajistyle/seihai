@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getReportDetail } from '@/lib/supabase/queries';
+import { getReportDetail } from '@/lib/db/queries';
 import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink } from 'lucide-react';
 
 // Generate dynamic SEO metadata

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { upsertTournament } from '@/lib/supabase/mutations';
+import { upsertTournament } from '@/lib/db/mutations';
 import { Save, ArrowLeft, Image as ImageIcon, Eye } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
@@ -20,7 +20,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
   const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState<any>(initialData || {});
   const [selectedOrganizerIds, setSelectedOrganizerIds] = useState<string[]>(
-    initialData?.tournament_organizers?.map((to: any) => to.organizers.id) || 
+    initialData?.organizers?.map((o: any) => o.id) ||
     (initialData?.organizer_id ? [initialData.organizer_id] : [])
   );
 

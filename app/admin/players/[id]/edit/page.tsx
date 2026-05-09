@@ -1,15 +1,10 @@
 import PlayerForm from '@/components/admin/PlayerForm';
-import { createClient } from '@/lib/supabase/server';
+import { getPlayerById } from '@/lib/db/queries';
 import { notFound } from 'next/navigation';
 
 export default async function EditPlayerPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  const supabase = await createClient();
-  const { data: player } = await supabase
-    .from('players')
-    .select('*')
-    .eq('id', params.id)
-    .single();
+  const player = await getPlayerById(params.id);
 
   if (!player) {
     notFound();

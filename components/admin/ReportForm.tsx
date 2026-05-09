@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { syncTournamentResults, upsertReport } from '@/lib/supabase/mutations';
+import { syncTournamentResults, upsertReport } from '@/lib/db/mutations';
 import { Save, ArrowLeft, Image as ImageIcon, Link as LinkIcon, FileText, Plus, Trash2, Trophy, Eye } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';

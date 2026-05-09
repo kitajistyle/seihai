@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { upsertPlayer } from '@/lib/supabase/mutations';
+import { upsertPlayer } from '@/lib/db/mutations';
 import { Save, ArrowLeft, UserCircle } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';

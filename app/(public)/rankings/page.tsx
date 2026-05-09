@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Trophy } from 'lucide-react';
-import { getRankings } from '@/lib/supabase/queries';
+import { getRankings } from '@/lib/db/queries';
 import { PlayerRank } from '@/types';
 
 export const metadata: Metadata = {

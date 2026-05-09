@@ -4,7 +4,7 @@ import {
   ChevronLeft,
   Users
 } from 'lucide-react';
-import { getTournamentDetail, getTournamentRegistrations } from '@/lib/supabase/queries';
+import { getTournamentDetail, getTournamentRegistrations } from '@/lib/db/queries';
 import RegistrationsClient from './RegistrationsClient';
 
 export default async function TournamentRegistrationsPage(props: { params: Promise<{ id: string }> }) {

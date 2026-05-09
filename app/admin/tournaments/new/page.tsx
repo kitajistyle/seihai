@@ -1,4 +1,4 @@
-import { getOrganizers } from '@/lib/supabase/queries';
+import { getOrganizers } from '@/lib/db/queries';
 import TournamentForm from '@/components/admin/TournamentForm';
 
 export default async function NewTournamentPage() {

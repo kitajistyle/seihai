@@ -1,4 +1,4 @@
-import { getTournaments, getRankings } from '@/lib/supabase/queries';
+import { getTournaments, getRankings } from '@/lib/db/queries';
 import ReportForm from '@/components/admin/ReportForm';
 
 export default async function NewReportPage() {

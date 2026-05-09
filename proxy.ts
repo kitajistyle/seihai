@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
 
 const MAIN_DOMAIN = 'seihai-esports.vercel.app'
 const ADMIN_DOMAIN = 'seihai-admin.vercel.app'
@@ -52,8 +51,7 @@ export async function proxy(req: NextRequest) {
     }
   }
 
-  // Supabase session update
-  return await updateSession(req)
+  return NextResponse.next()
 }
 
 export const config = {
