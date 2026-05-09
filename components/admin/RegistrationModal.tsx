@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, Loader2, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { upsertRegistration } from '@/lib/supabase/mutations';
+import { upsertRegistration } from '@/lib/db/mutations';
 import { Registration } from '@/types';
 
 interface Props {

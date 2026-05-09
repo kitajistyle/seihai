@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Search, Filter, Calendar, Users, ChevronRight } from 'lucide-react';
-import { getTournaments } from '@/lib/supabase/queries';
+import { getTournaments } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: '大会一覧',

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { registerForTournament } from '@/lib/supabase/mutations';
+import { registerForTournament } from '@/lib/db/mutations';
 import { CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
 import { motion } from 'motion/react';
 

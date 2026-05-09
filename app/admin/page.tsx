@@ -6,7 +6,7 @@ import {
   Activity,
   AlertCircle
 } from 'lucide-react';
-import { getTournaments, getRankings, getReports } from '@/lib/supabase/queries';
+import { getTournaments, getRankings, getReports } from '@/lib/db/queries';
 
 export default async function AdminDashboardPage() {
   const [tournaments, players, reports] = await Promise.all([

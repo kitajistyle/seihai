@@ -6,8 +6,8 @@ import {
   FileText,
   ExternalLink,
 } from 'lucide-react';
-import { getReports } from '@/lib/supabase/queries';
-import { deleteReport } from '@/lib/supabase/mutations';
+import { getReports } from '@/lib/db/queries';
+import { deleteReport } from '@/lib/db/mutations';
 import DeleteButton from '@/components/admin/DeleteButton';
 
 export default async function AdminReportsPage() {

@@ -5,7 +5,7 @@ import {
   Edit3,
   Award
 } from 'lucide-react';
-import { getRankings } from '@/lib/supabase/queries';
+import { getRankings } from '@/lib/db/queries';
 
 export default async function AdminPlayersPage() {
   // Use a larger limit for admin

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { upsertOrganizer } from '@/lib/supabase/mutations';
+import { upsertOrganizer } from '@/lib/db/mutations';
 import { Save, ArrowLeft, Image as ImageIcon, Globe, User } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';

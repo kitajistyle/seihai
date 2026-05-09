@@ -12,7 +12,7 @@ import {
   Edit3,
   Trash2
 } from 'lucide-react';
-import { deleteRegistration } from '@/lib/supabase/mutations';
+import { deleteRegistration } from '@/lib/db/mutations';
 import RegistrationModal from '@/components/admin/RegistrationModal';
 import { Registration } from '@/types';
 

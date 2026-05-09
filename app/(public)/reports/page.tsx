@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ExternalLink, ChevronRight } from 'lucide-react';
-import { getReports } from '@/lib/supabase/queries';
+import { getReports } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: 'イベントレポート',

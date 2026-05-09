@@ -1,4 +1,4 @@
-import { getOrganizers, getTournamentDetail } from '@/lib/supabase/queries';
+import { getOrganizers, getTournamentDetail } from '@/lib/db/queries';
 import TournamentForm from '@/components/admin/TournamentForm';
 import { notFound } from 'next/navigation';
 

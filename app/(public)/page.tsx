@@ -4,7 +4,7 @@ import RankingSection from '@/components/RankingSection';
 import TournamentPickupSection from '@/components/TournamentPickupSection';
 import OrganizerPickupSection from '@/components/OrganizerPickupSection';
 import ReportPickupSection from '@/components/ReportPickupSection';
-import { getRankings, getTournaments, getOrganizers, getReports } from '@/lib/supabase/queries';
+import { getRankings, getTournaments, getOrganizers, getReports } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: 'せい杯 | eスポーツ大会プラットフォーム',

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { CheckCircle2, AlertCircle, ArrowRight, Home } from 'lucide-react';
-import { approveRegistration } from '@/lib/supabase/mutations';
-import { getTournamentDetail } from '@/lib/supabase/queries';
+import { approveRegistration } from '@/lib/db/mutations';
+import { getTournamentDetail } from '@/lib/db/queries';
 
 export default async function ApprovePage(props: { searchParams: Promise<{ token?: string }> }) {
   const searchParams = await props.searchParams;

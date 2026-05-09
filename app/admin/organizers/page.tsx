@@ -1,5 +1,5 @@
-import { getOrganizers } from '@/lib/supabase/queries';
-import { deleteOrganizer } from '@/lib/supabase/mutations';
+import { getOrganizers } from '@/lib/db/queries';
+import { deleteOrganizer } from '@/lib/db/mutations';
 import Link from 'next/link';
 import { Plus, Edit, Trash2, User, Globe } from 'lucide-react';
 
