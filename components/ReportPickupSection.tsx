@@ -11,7 +11,7 @@ interface ReportPickupSectionProps {
 
 export default function ReportPickupSection({ reports }: ReportPickupSectionProps) {
   return (
-    <section className="bg-gradient-to-b from-transparent to-[var(--color-bg-card)]/50 py-24 relative overflow-hidden">
+    <section className="relative bg-[var(--color-bg-dark)]/80 py-24 overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-white/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="flex items-center justify-between mb-12">

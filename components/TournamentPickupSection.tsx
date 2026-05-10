@@ -11,7 +11,7 @@ interface TournamentPickupSectionProps {
 
 export default function TournamentPickupSection({ tournaments }: TournamentPickupSectionProps) {
   return (
-    <section className="bg-white/5 py-20">
+    <section className="relative bg-[var(--color-bg-dark)]/80 py-20">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-12">
           <motion.h2 

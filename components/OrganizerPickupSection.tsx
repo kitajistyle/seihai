@@ -11,7 +11,7 @@ interface OrganizerPickupSectionProps {
 
 export default function OrganizerPickupSection({ organizers }: OrganizerPickupSectionProps) {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-24">
+    <section className="relative bg-[var(--color-bg-dark)]/80 py-24">
       <div className="text-center mb-16 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

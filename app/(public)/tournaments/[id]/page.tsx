@@ -40,7 +40,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
   const statusColor = isExpired ? 'bg-gray-500' : tournament.status === 'open' ? 'bg-green-500' : 'bg-yellow-500';
 
   return (
-    <article className="min-h-screen pb-20 text-gray-200">
+    <article className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
       {/* Hero Header */}
       <header className="relative w-full h-[45vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0">

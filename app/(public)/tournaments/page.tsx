@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function TournamentsPage() {
   const tournaments = await getTournaments();
   return (
-    <section className="bg-white/5 py-20 min-h-screen">
+    <section className="relative bg-[var(--color-bg-dark)]/80 py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function ReportsPage() {
   const reports = await getReports();
   return (
-    <section className="bg-white/5 py-24 min-h-screen">
+    <section className="relative bg-[var(--color-bg-dark)]/80 py-24 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-3xl font-bold mb-12 flex items-center gap-4">
           イベントレポート

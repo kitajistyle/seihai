@@ -16,11 +16,9 @@ export default async function PublicLayout({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/seisai-bg.jpg"
-          className="w-full h-full object-cover opacity-30"
+          className="w-220 object-contain mx-auto"
           alt="Background"
         />
-        {/* Dark overlay to ensure text remains readable on all pages */}
-        <div className="absolute inset-0 bg-[var(--color-bg-dark)]/70" />
       </div>
 
       {/* Wafu Kasumi & Shigure Lines Background (Global to public pages) */}

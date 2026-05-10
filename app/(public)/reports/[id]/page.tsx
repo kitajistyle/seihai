@@ -40,7 +40,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
   const organizer = organizers?.[0]; // 最初の主催者を表示
 
   return (
-    <article id={`report-article-${report.id}`} className="min-h-screen pb-20 text-gray-200">
+    <article id={`report-article-${report.id}`} className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
       {/* Header Banner */}
       <header id="report-header" className="relative w-full h-[40vh] min-h-[350px] overflow-hidden">
         <div className="absolute inset-0">

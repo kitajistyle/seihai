@@ -25,7 +25,7 @@ export default async function AnnouncementsPage() {
   const announcements = await getAnnouncements(true);
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="relative bg-[var(--color-bg-dark)]/80 min-h-screen py-16">
       <div className="max-w-3xl mx-auto px-4">
         <div className="mb-10">
           <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white flex items-center gap-3 mb-2">

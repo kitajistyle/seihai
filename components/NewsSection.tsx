@@ -14,6 +14,7 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 -mt-12 relative z-20 mb-20">
+      <div className="absolute inset-0 bg-[var(--color-bg-dark)]/70" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

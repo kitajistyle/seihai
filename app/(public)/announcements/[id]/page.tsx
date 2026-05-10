@@ -42,7 +42,7 @@ export default async function AnnouncementDetailPage(props: { params: Promise<{ 
   const style = typeStyles[announcement.type] ?? typeStyles.info;
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="relative bg-[var(--color-bg-dark)]/80 min-h-screen py-16">
       <div className="max-w-2xl mx-auto px-4">
         <Link
           href="/announcements"
