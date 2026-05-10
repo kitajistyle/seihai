@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ExternalLink, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getReports } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
@@ -13,6 +13,11 @@ export default async function ReportsPage() {
   return (
     <section className="relative bg-[var(--color-bg-dark)]/80 py-24 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+          <ArrowLeft size={16} />
+          ホームへ戻る
+        </Link>
+
         <h1 className="text-3xl font-bold mb-12 flex items-center gap-4">
           イベントレポート
           <div className="h-px flex-grow bg-white/10" />

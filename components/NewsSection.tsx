@@ -1,8 +1,6 @@
-'use client';
-
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import FadeInView from '@/components/FadeInView';
 import { Announcement } from '@/types';
 
 interface NewsSectionProps {
@@ -15,13 +13,7 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
   return (
     <section className="w-full max-w-4xl mx-auto px-4 -mt-12 relative z-20 mb-20">
       <div className="absolute inset-0 bg-[var(--color-bg-dark)]/70" />
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="glass-panel p-6 sm:p-8 relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-shadow duration-500"
-      >
+      <FadeInView className="glass-panel p-6 sm:p-8 relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-shadow duration-500">
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-white/5 rounded-full blur-[50px] pointer-events-none group-hover:bg-white/10 transition-colors duration-700" />
         <h2 className="text-xl sm:text-2xl font-bold mb-6 tracking-wide text-gradient-premium">
           ニュース・お知らせ
@@ -79,7 +71,7 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
             );
           })}
         </div>
-      </motion.div>
+      </FadeInView>
     </section>
   );
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getReportDetail } from '@/lib/db/queries';
-import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink } from 'lucide-react';
+import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import SectionRenderer from '@/components/SectionRenderer';
 
 // Generate dynamic SEO metadata
@@ -61,6 +62,13 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
       </header>
 
       <main id="report-main-content" className="max-w-5xl mx-auto px-4 -mt-16 relative z-10 flex flex-col gap-8">
+        <Link
+          href="/reports"
+          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft size={16} />
+          大会レポート一覧に戻る
+        </Link>
         
         {/* Tournament Meta Info */}
         {tournament && (

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Bell, ExternalLink, ChevronRight } from 'lucide-react';
+import { Bell, ExternalLink, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getAnnouncements } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
@@ -27,6 +27,11 @@ export default async function AnnouncementsPage() {
   return (
     <div className="relative bg-[var(--color-bg-dark)]/80 min-h-screen py-16">
       <div className="max-w-3xl mx-auto px-4">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+          <ArrowLeft size={16} />
+          ホームへ戻る
+        </Link>
+
         <div className="mb-10">
           <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white flex items-center gap-3 mb-2">
             <Bell size={28} className="text-[var(--color-brand-blue)]" />

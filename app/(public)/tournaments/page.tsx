@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Filter, Calendar, Users, ChevronRight } from 'lucide-react';
+import { Search, Filter, Calendar, Users, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getTournaments } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
@@ -14,6 +14,11 @@ export default async function TournamentsPage() {
   return (
     <section className="relative bg-[var(--color-bg-dark)]/80 py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+          <ArrowLeft size={16} />
+          ホームへ戻る
+        </Link>
+
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
             <div className="w-1 h-8 bg-[var(--color-brand-red)]" />

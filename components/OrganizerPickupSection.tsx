@@ -1,8 +1,6 @@
-'use client';
-
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import FadeInView from '@/components/FadeInView';
 import { Organizer } from '@/types';
 
 interface OrganizerPickupSectionProps {
@@ -13,16 +11,11 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
   return (
     <section className="relative bg-[var(--color-bg-dark)]/80 py-24">
       <div className="text-center mb-16 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <FadeInView>
           <h2 className="text-4xl font-black mb-6 uppercase tracking-tighter text-gradient-premium">主催者一覧</h2>
           <div className="w-32 h-3 bg-gradient-to-r from-white to-gray-500 mx-auto mb-6 rounded-sm" />
           <p className="text-gray-400 mb-8 md:mb-0 font-medium tracking-widest">大会を開催する主催者たち</p>
-        </motion.div>
+        </FadeInView>
         {organizers.length > 2 && (
           <Link href="/organizers" className="absolute right-0 top-1/2 -translate-y-1/2 text-sm text-gray-400 hover:text-white transition-colors hidden md:flex items-center gap-1">
             すべて見る <ChevronRight className="w-4 h-4" />
@@ -32,12 +25,9 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {organizers.slice(0, 2).map((org, index) => (
-          <motion.div 
-            key={org.id} 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: index * 0.15 }}
+          <FadeInView
+            key={org.id}
+            delay={index * 0.15}
             className="glass-panel p-6 flex gap-6 items-center hover:-translate-y-1 hover:border-white/20 transition-all duration-300 group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -47,7 +37,7 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
               <p className="text-white text-sm font-bold mb-3 tracking-wide">{org.title}</p>
               <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 font-medium">{org.description}</p>
             </div>
-          </motion.div>
+          </FadeInView>
         ))}
       </div>
       

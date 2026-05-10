@@ -10,7 +10,8 @@ import {
   ChevronRight,
   Clock,
   Megaphone,
-  CheckCircle2
+  CheckCircle2,
+  ArrowLeft,
 } from 'lucide-react';
 import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
 import SectionRenderer from '@/components/SectionRenderer';
@@ -85,6 +86,15 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
       </header>
 
       <main className="max-w-7xl mx-auto px-4 mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-3">
+          <Link
+            href="/tournaments"
+            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-4"
+          >
+            <ArrowLeft size={16} />
+            大会一覧に戻る
+          </Link>
+        </div>
         {/* Left Column: Details */}
         <div className="lg:col-span-2 space-y-12">
           

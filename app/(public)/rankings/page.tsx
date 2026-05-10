@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Trophy } from 'lucide-react';
+import Link from 'next/link';
+import { Trophy, ArrowLeft } from 'lucide-react';
 import { getRankings } from '@/lib/db/queries';
 import { PlayerRank } from '@/types';
 
@@ -12,6 +13,11 @@ export default async function RankingsPage() {
   const rankings = await getRankings();
   return (
     <section className="relative bg-[var(--color-bg-dark)]/80 max-w-7xl mx-auto px-4 py-20 min-h-screen">
+      <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+        <ArrowLeft size={16} />
+        ホームへ戻る
+      </Link>
+
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <div className="w-1 h-8 bg-[var(--color-brand-blue)]" />
