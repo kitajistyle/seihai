@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const MAIN_DOMAIN = 'seihai-esports.vercel.app'
+const MAIN_DOMAIN = 'seisai.vercel.app'
 const ADMIN_DOMAIN = 'seihai-admin.vercel.app'
 
 export async function proxy(req: NextRequest) {
