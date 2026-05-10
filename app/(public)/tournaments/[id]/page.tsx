@@ -19,7 +19,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const params = await props.params;
   const tournament = await getTournamentDetail(params.id);
   
-  if (!tournament) return { title: '大会が見つかりません | せい杯' };
+  if (!tournament) return { title: '大会が見つかりません | せい祭' };
   
   return {
     title: `${tournament.title}`,

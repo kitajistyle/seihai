@@ -94,7 +94,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             required
             value={formData.player_name}
             onChange={handleChange}
-            placeholder="例: せい杯 太郎"
+            placeholder="例: せい祭 太郎"
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
           />
         </div>

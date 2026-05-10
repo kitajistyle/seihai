@@ -8,7 +8,7 @@ import NewsSection from '@/components/NewsSection';
 import { getRankings, getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnouncements } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
-  title: 'せい杯 | eスポーツ大会プラットフォーム',
+  title: 'せい祭 | eスポーツ大会プラットフォーム',
   description: '全国のeスポーツ・カードゲーム大会の情報を発信。大会参加登録、ランキング、イベントレポートを一元管理。',
 };
 

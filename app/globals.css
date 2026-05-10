@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-dark: #030308;
-  --color-bg-card: #0c0c16;
-  --color-brand-blue: #00e1ff;
-  --color-brand-blue-dark: #0077ff;
-  --color-brand-red: #ff3d57;
-  --color-brand-gold: #e2c044;
+  --color-bg-dark: #050505;
+  --color-bg-card: #111111;
+  --color-brand-blue: #ffffff;
+  --color-brand-blue-dark: #a3a3a3;
+  --color-brand-red: #ffffff;
+  --color-brand-gold: #d4d4d4;
 }
 
 :root {
@@ -19,14 +19,14 @@ body {
   color: var(--foreground);
   font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(0, 119, 255, 0.04), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(226, 192, 68, 0.03), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.02), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.02), transparent 25%);
   background-attachment: fixed;
 }
 
 .glass-panel {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
   backdrop-filter: blur(16px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
@@ -35,26 +35,26 @@ body {
 
 .glass-panel:hover {
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 2px 0 0 rgba(255, 255, 255, 0.15);
 }
 
 .text-gradient-premium {
-  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-blue {
-  background: linear-gradient(135deg, #00e1ff 0%, #0077ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+  background: linear-gradient(135deg, #e5e5e5 0%, #737373 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -89,7 +89,7 @@ body {
   outline: none;
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--color-brand-blue);
-  box-shadow: 0 0 0 2px rgba(0, 162, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 
 select.admin-input {
@@ -99,4 +99,65 @@ select.admin-input {
   background-position: right 1rem center;
   background-size: 1rem;
   padding-right: 2.5rem;
+}
+
+/* Wafu (Japanese Style) Kasumi (Mist) Lines */
+.wafu-lines-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Traditional Japanese mist is depicted as horizontal bands with tapered ends */
+.wafu-kasumi-line {
+  position: absolute;
+  height: 16px;
+  /* Soft, brush-like white gradient */
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), transparent);
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0;
+  animation: kasumiDrift linear infinite;
+}
+
+/* Group 1 (Top) */
+.wafu-kasumi-line:nth-child(1) { top: 20%; width: 40vw; left: -50vw; animation-duration: 20s; animation-delay: 0s; }
+.wafu-kasumi-line:nth-child(2) { top: 22%; width: 20vw; left: -30vw; animation-duration: 18s; animation-delay: 5s; }
+
+/* Group 2 (Middle) */
+.wafu-kasumi-line:nth-child(3) { top: 55%; width: 35vw; left: -40vw; animation-duration: 22s; animation-delay: 2s; }
+.wafu-kasumi-line:nth-child(4) { top: 58%; width: 50vw; left: -60vw; animation-duration: 25s; animation-delay: 8s; }
+
+/* Group 3 (Bottom) */
+.wafu-kasumi-line:nth-child(5) { top: 80%; width: 45vw; left: -50vw; animation-duration: 18s; animation-delay: 4s; }
+.wafu-kasumi-line:nth-child(6) { top: 83%; width: 25vw; left: -30vw; animation-duration: 20s; animation-delay: 1s; }
+
+/* Subtle vertical falling lines (like quiet rain / Shigure) */
+.wafu-shigure-line {
+  position: absolute;
+  width: 6px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  filter: blur(2px);
+  opacity: 0;
+  animation: shigureFall linear infinite;
+}
+
+.wafu-shigure-line:nth-child(7) { left: 15%; height: 30vh; top: -40vh; animation-duration: 8s; animation-delay: 0s; }
+.wafu-shigure-line:nth-child(8) { left: 45%; height: 20vh; top: -30vh; animation-duration: 10s; animation-delay: 4s; }
+.wafu-shigure-line:nth-child(9) { left: 80%; height: 40vh; top: -50vh; animation-duration: 12s; animation-delay: 2s; }
+
+@keyframes kasumiDrift {
+  0% { transform: translateX(0); opacity: 0; }
+  15% { opacity: 0.8; }
+  85% { opacity: 0.8; }
+  100% { transform: translateX(150vw); opacity: 0; }
+}
+
+@keyframes shigureFall {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(150vh); opacity: 0; }
 }

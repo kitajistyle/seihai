@@ -5,7 +5,7 @@ import { getAnnouncements } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: 'お知らせ',
-  description: 'せい杯からの最新のお知らせ・更新情報をご確認いただけます。',
+  description: 'せい祭からの最新のお知らせ・更新情報をご確認いただけます。',
 };
 
 const typeStyles: Record<string, { badge: string; label: string }> = {

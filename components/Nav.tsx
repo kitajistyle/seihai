@@ -13,14 +13,14 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-[var(--color-bg-dark)]/80 backdrop-blur-lg border-b border-white/10">
+      <nav className="sticky top-0 z-50 bg-[var(--color-bg-dark)]/80 backdrop-blur-lg border-b-2 border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" id="nav-brand-logo" className="flex items-center gap-2 group">
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-blue-dark)] flex items-center justify-center shadow-[0_0_10px_rgba(0,225,255,0.4)] group-hover:shadow-[0_0_15px_rgba(0,225,255,0.6)] transition-shadow">
-                <div className="w-2 h-2 bg-white rounded-full" />
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-white to-gray-500 flex items-center justify-center shadow-[0_0_10px_rgba(255,255,255,0.4)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.6)] transition-shadow">
+                <div className="w-2 h-2 bg-black rounded-full" />
               </div>
-              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい杯</span>
+              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい祭</span>
             </Link>
 
             <div className="hidden md:flex space-x-8">
@@ -31,7 +31,7 @@ export default function Nav() {
                   href={NAV_LINKS[item]}
                   className={`text-sm font-bold tracking-wide transition-all ${
                     pathname === NAV_LINKS[item]
-                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-300 drop-shadow-[0_0_8px_rgba(0,225,255,0.4)]'
+                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
                       : 'text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]'
                   }`}
                 >
@@ -77,7 +77,7 @@ export default function Nav() {
               className="fixed top-0 right-0 z-50 h-full w-72 bg-[var(--color-bg-dark)] border-l border-white/10 flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between px-6 h-16 border-b border-white/10 shrink-0">
-                <span className="text-base font-black tracking-tighter uppercase">せい杯</span>
+                <span className="text-base font-black tracking-tighter uppercase">せい祭</span>
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   className="p-2 text-gray-400 hover:text-white transition-colors"
@@ -96,7 +96,7 @@ export default function Nav() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center px-6 py-4 text-sm font-medium border-b border-white/5 transition-colors ${
                       pathname === NAV_LINKS[item]
-                        ? 'text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/5'
+                        ? 'text-white bg-white/10'
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
                   >

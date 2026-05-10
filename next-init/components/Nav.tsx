@@ -19,8 +19,7 @@ export default function Nav() {
             <div className="w-10 h-10 bg-[var(--color-brand-blue)] rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(0,162,255,0.5)]">
               <Trophy className="text-white w-6 h-6" />
             </div>
-            <span className="text-xl font-bold tracking-tighter uppercase">せい杯
-            </span>
+            <span className="text-xl font-bold tracking-tighter uppercase">せい祭</span>
           </Link>
 
           <div className="hidden md:flex space-x-8">
