@@ -36,7 +36,10 @@ export async function proxy(req: NextRequest) {
     }
 
     const authValue = authHeader.split(' ')[1]
-    const [user, password] = atob(authValue).split(':')
+    const decoded = atob(authValue)
+    const colonIndex = decoded.indexOf(':')
+    const user = decoded.slice(0, colonIndex)
+    const password = decoded.slice(colonIndex + 1)
 
     if (
       user !== process.env.ADMIN_USER ||

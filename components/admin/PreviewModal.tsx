@@ -1,6 +1,7 @@
 'use client';
 
 import { X, Trophy, Calendar, MapPin, Gift, Users, Award, Clock, Megaphone, ChevronRight } from 'lucide-react';
+import SectionRenderer from '@/components/SectionRenderer';
 
 interface PreviewModalProps {
   type: 'tournament' | 'report';
@@ -105,6 +106,12 @@ function TournamentPreview({ data }: { data: any }) {
               {data.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
+
+          {data.sections && data.sections.length > 0 && (
+            <section className="glass-panel p-8 md:p-10">
+              <SectionRenderer sections={data.sections} />
+            </section>
+          )}
 
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-panel p-6 flex flex-col gap-4">

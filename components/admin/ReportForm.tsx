@@ -7,6 +7,8 @@ import { Save, ArrowLeft, Image as ImageIcon, Link as LinkIcon, FileText, Plus, 
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 import PreviewModal from './PreviewModal';
+import SectionEditor from './SectionEditor';
+import { Section } from '@/types';
 
 interface ReportFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,6 +32,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
   const [showPreview, setShowPreview] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [formData, setFormData] = useState<any>(initialData || {});
+  const [sections, setSections] = useState<Section[]>(initialData?.sections || []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -50,6 +53,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
         ...initialData,
         ...data,
         is_external: isExternal,
+        sections,
       });
 
       // 入賞者情報の同期 (大会IDが紐づいている場合)
@@ -86,16 +90,16 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
   return (
     <div className="max-w-4xl mx-auto">
       {showPreview && (
-        <PreviewModal 
-          type="report" 
+        <PreviewModal
+          type="report"
           data={{
-            report: { ...formData, is_external: isExternal },
+            report: { ...formData, is_external: isExternal, sections },
             tournament: tournaments.find(t => t.id === selectedTournamentId),
             organizers: tournaments.find(t => t.id === selectedTournamentId)?.organizers || [],
             results: results,
             players: players
-          }} 
-          onClose={() => setShowPreview(false)} 
+          }}
+          onClose={() => setShowPreview(false)}
         />
       )}
 
@@ -272,11 +276,11 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
           {isExternal ? (
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">外部リンク URL *</label>
-              <input 
-                name="url" 
-                defaultValue={initialData?.url} 
+              <input
+                name="url"
+                defaultValue={initialData?.url}
                 onChange={handleInputChange}
-                className="admin-input w-full" 
+                className="admin-input w-full"
                 required={isExternal}
                 placeholder="https://x.com/... または https://note.com/..."
               />
@@ -284,15 +288,30 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
           ) : (
             <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">レポート本文 (Markdown形式)</label>
-              <textarea 
-                name="content" 
-                defaultValue={initialData?.content} 
+              <textarea
+                name="content"
+                defaultValue={initialData?.content}
                 onChange={handleInputChange}
-                className="admin-input w-full h-64 resize-none py-4 font-mono text-sm" 
+                className="admin-input w-full h-64 resize-none py-4 font-mono text-sm"
                 placeholder="# 大会結果報告\n\n今回の優勝者は..."
               />
             </div>
           )}
+        </div>
+
+        {/* セクションエディター */}
+        <div className="glass-panel p-8 space-y-4">
+          <div>
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-1">
+              詳細セクション（豪華な説明）
+            </label>
+            <p className="text-[10px] text-gray-600">画像・テキスト・コールアウトを組み合わせてレポートの内容を豊かに表示できます。</p>
+          </div>
+          <SectionEditor
+            value={sections}
+            onChange={setSections}
+            imageFolder="reports"
+          />
         </div>
 
         <div className="flex items-center justify-end gap-4">

@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
+import SectionRenderer from '@/components/SectionRenderer';
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -97,6 +98,13 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               {tournament.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
+
+          {/* Rich Sections */}
+          {tournament.sections && tournament.sections.length > 0 && (
+            <section className="glass-panel p-8 md:p-10">
+              <SectionRenderer sections={tournament.sections} />
+            </section>
+          )}
 
           {/* Entry Form Section */}
           {!isExpired && tournament.status === 'open' && !tournament.external_registration_url && (

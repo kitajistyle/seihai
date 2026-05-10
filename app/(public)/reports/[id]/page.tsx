@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getReportDetail } from '@/lib/db/queries';
 import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink } from 'lucide-react';
+import SectionRenderer from '@/components/SectionRenderer';
 
 // Generate dynamic SEO metadata
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -189,7 +190,6 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
               <section id="report-content-section" className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
                 <h2 id="report-content-title" className="text-xl font-bold mb-6 text-white tracking-widest uppercase border-b border-white/10 pb-4">Report</h2>
                 <div className="prose prose-invert prose-lg prose-blue max-w-none">
-                  {/* Simplistic markdown rendering mapping \n to <br> for mock data */}
                   {report.content.split('\n').map((line: string, idx: number) => {
                     if (line.startsWith('## ')) return <h3 key={idx} className="text-2xl font-bold mt-8 mb-4 text-white">{line.replace('## ', '')}</h3>;
                     if (line.startsWith('**') && line.endsWith('**')) return <strong key={idx} className="block mt-6 mb-2 text-xl text-blue-300">{line.replace(/\*\*/g, '')}</strong>;
@@ -197,6 +197,13 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                     return <p key={idx} className="mb-4 text-gray-300 leading-loose">{line}</p>;
                   })}
                 </div>
+              </section>
+            )}
+
+            {/* Rich Sections */}
+            {report.sections && report.sections.length > 0 && (
+              <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+                <SectionRenderer sections={report.sections} />
               </section>
             )}
           </div>

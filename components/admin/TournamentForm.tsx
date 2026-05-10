@@ -7,6 +7,8 @@ import { Save, ArrowLeft, Image as ImageIcon, Eye } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 import PreviewModal from './PreviewModal';
+import SectionEditor from './SectionEditor';
+import { Section } from '@/types';
 
 interface TournamentFormProps {
   initialData?: any;
@@ -26,6 +28,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
   const [featuredInHero, setFeaturedInHero] = useState<boolean>(
     initialData?.featured_in_hero ?? false
   );
+  const [sections, setSections] = useState<Section[]>(initialData?.sections || []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -54,6 +57,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
         max_participants: parseInt(data.max_participants as string) || 0,
         organizer_ids: selectedOrganizerIds,
         featured_in_hero: featuredInHero,
+        sections,
       });
       router.push('/admin/tournaments');
       router.refresh();
@@ -67,13 +71,14 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
   return (
     <div className="max-w-4xl mx-auto">
       {showPreview && (
-        <PreviewModal 
-          type="tournament" 
+        <PreviewModal
+          type="tournament"
           data={{
             ...formData,
-            organizers: organizers.filter(o => selectedOrganizerIds.includes(o.id))
-          }} 
-          onClose={() => setShowPreview(false)} 
+            organizers: organizers.filter(o => selectedOrganizerIds.includes(o.id)),
+            sections,
+          }}
+          onClose={() => setShowPreview(false)}
         />
       )}
 
@@ -272,6 +277,19 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
               placeholder="https://... (設定すると外部サイトへのリンクが表示されます)"
             />
             <p className="text-[10px] text-gray-500">設定した場合、申し込みフォームの代わりに外部リンクボタンが表示されます</p>
+          </div>
+
+          {/* セクションエディター */}
+          <div className="space-y-3 pt-6 border-t border-white/5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest block">
+              詳細セクション（豪華な説明）
+            </label>
+            <p className="text-[10px] text-gray-600">画像・テキスト・コールアウトを組み合わせて大会の詳細を豪華に表示できます。</p>
+            <SectionEditor
+              value={sections}
+              onChange={setSections}
+              imageFolder="tournaments"
+            />
           </div>
 
           <div className="pt-4 border-t border-white/5">
