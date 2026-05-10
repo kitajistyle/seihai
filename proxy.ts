@@ -36,7 +36,10 @@ export async function proxy(req: NextRequest) {
     }
 
     const authValue = authHeader.split(' ')[1]
-    const [user, password] = atob(authValue).split(':')
+    const decoded = atob(authValue)
+    const colonIndex = decoded.indexOf(':')
+    const user = decoded.slice(0, colonIndex)
+    const password = decoded.slice(colonIndex + 1)
 
     if (
       user !== process.env.ADMIN_USER ||
@@ -56,6 +59,6 @@ export async function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|logo.jpg|icon.jpg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|seisai-bg.jpg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
   ],
 }

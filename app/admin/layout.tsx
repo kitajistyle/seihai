@@ -2,17 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { 
-  LayoutDashboard, 
-  Trophy, 
-  Users, 
-  FileText, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Trophy,
+  Users,
+  FileText,
+  Settings,
   LogOut,
   Home,
   Menu,
   X,
-  User
+  User,
+  Bell
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -109,6 +110,7 @@ function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
           <AdminNavLink href="/admin/players" icon={<Users size={18} />} onClick={onItemClick}>プレイヤー管理</AdminNavLink>
           <AdminNavLink href="/admin/reports" icon={<FileText size={18} />} onClick={onItemClick}>レポート管理</AdminNavLink>
           <AdminNavLink href="/admin/organizers" icon={<User size={18} />} onClick={onItemClick}>主催者管理</AdminNavLink>
+          <AdminNavLink href="/admin/announcements" icon={<Bell size={18} />} onClick={onItemClick}>お知らせ管理</AdminNavLink>
           
           <h3 className="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-8 mb-4">プラットフォーム</h3>
           <AdminNavLink href="/" icon={<Home size={18} />} onClick={onItemClick}>公開サイト</AdminNavLink>

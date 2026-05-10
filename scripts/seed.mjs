@@ -22,6 +22,7 @@ try {
     DROP TABLE IF EXISTS players CASCADE;
     DROP TABLE IF EXISTS tournaments CASCADE;
     DROP TABLE IF EXISTS organizers CASCADE;
+    DROP TABLE IF EXISTS announcements CASCADE;
   `);
   console.log('✓ テーブルをリセット');
 
@@ -65,6 +66,7 @@ try {
       guests TEXT,
       format TEXT,
       external_registration_url TEXT,
+      featured_in_hero BOOLEAN DEFAULT false,
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     )
@@ -83,6 +85,19 @@ try {
     )
   `);
   await client.query(`CREATE INDEX idx_players_points ON players(points DESC)`);
+
+  await client.query(`
+    CREATE TABLE announcements (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      title TEXT NOT NULL,
+      content TEXT,
+      type TEXT CHECK (type IN ('info', 'warning', 'success', 'new')) DEFAULT 'info',
+      is_active BOOLEAN DEFAULT true,
+      url TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
 
   await client.query(`
     CREATE TABLE event_reports (

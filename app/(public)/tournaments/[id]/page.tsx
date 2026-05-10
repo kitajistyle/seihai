@@ -13,12 +13,13 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
+import SectionRenderer from '@/components/SectionRenderer';
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
   const tournament = await getTournamentDetail(params.id);
   
-  if (!tournament) return { title: '大会が見つかりません | せい杯' };
+  if (!tournament) return { title: '大会が見つかりません | せい祭' };
   
   return {
     title: `${tournament.title}`,
@@ -39,7 +40,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
   const statusColor = isExpired ? 'bg-gray-500' : tournament.status === 'open' ? 'bg-green-500' : 'bg-yellow-500';
 
   return (
-    <article className="min-h-screen pb-20 text-gray-200">
+    <article className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
       {/* Hero Header */}
       <header className="relative w-full h-[45vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0">
@@ -76,7 +77,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-[var(--color-brand-blue)]" />
-                <span className="font-bold">{tournament.participants || 0} / {tournament.max_participants} 人</span>
+                <span className="font-bold">定員 {tournament.max_participants} 人</span>
               </div>
             </div>
           </div>
@@ -97,6 +98,13 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               {tournament.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
+
+          {/* Rich Sections */}
+          {tournament.sections && tournament.sections.length > 0 && (
+            <section className="glass-panel p-8 md:p-10">
+              <SectionRenderer sections={tournament.sections} />
+            </section>
+          )}
 
           {/* Entry Form Section */}
           {!isExpired && tournament.status === 'open' && !tournament.external_registration_url && (

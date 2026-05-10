@@ -1,3 +1,20 @@
+export type SectionType = 'text' | 'image' | 'image_text' | 'callout';
+
+export interface Section {
+  id: string;
+  type: SectionType;
+  // text / callout
+  heading?: string;
+  content?: string;
+  // image / image_text
+  image_url?: string;
+  caption?: string;
+  // image_text
+  image_position?: 'left' | 'right';
+  // callout
+  style?: 'info' | 'highlight' | 'warning';
+}
+
 export interface Tournament {
   id: string;
   organizer_id?: string;
@@ -17,7 +34,9 @@ export interface Tournament {
   guests?: string;
   format?: string;
   external_registration_url?: string;
+  featured_in_hero?: boolean;
   organizers?: Organizer[];
+  sections?: Section[];
 }
 
 export interface PlayerRank {
@@ -58,6 +77,18 @@ export interface EventReport {
   url?: string;
   date: string;
   created_at?: string;
+  sections?: Section[];
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  content?: string;
+  type: 'info' | 'warning' | 'success' | 'new';
+  is_active: boolean;
+  url?: string;
+  created_at: string;
+  updated_at?: string;
 }
 
 export interface Registration {

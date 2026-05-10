@@ -53,6 +53,7 @@ CREATE TABLE tournaments (
   guests TEXT,
   format TEXT,
   external_registration_url TEXT,
+  featured_in_hero BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

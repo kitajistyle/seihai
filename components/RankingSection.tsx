@@ -14,9 +14,11 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
           <div className="w-1 h-8 bg-[var(--color-brand-blue)]" />
           TOP RANKING
         </h2>
-        <Link href="/rankings" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
-          すべて見る <ChevronRight className="w-4 h-4" />
-        </Link>
+        {rankings.length > 5 && (
+          <Link href="/rankings" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
+            すべて見る <ChevronRight className="w-4 h-4" />
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
@@ -72,7 +74,7 @@ export default function RankingSection({ rankings }: RankingSectionProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5 flex flex-col md:table-row-group">
-            {rankings.map((player) => (
+            {rankings.slice(0, 5).map((player) => (
               <tr key={player.id} className="hover:bg-white/5 transition-colors group flex items-center p-4 md:p-0 md:table-row gap-4 md:gap-0">
                 <td className="md:px-6 md:py-4 font-mono text-[var(--color-brand-blue)] font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
                 <td className="md:px-6 md:py-4 flex-1 overflow-hidden">

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default async function OrganizersPage() {
   const organizers = await getOrganizers();
   return (
-    <section className="max-w-7xl mx-auto px-4 py-24 min-h-screen">
+    <section className="relative bg-[var(--color-bg-dark)]/80 max-w-7xl mx-auto px-4 py-24 min-h-screen">
       <div className="text-center mb-16">
         <h1 className="text-4xl font-black mb-4 uppercase tracking-tighter">主催者一覧</h1>
         <div className="w-24 h-1 bg-[var(--color-brand-blue)] mx-auto mb-4" />

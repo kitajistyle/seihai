@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { registerForTournament } from '@/lib/db/mutations';
-import { CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
+import { AlertCircle, Loader2, Send } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface Props {
@@ -51,21 +52,26 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
 
   if (isSuccess) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="glass-panel p-8 text-center"
       >
-        <div className="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="w-10 h-10" />
-        </div>
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="flex justify-center mb-4"
+        >
+          <Image src="/sei-thumbsup.png" alt="せい" width={120} height={150} className="drop-shadow-xl" />
+        </motion.div>
         <h3 className="text-2xl font-black mb-4">エントリー完了！</h3>
         <p className="text-gray-400 leading-relaxed mb-8">
           {tournamentTitle} へのエントリーを受け付けました。<br />
           ご登録いただいたメールアドレス宛に確認メールをお送りします。
           メールが届かない場合は、迷惑メールフォルダもご確認ください。
         </p>
-        <button 
+        <button
           onClick={() => setIsSuccess(false)}
           className="text-sm text-[var(--color-brand-blue)] font-bold hover:underline"
         >
@@ -94,7 +100,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             required
             value={formData.player_name}
             onChange={handleChange}
-            placeholder="例: せい杯 太郎"
+            placeholder="例: せい祭 太郎"
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
           />
         </div>

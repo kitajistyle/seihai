@@ -74,7 +74,12 @@ export default async function AdminTournamentsPage() {
             </div>
             
             <div>
-              <p className="font-bold text-white mb-1">{t.title}</p>
+              <div className="flex items-center gap-2 mb-1">
+                <p className="font-bold text-white">{t.title}</p>
+                {t.featured_in_hero && (
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-brand-blue)]/20 text-[var(--color-brand-blue)]">TOP掲載</span>
+                )}
+              </div>
               <p className="text-[10px] text-gray-500 font-mono">ID: {t.id.substring(0, 8)}...</p>
             </div>
 
@@ -123,7 +128,12 @@ export default async function AdminTournamentsPage() {
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <p className="font-bold text-white mb-0.5">{t.title}</p>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="font-bold text-white">{t.title}</p>
+                    {t.featured_in_hero && (
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-brand-blue)]/20 text-[var(--color-brand-blue)]">TOP掲載</span>
+                    )}
+                  </div>
                   <p className="text-[10px] text-gray-500 flex items-center gap-1">
                     ID: {t.id.substring(0, 8)}... <ExternalLink size={10} />
                   </p>

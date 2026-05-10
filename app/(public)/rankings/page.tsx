@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function RankingsPage() {
   const rankings = await getRankings();
   return (
-    <section className="max-w-7xl mx-auto px-4 py-20 min-h-screen">
+    <section className="relative bg-[var(--color-bg-dark)]/80 max-w-7xl mx-auto px-4 py-20 min-h-screen">
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <div className="w-1 h-8 bg-[var(--color-brand-blue)]" />

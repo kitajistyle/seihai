@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "node --env-file=.env.local scripts/seed.mjs"
+    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "migrate:announcements": "node --env-file=.env.local scripts/migrate-announcements.mjs",
+    "migrate:sections": "node --env-file=.env.local scripts/migrate-sections.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.7.0",

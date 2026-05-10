@@ -1,5 +1,23 @@
 import { sql } from '@/lib/db';
-import { Tournament, PlayerRank, Organizer, EventReport, Registration } from '@/types';
+import { Tournament, PlayerRank, Organizer, EventReport, Registration, Announcement } from '@/types';
+
+/**
+ * ヒーローセクションに掲載する大会を取得します（最大3件）
+ */
+export async function getHeroTournaments(): Promise<Tournament[]> {
+  try {
+    const { rows } = await sql`
+      SELECT * FROM tournaments
+      WHERE featured_in_hero = true
+      ORDER BY date ASC
+      LIMIT 3
+    `;
+    return rows as Tournament[];
+  } catch (error) {
+    console.error('Error fetching hero tournaments:', error);
+    return [];
+  }
+}
 
 /**
  * 大会一覧を取得します
@@ -164,6 +182,40 @@ export async function getPlayerById(id: string) {
     return rows[0] || null;
   } catch (error) {
     console.error('Error fetching player:', error);
+    return null;
+  }
+}
+
+/**
+ * お知らせ一覧を取得します
+ */
+export async function getAnnouncements(activeOnly = false): Promise<Announcement[]> {
+  try {
+    if (activeOnly) {
+      const { rows } = await sql`
+        SELECT * FROM announcements WHERE is_active = true ORDER BY created_at DESC
+      `;
+      return rows as Announcement[];
+    }
+    const { rows } = await sql`
+      SELECT * FROM announcements ORDER BY created_at DESC
+    `;
+    return rows as Announcement[];
+  } catch (error) {
+    console.error('Error fetching announcements:', error);
+    return [];
+  }
+}
+
+/**
+ * お知らせをIDで取得します
+ */
+export async function getAnnouncementById(id: string): Promise<Announcement | null> {
+  try {
+    const { rows } = await sql`SELECT * FROM announcements WHERE id = ${id}`;
+    return (rows[0] as Announcement) || null;
+  } catch (error) {
+    console.error('Error fetching announcement:', error);
     return null;
   }
 }

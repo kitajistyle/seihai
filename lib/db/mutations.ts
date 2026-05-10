@@ -5,18 +5,25 @@ import { revalidatePath } from 'next/cache';
 import { sendApprovalEmail } from '@/lib/resend';
 import crypto from 'crypto';
 
+function serializeJsonFields(data: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(data).map(([k, v]) => [k, Array.isArray(v) || (v !== null && typeof v === 'object') ? JSON.stringify(v) : v])
+  );
+}
+
 /**
  * 大会情報の作成・更新
  */
 export async function upsertTournament(formData: any) {
   const { id, organizers, organizer_ids, ...rest } = formData;
+  const serialized = serializeJsonFields(rest);
 
   const client = await db.connect();
   try {
     let tournamentId: string;
     if (id) {
-      const keys = Object.keys(rest);
-      const values = Object.values(rest);
+      const keys = Object.keys(serialized);
+      const values = Object.values(serialized);
       const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
       const { rows } = await client.query(
         `UPDATE tournaments SET ${setClause} WHERE id = $${keys.length + 1} RETURNING id`,
@@ -24,8 +31,8 @@ export async function upsertTournament(formData: any) {
       );
       tournamentId = rows[0].id;
     } else {
-      const keys = Object.keys(rest);
-      const values = Object.values(rest);
+      const keys = Object.keys(serialized);
+      const values = Object.values(serialized);
       const cols = keys.map(k => `"${k}"`).join(', ');
       const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
       const { rows } = await client.query(
@@ -40,7 +47,9 @@ export async function upsertTournament(formData: any) {
     }
 
     revalidatePath('/tournaments');
+    revalidatePath(`/tournaments/${tournamentId}`);
     revalidatePath('/admin/tournaments');
+    revalidatePath(`/admin/tournaments/${tournamentId}/edit`);
     return { id: tournamentId };
   } finally {
     client.release();
@@ -131,31 +140,36 @@ export async function deletePlayer(id: string) {
  */
 export async function upsertReport(formData: any) {
   const { id, tournament, organizer, results, date, summary, ...rest } = formData;
+  const serialized = serializeJsonFields(rest);
   const client = await db.connect();
+  let reportId: string | undefined = id;
   try {
     if (id) {
-      const keys = Object.keys(rest);
-      const values = Object.values(rest);
+      const keys = Object.keys(serialized);
+      const values = Object.values(serialized);
       const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
       await client.query(
         `UPDATE event_reports SET ${setClause} WHERE id = $${keys.length + 1}`,
         [...values, id]
       );
     } else {
-      const keys = Object.keys(rest);
-      const values = Object.values(rest);
+      const keys = Object.keys(serialized);
+      const values = Object.values(serialized);
       const cols = keys.map(k => `"${k}"`).join(', ');
       const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
-      await client.query(
-        `INSERT INTO event_reports (${cols}) VALUES (${placeholders})`,
+      const { rows } = await client.query(
+        `INSERT INTO event_reports (${cols}) VALUES (${placeholders}) RETURNING id`,
         values
       );
+      reportId = rows[0].id;
     }
   } finally {
     client.release();
   }
   revalidatePath('/reports');
+  if (reportId) revalidatePath(`/reports/${reportId}`);
   revalidatePath('/admin/reports');
+  if (reportId) revalidatePath(`/admin/reports/${reportId}/edit`);
 }
 
 /**
@@ -229,6 +243,49 @@ export async function deleteOrganizer(id: string) {
   await sql`DELETE FROM organizers WHERE id = ${id}`;
   revalidatePath('/organizers');
   revalidatePath('/admin/organizers');
+}
+
+/**
+ * お知らせの作成・更新
+ */
+export async function upsertAnnouncement(formData: any) {
+  const { id, ...rest } = formData;
+  const client = await db.connect();
+  try {
+    if (id) {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
+      await client.query(
+        `UPDATE announcements SET ${setClause}, updated_at = NOW() WHERE id = $${keys.length + 1}`,
+        [...values, id]
+      );
+    } else {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const cols = keys.map(k => `"${k}"`).join(', ');
+      const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
+      await client.query(
+        `INSERT INTO announcements (${cols}) VALUES (${placeholders})`,
+        values
+      );
+    }
+  } finally {
+    client.release();
+  }
+  revalidatePath('/');
+  revalidatePath('/announcements');
+  revalidatePath('/admin/announcements');
+}
+
+/**
+ * お知らせの削除
+ */
+export async function deleteAnnouncement(id: string) {
+  await sql`DELETE FROM announcements WHERE id = ${id}`;
+  revalidatePath('/');
+  revalidatePath('/announcements');
+  revalidatePath('/admin/announcements');
 }
 
 /**

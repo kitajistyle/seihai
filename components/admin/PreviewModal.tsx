@@ -1,6 +1,7 @@
 'use client';
 
 import { X, Trophy, Calendar, MapPin, Gift, Users, Award, Clock, Megaphone, ChevronRight } from 'lucide-react';
+import SectionRenderer from '@/components/SectionRenderer';
 
 interface PreviewModalProps {
   type: 'tournament' | 'report';
@@ -87,7 +88,7 @@ function TournamentPreview({ data }: { data: any }) {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-[var(--color-brand-blue)]" />
-                <span className="font-bold">{data.participants || 0} / {data.max_participants || 0} 人</span>
+                <span className="font-bold">定員 {data.max_participants || 0} 人</span>
               </div>
             </div>
           </div>
@@ -105,6 +106,12 @@ function TournamentPreview({ data }: { data: any }) {
               {data.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
+
+          {data.sections && data.sections.length > 0 && (
+            <section className="glass-panel p-8 md:p-10">
+              <SectionRenderer sections={data.sections} />
+            </section>
+          )}
 
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-panel p-6 flex flex-col gap-4">
@@ -337,6 +344,12 @@ function ReportPreview({ data }: { data: any }) {
                 }) : <p className="text-gray-500 italic">本文はありません</p>}
               </div>
             </section>
+
+            {report.sections && report.sections.length > 0 && (
+              <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+                <SectionRenderer sections={report.sections} />
+              </section>
+            )}
           </div>
 
           <aside className="space-y-6">
