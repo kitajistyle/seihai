@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     '大会登録'
     // 'ランキング'
   ],
+  verification: {
+    google: '7ozxvx8rPNNeXmEV8MqhLx-cgkvmShgrIdbhNDoRLzQ',
+  },
 };
 
 export default function RootLayout({
