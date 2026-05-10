@@ -5,6 +5,8 @@ import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink, ArrowLeft }
 import Link from 'next/link';
 import SectionRenderer from '@/components/SectionRenderer';
 
+const BASE_URL = 'https://seisai.vercel.app';
+
 // Generate dynamic SEO metadata
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -14,16 +16,18 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   
   const tournamentTitle = data.tournament ? data.tournament.title : data.report.title;
   const description = data.tournament 
-    ? `${tournamentTitle}のイベントレポートです。大会結果、優勝・上位入賞者、会場（${data.tournament.location || 'オンライン'}）の白熱した様子などの詳細をお届けします。` 
-    : '大会のイベントレポート詳細ページです。';
+    ? `せい祭主催「${tournamentTitle}」のイベントレポートです。大会結果・上位入賞者・会場（${data.tournament.location || 'オンライン'}）の白熱した様子などの詳細をお届けします。` 
+    : 'せい祭大会のイベントレポート詳細ページです。';
 
   return {
-    title: `${data.report.title}`,
+    title: `${data.report.title} | せい祭`,
     description,
+    alternates: { canonical: `${BASE_URL}/reports/${data.report.id}` },
     openGraph: {
-      title: data.report.title,
+      title: `${data.report.title} | せい祭`,
       description,
-      images: [data.report.image_url],
+      images: data.report.image_url ? [{ url: data.report.image_url, alt: data.report.title }] : [],
+      url: `${BASE_URL}/reports/${data.report.id}`,
       type: 'article',
     },
   };
@@ -38,10 +42,31 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
   }
 
   const { report, tournament, organizers, results } = data;
-  const organizer = organizers?.[0]; // 最初の主催者を表示
+  const organizer = organizers?.[0];
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: report.title,
+    description: tournament
+      ? `せい祭主催「${tournament.title}」のイベントレポート。`
+      : `せい祭大会のイベントレポート。`,
+    url: `${BASE_URL}/reports/${report.id}`,
+    image: report.image_url,
+    datePublished: report.created_at,
+    publisher: {
+      '@type': 'Organization',
+      name: 'せい祭',
+      url: BASE_URL,
+    },
+  };
 
   return (
     <article id={`report-article-${report.id}`} className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header Banner */}
       <header id="report-header" className="relative w-full h-[40vh] min-h-[350px] overflow-hidden">
         <div className="absolute inset-0">

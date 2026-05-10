@@ -19,6 +19,8 @@ function formatDate(dateStr: string) {
 export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
   return (
     <section className="relative min-h-[70vh] flex items-end md:items-center justify-center md:justify-start py-16 px-6 md:px-16 lg:px-32">
+      {/* SEO用H1 - 視覚的に非表示、クローラー向け */}
+      <h1 className="sr-only">せい祭 - トレーディングカードゲーム大会プラットフォーム</h1>
 
       {/* マスコットキャラクター */}
       <motion.div

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP, Outfit } from 'next/font/google';
 import './globals.css';
 
+const BASE_URL = 'https://seisai.vercel.app';
+
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
   weight: ['400', '500', '700', '900'],
@@ -15,23 +17,70 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: {
     default: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
     template: '%s | せい祭',
   },
   description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。大会参加登録、ランキング、イベントレポートを一元管理。',
-  keywords: [
-    'せい祭',
-    'カードゲーム大会',
-    'トレーディングカードゲーム',
-    'トレーディングカードゲーム大会',
-    'カードゲーム',
-    'eスポーツ',
-    '大会登録'
-    // 'ランキング'
-  ],
+  authors: [{ name: 'せい祭運営', url: BASE_URL }],
+  creator: 'せい祭',
+  publisher: 'せい祭',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ja_JP',
+    url: BASE_URL,
+    siteName: 'せい祭',
+    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。大会参加登録、ランキング、イベントレポートを一元管理。',
+    images: [
+      {
+        url: '/seisai-bg.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。',
+    images: ['/seisai-bg.jpg'],
+  },
   verification: {
-    google: '7ozxvx8rPNNeXmEV8MqhLx-cgkvmShgrIdbhNDoRLzQ',
+    google: 'ulYgwo65_dR5Ti_ISHyurdA33nZwzLPfQzYTTRuiWEw',
+  },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'せい祭',
+  alternateName: ['seisai', 'せい祭大会プラットフォーム'],
+  url: BASE_URL,
+  description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム。',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${BASE_URL}/tournaments?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
   },
 };
 
@@ -42,6 +91,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${outfit.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased">
         {children}
       </body>

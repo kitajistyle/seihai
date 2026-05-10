@@ -16,15 +16,28 @@ import {
 import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
 import SectionRenderer from '@/components/SectionRenderer';
 
+const BASE_URL = 'https://seisai.vercel.app';
+
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;
   const tournament = await getTournamentDetail(params.id);
   
   if (!tournament) return { title: '大会が見つかりません | せい祭' };
+
+  const description = tournament.description
+    || `せい祭で開催される「${tournament.title}」の大会詳細です。参加申し込み・ルール・景品をご確認いただけます。`;
   
   return {
-    title: `${tournament.title}`,
-    description: tournament.description || `${tournament.title}の大会詳細情報です。参加申し込み、ルール、景品などを確認できます。`,
+    title: `${tournament.title} | せい祭`,
+    description,
+    alternates: { canonical: `${BASE_URL}/tournaments/${tournament.id}` },
+    openGraph: {
+      title: `${tournament.title} | せい祭`,
+      description,
+      url: `${BASE_URL}/tournaments/${tournament.id}`,
+      images: tournament.image_url ? [{ url: tournament.image_url, alt: tournament.title }] : [],
+      type: 'website',
+    },
   };
 }
 
@@ -40,8 +53,31 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
   const statusLabel = isExpired ? '終了' : tournament.status === 'open' ? 'エントリー受付中' : '準備中';
   const statusColor = isExpired ? 'bg-gray-500' : tournament.status === 'open' ? 'bg-green-500' : 'bg-yellow-500';
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: tournament.title,
+    description: tournament.description || `せい祭で開催される「${tournament.title}」の大会詳細です。`,
+    url: `${BASE_URL}/tournaments/${tournament.id}`,
+    startDate: tournament.date,
+    location: {
+      '@type': 'Place',
+      name: tournament.location || 'オンライン',
+    },
+    organizer: {
+      '@type': 'Organization',
+      name: 'せい祭',
+      url: BASE_URL,
+    },
+    image: tournament.image_url || `${BASE_URL}/seisai-bg.jpg`,
+  };
+
   return (
     <article className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Header */}
       <header className="relative w-full h-[45vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0">

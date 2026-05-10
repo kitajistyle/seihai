@@ -8,8 +8,16 @@ import NewsSection from '@/components/NewsSection';
 import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnouncements } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
-  title: 'せい祭 | eスポーツ大会プラットフォーム',
-  description: '全国のeスポーツ・カードゲーム大会の情報を発信。大会参加登録、ランキング、イベントレポートを一元管理。',
+  title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+  description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
+  alternates: {
+    canonical: 'https://seisai.vercel.app',
+  },
+  openGraph: {
+    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+    description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
+    url: 'https://seisai.vercel.app',
+  },
 };
 
 export const revalidate = 60;
