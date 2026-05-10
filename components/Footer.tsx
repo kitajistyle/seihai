@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center gap-10">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black tracking-tighter uppercase text-white tracking-widest">せい杯</span>
+            <span className="text-2xl font-black tracking-tighter uppercase text-gradient-premium tracking-widest">せい杯</span>
           </div>
           
           <div className="flex flex-wrap justify-center gap-6 md:gap-12">

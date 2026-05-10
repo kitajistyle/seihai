@@ -77,7 +77,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-[var(--color-brand-blue)]" />
-                <span className="font-bold">{tournament.participants || 0} / {tournament.max_participants} 人</span>
+                <span className="font-bold">定員 {tournament.max_participants} 人</span>
               </div>
             </div>
           </div>

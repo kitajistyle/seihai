@@ -88,7 +88,7 @@ function TournamentPreview({ data }: { data: any }) {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-[var(--color-brand-blue)]" />
-                <span className="font-bold">{data.participants || 0} / {data.max_participants || 0} 人</span>
+                <span className="font-bold">定員 {data.max_participants || 0} 人</span>
               </div>
             </div>
           </div>
@@ -344,6 +344,12 @@ function ReportPreview({ data }: { data: any }) {
                 }) : <p className="text-gray-500 italic">本文はありません</p>}
               </div>
             </section>
+
+            {report.sections && report.sections.length > 0 && (
+              <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+                <SectionRenderer sections={report.sections} />
+              </section>
+            )}
           </div>
 
           <aside className="space-y-6">

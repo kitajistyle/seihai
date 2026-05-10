@@ -1,27 +1,63 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-dark: #0a0a0f;
-  --color-brand-blue: #00a2ff;
+  --color-bg-dark: #030308;
+  --color-bg-card: #0c0c16;
+  --color-brand-blue: #00e1ff;
+  --color-brand-blue-dark: #0077ff;
   --color-brand-red: #ff3d57;
+  --color-brand-gold: #e2c044;
 }
 
 :root {
   --background: var(--color-bg-dark);
-  --foreground: #ededed;
+  --foreground: #f8fafc;
 }
 
 body {
   background-color: var(--color-bg-dark);
   color: var(--foreground);
-  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(0, 119, 255, 0.04), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(226, 192, 68, 0.03), transparent 25%);
+  background-attachment: fixed;
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.text-gradient-premium {
+  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #00e1ff 0%, #0077ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .rank-gold {

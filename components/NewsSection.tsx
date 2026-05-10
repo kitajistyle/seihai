@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { Announcement } from '@/types';
 
 interface NewsSectionProps {
@@ -10,8 +11,9 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 -mt-12 relative z-20 mb-20">
-      <div className="bg-black/60 backdrop-blur-md rounded-xl border border-white/10 p-6 sm:p-8 shadow-2xl">
-        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white tracking-wide">
+      <div className="glass-panel p-6 sm:p-8 relative overflow-hidden group">
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--color-brand-blue)]/10 rounded-full blur-[50px] pointer-events-none group-hover:bg-[var(--color-brand-blue)]/20 transition-colors duration-700" />
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 tracking-wide text-gradient-premium">
           ニュース・お知らせ
         </h2>
         
@@ -29,31 +31,37 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
             const targetUrl = isExternal ? announcement.url! : (hasDetail ? `/announcements/${announcement.id}` : '#');
 
             const innerContent = (
-              <>
-                <span className="text-sm text-gray-300">
-                  {dateStr}
-                </span>
-                <span className="text-base sm:text-lg text-white font-medium line-clamp-2 ml-2 sm:ml-4">
-                  {announcement.title}
-                </span>
-              </>
+              <div className="flex items-center justify-between w-full pr-4">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-sm text-gray-400 group-hover:text-[var(--color-brand-blue)] transition-colors font-mono tracking-wider">
+                    {dateStr}
+                  </span>
+                  <span className="text-base sm:text-lg text-gray-200 font-medium line-clamp-2 ml-2 sm:ml-4 group-hover:text-white transition-colors">
+                    {announcement.title}
+                  </span>
+                </div>
+                {isClickable && (
+                  <ChevronRight className="w-5 h-5 text-[var(--color-brand-blue)] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                )}
+              </div>
             );
 
             return (
               <div 
                 key={announcement.id} 
-                className={`py-4 ${index !== announcements.length - 1 && index !== 4 ? 'border-b border-white/20' : ''}`}
+                className={`py-4 px-2 relative group cursor-pointer rounded-lg transition-all duration-300 hover:bg-white/5 ${index !== announcements.length - 1 && index !== 4 ? 'border-b border-white/10 hover:border-transparent' : ''}`}
               >
+                <div className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-[var(--color-brand-blue)] to-[var(--color-brand-blue-dark)] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_10px_rgba(0,225,255,0.5)] scale-y-50 group-hover:scale-y-100" />
                 {isClickable ? (
                   <Link 
                     href={targetUrl} 
                     target={isExternal && targetUrl.startsWith('http') ? "_blank" : "_self"}
-                    className="group flex flex-col gap-1.5 hover:opacity-80 transition-opacity"
+                    className="block pl-4 group-hover:pl-6 transition-all duration-300"
                   >
                     {innerContent}
                   </Link>
                 ) : (
-                  <div className="flex flex-col gap-1.5">
+                  <div className="block pl-4 group-hover:pl-6 transition-all duration-300">
                     {innerContent}
                   </div>
                 )}
