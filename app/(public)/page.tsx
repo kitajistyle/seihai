@@ -8,7 +8,10 @@ import NewsSection from '@/components/NewsSection';
 import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnouncements } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
-  title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+  // absoluteを使うことでlayout.tsxのtemplateが重複適用されるのを防ぐ
+  title: {
+    absolute: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+  },
   description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
   alternates: {
     canonical: 'https://seisai.vercel.app',
@@ -17,6 +20,17 @@ export const metadata: Metadata = {
     title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
     description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
     url: 'https://seisai.vercel.app',
+    siteName: 'せい祭',
+    images: [
+      {
+        url: 'https://seisai.vercel.app/seisai-bg.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
+      },
+    ],
+    type: 'website',
+    locale: 'ja_JP',
   },
 };
 
