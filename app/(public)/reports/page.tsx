@@ -18,13 +18,13 @@ export default async function ReportsPage() {
           <div className="h-px flex-grow bg-white/10" />
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {reports.map((report) => (
             <div
               key={report.id}
               className="bg-white rounded-xl overflow-hidden shadow-2xl group hover:-translate-y-2 transition-transform duration-300"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-28 sm:h-48 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={report.image_url || ''} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
                 {report.is_external && (
@@ -33,8 +33,8 @@ export default async function ReportsPage() {
                   </div>
                 )}
               </div>
-              <div className="p-5">
-                <h3 className="text-[var(--color-bg-dark)] font-bold text-sm mb-6 line-clamp-3 leading-relaxed">
+              <div className="p-3 sm:p-5">
+                <h3 className="text-[var(--color-bg-dark)] font-bold text-xs sm:text-sm mb-3 sm:mb-6 line-clamp-3 leading-relaxed">
                   {report.title}
                 </h3>
                 <Link href={report.is_external ? (report.url || '#') : `/reports/${report.id}`} target={report.is_external ? "_blank" : "_self"}>

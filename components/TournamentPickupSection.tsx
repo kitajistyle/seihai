@@ -15,9 +15,11 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
             <div className="w-1 h-8 bg-[var(--color-brand-red)]" />
             注目の大会
           </h2>
-          <Link href="/tournaments" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
-            大会一覧へ <ChevronRight className="w-4 h-4" />
-          </Link>
+          {tournaments.length > 2 && (
+            <Link href="/tournaments" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
+              大会一覧へ <ChevronRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
         <div className="space-y-4">
           {tournaments.slice(0, 2).map((t) => (

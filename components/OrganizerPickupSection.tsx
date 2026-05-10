@@ -13,9 +13,11 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
         <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">主催者一覧</h2>
         <div className="w-24 h-1 bg-[var(--color-brand-blue)] mx-auto mb-4" />
         <p className="text-gray-400 mb-8 md:mb-0">大会を開催する主催者たち</p>
-        <Link href="/organizers" className="absolute right-0 top-1/2 -translate-y-1/2 text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors hidden md:flex items-center gap-1">
-          すべて見る <ChevronRight className="w-4 h-4" />
-        </Link>
+        {organizers.length > 2 && (
+          <Link href="/organizers" className="absolute right-0 top-1/2 -translate-y-1/2 text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors hidden md:flex items-center gap-1">
+            すべて見る <ChevronRight className="w-4 h-4" />
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -32,11 +34,13 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
         ))}
       </div>
       
-      <div className="mt-8 flex justify-center md:hidden">
-        <Link href="/organizers" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
-          すべて見る <ChevronRight className="w-4 h-4" />
-        </Link>
-      </div>
+      {organizers.length > 2 && (
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link href="/organizers" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1">
+            すべて見る <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

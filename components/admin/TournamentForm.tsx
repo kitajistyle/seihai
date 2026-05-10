@@ -23,6 +23,9 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
     initialData?.organizers?.map((o: any) => o.id) ||
     (initialData?.organizer_id ? [initialData.organizer_id] : [])
   );
+  const [featuredInHero, setFeaturedInHero] = useState<boolean>(
+    initialData?.featured_in_hero ?? false
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -50,6 +53,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
         participants: parseInt(data.participants as string) || 0,
         max_participants: parseInt(data.max_participants as string) || 0,
         organizer_ids: selectedOrganizerIds,
+        featured_in_hero: featuredInHero,
       });
       router.push('/admin/tournaments');
       router.refresh();
@@ -268,6 +272,21 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
               placeholder="https://... (設定すると外部サイトへのリンクが表示されます)"
             />
             <p className="text-[10px] text-gray-500">設定した場合、申し込みフォームの代わりに外部リンクボタンが表示されます</p>
+          </div>
+
+          <div className="pt-4 border-t border-white/5">
+            <label className="flex items-center gap-3 cursor-pointer group">
+              <div
+                onClick={() => setFeaturedInHero(v => !v)}
+                className={`w-10 h-5 rounded-full transition-colors relative shrink-0 ${featuredInHero ? 'bg-[var(--color-brand-blue)]' : 'bg-white/10'}`}
+              >
+                <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${featuredInHero ? 'translate-x-5' : ''}`} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white">トップページに掲載する</p>
+                <p className="text-[10px] text-gray-500">ONにするとトップのヒーローセクションに表示されます（最大3件）</p>
+              </div>
+            </label>
           </div>
         </div>
 

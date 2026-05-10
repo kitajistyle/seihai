@@ -109,11 +109,13 @@ export const TOURNAMENT_RESULTS = [
   { id: 'r3', tournamentId: 'e56f9e8a-e555-4a7b-a4db-1e5b84b65634', rank: 3, displayName: '一般参加プレイヤーA' },
 ];
 
-export const NAV_ITEMS = ['HOME', '大会一覧', '主催者一覧', 'ランキング', '大会レポート'];
+export const NAV_ITEMS = ['HOME', '大会一覧', '主催者一覧',
+  //  'ランキング', 
+   '大会レポート'];
 export const NAV_LINKS: Record<string, string> = {
   HOME: '/',
   '大会一覧': '/tournaments',
   '主催者一覧': '/organizers',
-  'ランキング': '/rankings',
+  // 'ランキング': '/rankings',
   '大会レポート': '/reports',
 };

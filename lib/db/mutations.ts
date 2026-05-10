@@ -232,6 +232,47 @@ export async function deleteOrganizer(id: string) {
 }
 
 /**
+ * お知らせの作成・更新
+ */
+export async function upsertAnnouncement(formData: any) {
+  const { id, ...rest } = formData;
+  const client = await db.connect();
+  try {
+    if (id) {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
+      await client.query(
+        `UPDATE announcements SET ${setClause}, updated_at = NOW() WHERE id = $${keys.length + 1}`,
+        [...values, id]
+      );
+    } else {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const cols = keys.map(k => `"${k}"`).join(', ');
+      const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
+      await client.query(
+        `INSERT INTO announcements (${cols}) VALUES (${placeholders})`,
+        values
+      );
+    }
+  } finally {
+    client.release();
+  }
+  revalidatePath('/');
+  revalidatePath('/admin/announcements');
+}
+
+/**
+ * お知らせの削除
+ */
+export async function deleteAnnouncement(id: string) {
+  await sql`DELETE FROM announcements WHERE id = ${id}`;
+  revalidatePath('/');
+  revalidatePath('/admin/announcements');
+}
+
+/**
  * 大会へのエントリー（予約）登録
  */
 export async function registerForTournament(data: {

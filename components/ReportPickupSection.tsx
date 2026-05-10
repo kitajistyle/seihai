@@ -15,18 +15,20 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
             イベントレポート
             <div className="hidden md:block h-px flex-grow bg-white/10 ml-4" />
           </h2>
-          <Link href="/reports" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1 shrink-0">
-            すべて見る <ChevronRight className="w-4 h-4" />
-          </Link>
+          {reports.length > 4 && (
+            <Link href="/reports" className="text-sm text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors flex items-center gap-1 shrink-0">
+              すべて見る <ChevronRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {reports.slice(0, 4).map((report) => (
             <div
               key={report.id}
               className="bg-white rounded-xl overflow-hidden shadow-2xl group hover:-translate-y-2 transition-transform duration-300"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-28 sm:h-48 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={report.image_url || ''} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
                 {report.is_external && (
@@ -35,8 +37,8 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
                   </div>
                 )}
               </div>
-              <div className="p-5">
-                <h3 className="text-[var(--color-bg-dark)] font-bold text-sm mb-6 line-clamp-3 leading-relaxed">
+              <div className="p-3 sm:p-5">
+                <h3 className="text-[var(--color-bg-dark)] font-bold text-xs sm:text-sm mb-3 sm:mb-6 line-clamp-3 leading-relaxed">
                   {report.title}
                 </h3>
                 <Link href={report.is_external ? (report.url || '#') : `/reports/${report.id}`} target={report.is_external ? "_blank" : "_self"}>

@@ -17,6 +17,7 @@ export interface Tournament {
   guests?: string;
   format?: string;
   external_registration_url?: string;
+  featured_in_hero?: boolean;
   organizers?: Organizer[];
 }
 
@@ -58,6 +59,17 @@ export interface EventReport {
   url?: string;
   date: string;
   created_at?: string;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  content?: string;
+  type: 'info' | 'warning' | 'success' | 'new';
+  is_active: boolean;
+  url?: string;
+  created_at: string;
+  updated_at?: string;
 }
 
 export interface Registration {

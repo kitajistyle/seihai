@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/HeroSection';
-import RankingSection from '@/components/RankingSection';
+// import RankingSection from '@/components/RankingSection';
 import TournamentPickupSection from '@/components/TournamentPickupSection';
 import OrganizerPickupSection from '@/components/OrganizerPickupSection';
 import ReportPickupSection from '@/components/ReportPickupSection';
-import { getRankings, getTournaments, getOrganizers, getReports } from '@/lib/db/queries';
+import { getRankings, getTournaments, getOrganizers, getReports, getHeroTournaments } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   title: 'せい杯 | eスポーツ大会プラットフォーム',
@@ -13,17 +13,18 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch data in parallel on the server
-  const [rankings, tournaments, organizers, reports] = await Promise.all([
-    getRankings(5),
+  const [rankings, tournaments, organizers, reports, heroTournaments] = await Promise.all([
+    getRankings(6),
     getTournaments(),
     getOrganizers(),
-    getReports(4)
+    getReports(5),
+    getHeroTournaments(),
   ]);
 
   return (
     <>
-      <HeroSection />
-      <RankingSection rankings={rankings} />
+      <HeroSection tournaments={heroTournaments} />
+      {/* <RankingSection rankings={rankings} /> */}
       <TournamentPickupSection tournaments={tournaments} />
       <OrganizerPickupSection organizers={organizers} />
       <ReportPickupSection reports={reports} />

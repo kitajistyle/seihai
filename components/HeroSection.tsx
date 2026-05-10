@@ -2,11 +2,23 @@
 
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import { Tournament } from '@/types';
+import { Calendar, ChevronRight } from 'lucide-react';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  tournaments?: Tournament[];
+}
+
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short', timeZone: 'Asia/Tokyo' });
+}
+
+export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
   return (
-    <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-[60vh] flex items-center justify-center">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.jpg"
@@ -39,13 +51,37 @@ export default function HeroSection() {
           >
             大会一覧
           </Link>
-          <Link
-            href="/rankings"
-            className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-lg backdrop-blur-md border border-white/10 transition-all flex items-center justify-center"
-          >
-            ランキング
-          </Link>
         </div>
+
+        {tournaments.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-8 flex flex-col items-center gap-2"
+          >
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">近日開催</p>
+            {tournaments.map((t) => (
+              <Link
+                key={t.id}
+                href={`/tournaments/${t.id}`}
+                className="flex items-center gap-3 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm transition-all group w-full max-w-xs sm:max-w-sm"
+              >
+                <Calendar size={13} className="text-[var(--color-brand-blue)] shrink-0" />
+                <span className="font-bold text-white truncate flex-1 text-left">{t.title}</span>
+                <span className="text-gray-500 text-xs shrink-0">{formatDate(t.date)}</span>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
+                  t.status === 'open' ? 'bg-green-500/20 text-green-400' :
+                  t.status === 'closed' ? 'bg-red-500/20 text-red-400' :
+                  'bg-yellow-500/20 text-yellow-400'
+                }`}>
+                  {t.status === 'open' ? '受付中' : t.status === 'closed' ? '終了' : '準備中'}
+                </span>
+                <ChevronRight size={13} className="text-gray-600 group-hover:text-gray-400 shrink-0 transition-colors" />
+              </Link>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );
