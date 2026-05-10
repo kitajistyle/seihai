@@ -14,7 +14,7 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
     <section className="relative bg-[var(--color-bg-dark)]/80 py-20">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-12">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -32,8 +32,8 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
         </div>
         <div className="space-y-4">
           {tournaments.slice(0, 2).map((t, index) => (
-            <motion.div 
-              key={t.id} 
+            <motion.div
+              key={t.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -48,12 +48,12 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
               <div className="flex-grow">
                 <h3 className="text-xl font-bold mb-2 text-white group-hover:text-gray-300 transition-colors">{t.title}</h3>
                 <p className="text-sm text-gray-400 font-medium">
-                  開催日: {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })} 
+                  開催日: {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
                   {' '} {new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
-                  <span className="inline-block mx-3 text-white/20">|</span> 
+                  <span className="inline-block mx-3 text-white/20">|</span>
                   <span className={t.max_participants - t.participants <= 5 ? 'text-white font-bold' : 'text-gray-300'}>
                     残り {t.max_participants - t.participants}人
-                  </span> 
+                  </span>
                   <span className="text-gray-500 text-xs"> / 定員 {t.max_participants}人</span>
                 </p>
               </div>

@@ -1,12 +1,21 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { FaXTwitter } from "react-icons/fa6"
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--color-bg-dark)] border-t border-white/10 py-16">
+    <footer className="bg-[var(--color-bg-dark)] border-t border-white/10 py-16 relative overflow-hidden">
+      <motion.div
+        animate={{ y: [0, -6, 0] }}
+        transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
+        className="absolute bottom-0 right-6 md:right-16 pointer-events-none opacity-70"
+      >
+        <Image src="/sei-dancing.png" alt="せい" width={100} height={130} />
+      </motion.div>
+
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center gap-10">
           <div className="flex items-center gap-2">

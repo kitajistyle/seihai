@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Search, Filter, Calendar, Users, ChevronRight } from 'lucide-react';
 import { getTournaments } from '@/lib/db/queries';
@@ -38,6 +39,13 @@ export default async function TournamentsPage() {
         </div>
 
         <div className="space-y-4">
+          {tournaments.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
+              <Image src="/sei-cleaning.png" alt="せい" width={150} height={180} className="opacity-80" />
+              <p className="text-gray-400 font-bold text-lg">現在開催中の大会はありません</p>
+              <p className="text-gray-600 text-sm">近日公開予定ですのでお楽しみに！</p>
+            </div>
+          )}
           {tournaments.map((t) => (
             <div
               key={t.id}

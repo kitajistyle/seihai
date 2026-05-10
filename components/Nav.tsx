@@ -17,9 +17,6 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" id="nav-brand-logo" className="flex items-center gap-2 group">
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-white to-gray-500 flex items-center justify-center shadow-[0_0_10px_rgba(255,255,255,0.4)] group-hover:shadow-[0_0_15px_rgba(255,255,255,0.6)] transition-shadow">
-                <div className="w-2 h-2 bg-black rounded-full" />
-              </div>
               <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい祭</span>
             </Link>
 
