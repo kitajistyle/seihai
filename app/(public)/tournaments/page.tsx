@@ -1,16 +1,62 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Filter, Calendar, Users, ChevronRight, ArrowLeft } from 'lucide-react';
-import { getTournaments } from '@/lib/db/queries';
+import { Calendar, Users, ChevronRight, ArrowLeft } from 'lucide-react';
+import { getTournaments, getTournamentsCount } from '@/lib/db/queries';
+import SearchForm from './search-form';
 
 export const metadata: Metadata = {
   title: '大会一覧',
   description: '現在受付中および過去のeスポーツ・カードゲーム大会一覧です。',
 };
 
-export default async function TournamentsPage() {
-  const tournaments = await getTournaments();
+// 1ページあたりの表示件数 (動作確認のため1件に設定)
+const ITEMS_PER_PAGE = 1;
+
+function getPageRange(current: number, total: number) {
+  const range: (number | string)[] = [];
+  const delta = 2; // 現在のページの前後に表示するページ数
+
+  for (let i = 1; i <= total; i++) {
+    if (
+      i === 1 ||
+      i === total ||
+      (i >= current - delta && i <= current + delta)
+    ) {
+      range.push(i);
+    } else if (range[range.length - 1] !== '...') {
+      range.push('...');
+    }
+  }
+  return range;
+}
+
+export default async function TournamentsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; search?: string; sort?: string }>;
+}) {
+  const resolvedSearchParams = await searchParams;
+  let currentPage = parseInt(resolvedSearchParams.page || '1', 10);
+  if (isNaN(currentPage) || currentPage < 1) {
+    currentPage = 1;
+  }
+  const search = resolvedSearchParams.search || '';
+  const sort = resolvedSearchParams.sort || 'date_desc';
+
+  const [tournaments, totalCount] = await Promise.all([
+    getTournaments({ page: currentPage, limit: ITEMS_PER_PAGE, search, sort }),
+    getTournamentsCount({ search }),
+  ]);
+
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+
+  if (currentPage > totalPages && totalPages > 0) {
+    currentPage = totalPages;
+  }
+
+  const pageRange = getPageRange(currentPage, totalPages);
+
   return (
     <section className="relative bg-[var(--color-bg-dark)]/80 py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
@@ -25,22 +71,7 @@ export default async function TournamentsPage() {
             大会一覧
           </h1>
 
-          <div className="flex flex-wrap gap-3">
-            <div className="relative">
-              <select className="appearance-none bg-[var(--color-bg-dark)] border border-white/10 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:border-[var(--color-brand-blue)]">
-                <option>開催日</option>
-              </select>
-              <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
-            </div>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="大会を検索..."
-                className="bg-[var(--color-bg-dark)] border border-white/10 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] w-full md:w-64"
-              />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            </div>
-          </div>
+          <SearchForm initialSearch={search} initialSort={sort} />
         </div>
 
         <div className="space-y-4">
@@ -85,18 +116,34 @@ export default async function TournamentsPage() {
           ))}
         </div>
 
-        <div className="mt-12 flex justify-center gap-2">
-          {[1, 2, 3, '...', 10, 11, 12].map((p, i) => (
-            <button
-              key={i}
-              className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
-                p === 1 ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
-              }`}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
+        {totalPages > 1 && (
+          <div className="mt-12 flex justify-center gap-2">
+            {pageRange.map((p, i) => {
+              if (p === '...') {
+                return (
+                  <span
+                    key={i}
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium text-gray-500"
+                  >
+                    ...
+                  </span>
+                );
+              }
+              const isActive = p === currentPage;
+              return (
+                <Link
+                  key={i}
+                  href={`/tournaments?page=${p}${search ? `&search=${encodeURIComponent(search)}` : ''}${sort ? `&sort=${sort}` : ''}`}
+                  className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
+                    isActive ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                  }`}
+                >
+                  {p}
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

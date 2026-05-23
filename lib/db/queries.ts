@@ -1,4 +1,4 @@
-import { sql } from '@/lib/db';
+import { sql, db } from '@/lib/db';
 import { Tournament, PlayerRank, Organizer, EventReport, Registration, Announcement } from '@/types';
 
 /**
@@ -20,24 +20,87 @@ export async function getHeroTournaments(): Promise<Tournament[]> {
 }
 
 /**
- * 大会一覧を取得します
+ * 大会一覧を取得します（ページネーション、検索、ソート対応）
  */
-export async function getTournaments(): Promise<Tournament[]> {
+export async function getTournaments(options?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: string;
+}): Promise<Tournament[]> {
+  const page = options?.page ?? 1;
+  const limit = options?.limit;
+  const offset = limit ? (page - 1) * limit : 0;
+  const search = options?.search;
+  const sort = options?.sort || 'date_desc';
+
+  const client = await db.connect();
   try {
-    const { rows } = await sql`
+    let queryText = `
       SELECT
         t.*,
         COALESCE(json_agg(o.*) FILTER (WHERE o.id IS NOT NULL), '[]') AS organizers
       FROM tournaments t
       LEFT JOIN tournament_organizers to_ ON t.id = to_.tournament_id
       LEFT JOIN organizers o ON to_.organizer_id = o.id
-      GROUP BY t.id
-      ORDER BY t.date DESC
     `;
+
+    const queryParams: any[] = [];
+    let paramIndex = 1;
+
+    if (search) {
+      queryText += ` WHERE t.title ILIKE $${paramIndex} OR t.description ILIKE $${paramIndex}`;
+      queryParams.push(`%${search}%`);
+      paramIndex++;
+    }
+
+    queryText += ` GROUP BY t.id`;
+
+    if (sort === 'date_asc') {
+      queryText += ` ORDER BY t.date ASC`;
+    } else if (sort === 'title_asc') {
+      queryText += ` ORDER BY t.title ASC`;
+    } else {
+      queryText += ` ORDER BY t.date DESC`;
+    }
+
+    if (limit !== undefined) {
+      queryText += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
+      queryParams.push(limit, offset);
+    }
+
+    const { rows } = await client.query(queryText, queryParams);
     return rows as Tournament[];
   } catch (error) {
     console.error('Error fetching tournaments:', error);
     return [];
+  } finally {
+    client.release();
+  }
+}
+
+/**
+ * 大会の総件数を取得します（検索対応）
+ */
+export async function getTournamentsCount(options?: { search?: string }): Promise<number> {
+  const search = options?.search;
+  const client = await db.connect();
+  try {
+    let queryText = `SELECT COUNT(*) as count FROM tournaments t`;
+    const queryParams: any[] = [];
+
+    if (search) {
+      queryText += ` WHERE t.title ILIKE $1 OR t.description ILIKE $1`;
+      queryParams.push(`%${search}%`);
+    }
+
+    const { rows } = await client.query(queryText, queryParams);
+    return parseInt(rows[0]?.count || '0', 10);
+  } catch (error) {
+    console.error('Error fetching tournaments count:', error);
+    return 0;
+  } finally {
+    client.release();
   }
 }
 
