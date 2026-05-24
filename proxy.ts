@@ -3,6 +3,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 const MAIN_DOMAIN = 'seisai.vercel.app'
 const ADMIN_DOMAIN = 'seihai-admin.vercel.app'
 
+const MUTATION_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE']
+
 export async function proxy(req: NextRequest) {
   const url = req.nextUrl
   const host = req.headers.get('host') ?? ''
@@ -22,8 +24,16 @@ export async function proxy(req: NextRequest) {
     )
   }
 
-  // Basic Auth for /admin
-  if (url.pathname.startsWith('/admin')) {
+  // /api/* の認証
+  if (url.pathname.startsWith('/api/')) {
+    const key = req.headers.get('x-api-key')
+    if (!key || key !== process.env.API_SECRET) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+  }
+
+  // /admin の書き込み操作のみ Basic Auth
+  if (url.pathname.startsWith('/admin') && MUTATION_METHODS.includes(req.method)) {
     const authHeader = req.headers.get('authorization')
 
     if (!authHeader) {
