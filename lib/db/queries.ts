@@ -1,10 +1,8 @@
+import { cache } from 'react';
 import { sql, db } from '@/lib/db';
 import { Tournament, PlayerRank, Organizer, EventReport, Registration, Announcement } from '@/types';
 
-/**
- * ヒーローセクションに掲載する大会を取得します（最大3件）
- */
-export async function getHeroTournaments(): Promise<Tournament[]> {
+export const getHeroTournaments = cache(async (): Promise<Tournament[]> => {
   try {
     const { rows } = await sql`
       SELECT * FROM tournaments
@@ -17,22 +15,10 @@ export async function getHeroTournaments(): Promise<Tournament[]> {
     console.error('Error fetching hero tournaments:', error);
     return [];
   }
-}
+});
 
-/**
- * 大会一覧を取得します（ページネーション、検索、ソート対応）
- */
-export async function getTournaments(options?: {
-  page?: number;
-  limit?: number;
-  search?: string;
-  sort?: string;
-}): Promise<Tournament[]> {
-  const page = options?.page ?? 1;
-  const limit = options?.limit;
+const _getTournaments = cache(async (page: number, limit: number | undefined, search: string | undefined, sort: string): Promise<Tournament[]> => {
   const offset = limit ? (page - 1) * limit : 0;
-  const search = options?.search;
-  const sort = options?.sort || 'date_desc';
 
   const client = await db.connect();
   try {
@@ -77,13 +63,23 @@ export async function getTournaments(options?: {
   } finally {
     client.release();
   }
+});
+
+export function getTournaments(options?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: string;
+}): Promise<Tournament[]> {
+  return _getTournaments(
+    options?.page ?? 1,
+    options?.limit,
+    options?.search,
+    options?.sort ?? 'date_desc',
+  );
 }
 
-/**
- * 大会の総件数を取得します（検索対応）
- */
-export async function getTournamentsCount(options?: { search?: string }): Promise<number> {
-  const search = options?.search;
+const _getTournamentsCount = cache(async (search: string | undefined): Promise<number> => {
   const client = await db.connect();
   try {
     let queryText = `SELECT COUNT(*) as count FROM tournaments t`;
@@ -102,12 +98,13 @@ export async function getTournamentsCount(options?: { search?: string }): Promis
   } finally {
     client.release();
   }
+});
+
+export function getTournamentsCount(options?: { search?: string }): Promise<number> {
+  return _getTournamentsCount(options?.search);
 }
 
-/**
- * プレイヤーランキング（上位）を取得します
- */
-export async function getRankings(limit = 10): Promise<PlayerRank[]> {
+export const getRankings = cache(async (limit = 10): Promise<PlayerRank[]> => {
   try {
     const { rows } = await sql`
       SELECT * FROM players ORDER BY points DESC LIMIT ${limit}
@@ -121,12 +118,9 @@ export async function getRankings(limit = 10): Promise<PlayerRank[]> {
     console.error('Error fetching rankings:', error);
     return [];
   }
-}
+});
 
-/**
- * 主催者一覧を取得します
- */
-export async function getOrganizers(): Promise<Organizer[]> {
+export const getOrganizers = cache(async (): Promise<Organizer[]> => {
   try {
     const { rows } = await sql`SELECT * FROM organizers ORDER BY name`;
     return rows as Organizer[];
@@ -134,12 +128,9 @@ export async function getOrganizers(): Promise<Organizer[]> {
     console.error('Error fetching organizers:', error);
     return [];
   }
-}
+});
 
-/**
- * 最新のイベントレポート一覧を取得します
- */
-export async function getReports(limit = 4): Promise<EventReport[]> {
+export const getReports = cache(async (limit = 4): Promise<EventReport[]> => {
   try {
     const { rows } = await sql`
       SELECT * FROM event_reports ORDER BY created_at DESC LIMIT ${limit}
@@ -149,12 +140,9 @@ export async function getReports(limit = 4): Promise<EventReport[]> {
     console.error('Error fetching reports:', error);
     return [];
   }
-}
+});
 
-/**
- * レポートの詳細情報を一括取得します
- */
-export async function getReportDetail(id: string) {
+export const getReportDetail = cache(async (id: string) => {
   try {
     const { rows: reportRows } = await sql`SELECT * FROM event_reports WHERE id = ${id}`;
     const report = reportRows[0];
@@ -195,12 +183,9 @@ export async function getReportDetail(id: string) {
     console.error('Error fetching report detail:', error);
     return null;
   }
-}
+});
 
-/**
- * 指定した大会の詳細情報を取得します
- */
-export async function getTournamentDetail(id: string): Promise<Tournament | null> {
+export const getTournamentDetail = cache(async (id: string): Promise<Tournament | null> => {
   try {
     const { rows } = await sql`
       SELECT
@@ -217,11 +202,8 @@ export async function getTournamentDetail(id: string): Promise<Tournament | null
     console.error('Error fetching tournament detail:', error);
     return null;
   }
-}
+});
 
-/**
- * 大会のエントリー（予約）一覧を取得します
- */
 export async function getTournamentRegistrations(tournamentId: string): Promise<Registration[]> {
   try {
     const { rows } = await sql`
@@ -236,10 +218,7 @@ export async function getTournamentRegistrations(tournamentId: string): Promise<
   }
 }
 
-/**
- * プレイヤーをIDで取得します
- */
-export async function getPlayerById(id: string) {
+export const getPlayerById = cache(async (id: string) => {
   try {
     const { rows } = await sql`SELECT * FROM players WHERE id = ${id}`;
     return rows[0] || null;
@@ -247,12 +226,9 @@ export async function getPlayerById(id: string) {
     console.error('Error fetching player:', error);
     return null;
   }
-}
+});
 
-/**
- * お知らせ一覧を取得します
- */
-export async function getAnnouncements(activeOnly = false): Promise<Announcement[]> {
+export const getAnnouncements = cache(async (activeOnly = false): Promise<Announcement[]> => {
   try {
     if (activeOnly) {
       const { rows } = await sql`
@@ -268,12 +244,9 @@ export async function getAnnouncements(activeOnly = false): Promise<Announcement
     console.error('Error fetching announcements:', error);
     return [];
   }
-}
+});
 
-/**
- * お知らせをIDで取得します
- */
-export async function getAnnouncementById(id: string): Promise<Announcement | null> {
+export const getAnnouncementById = cache(async (id: string): Promise<Announcement | null> => {
   try {
     const { rows } = await sql`SELECT * FROM announcements WHERE id = ${id}`;
     return (rows[0] as Announcement) || null;
@@ -281,12 +254,9 @@ export async function getAnnouncementById(id: string): Promise<Announcement | nu
     console.error('Error fetching announcement:', error);
     return null;
   }
-}
+});
 
-/**
- * 主催者をIDで取得します
- */
-export async function getOrganizerById(id: string) {
+export const getOrganizerById = cache(async (id: string) => {
   try {
     const { rows } = await sql`SELECT * FROM organizers WHERE id = ${id}`;
     return rows[0] || null;
@@ -294,4 +264,4 @@ export async function getOrganizerById(id: string) {
     console.error('Error fetching organizer:', error);
     return null;
   }
-}
+});

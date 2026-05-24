@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Bell, ArrowLeft, Calendar } from 'lucide-react';
 import { getAnnouncementById } from '@/lib/db/queries';
 
+export const revalidate = 300;
+
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await props.params;
   const announcement = await getAnnouncementById(id);

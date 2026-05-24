@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { getOrganizers } from '@/lib/db/queries';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: '主催者一覧',
   description: '大会を開催する主催者・オーガナイザーの一覧です。',

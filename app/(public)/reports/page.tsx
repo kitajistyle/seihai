@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { ExternalLink, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getReports } from '@/lib/db/queries';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'イベントレポート',
   description: '開催された大会のイベントレポート一覧です。',

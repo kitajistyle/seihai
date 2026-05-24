@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTournamentDetail } from '@/lib/db/queries';
+
+export const revalidate = 60;
 import {
   Calendar,
   MapPin,

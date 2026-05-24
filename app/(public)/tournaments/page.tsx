@@ -5,6 +5,8 @@ import { Calendar, Users, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getTournaments, getTournamentsCount } from '@/lib/db/queries';
 import SearchForm from './search-form';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: '大会一覧',
   description: '現在受付中および過去のeスポーツ・カードゲーム大会一覧です。',

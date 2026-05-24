@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Bell, ExternalLink, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getAnnouncements } from '@/lib/db/queries';
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: 'お知らせ',
   description: 'せい祭からの最新のお知らせ・更新情報をご確認いただけます。',

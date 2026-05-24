@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getReportDetail } from '@/lib/db/queries';
+
+export const revalidate = 3600;
 import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import SectionRenderer from '@/components/SectionRenderer';

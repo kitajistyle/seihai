@@ -4,6 +4,8 @@ import { Trophy, ArrowLeft } from 'lucide-react';
 import { getRankings } from '@/lib/db/queries';
 import { PlayerRank } from '@/types';
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: 'ランキング',
   description: '全プレイヤーのポイントランキング一覧です。',
