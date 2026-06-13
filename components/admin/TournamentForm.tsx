@@ -258,10 +258,6 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">ゲスト</label>
-              <input name="guests" defaultValue={initialData?.guests} onChange={handleInputChange} className="admin-input w-full" />
-            </div>
-            <div className="space-y-2">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">大会形式</label>
               <input name="format" defaultValue={initialData?.format} onChange={handleInputChange} className="admin-input w-full" placeholder="例: スイスドロー, Bo3" />
             </div>

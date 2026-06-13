@@ -211,25 +211,17 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           </section>
 
           {/* Extra Info */}
-          {(tournament.guests || tournament.contact_info) && (
+          {tournament.contact_info && (
             <section className="glass-panel p-8">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
                 <Megaphone className="w-6 h-6 text-green-400" />
-                ゲスト・注意事項
+                注意事項
               </h2>
               <div className="space-y-6">
-                {tournament.guests && (
-                  <div>
-                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">スペシャルゲスト</p>
-                    <p className="text-green-300 font-bold text-lg">{tournament.guests}</p>
-                  </div>
-                )}
-                {tournament.contact_info && (
-                  <div>
-                    <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">注意事項 / 連絡先</p>
-                    <p className="text-gray-400 leading-relaxed">{tournament.contact_info}</p>
-                  </div>
-                )}
+                <div>
+                  <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">注意事項 / 連絡先</p>
+                  <p className="text-gray-400 leading-relaxed">{tournament.contact_info}</p>
+                </div>
               </div>
             </section>
           )}

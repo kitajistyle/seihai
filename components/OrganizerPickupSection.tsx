@@ -31,7 +31,7 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
             className="glass-panel p-6 flex gap-6 items-center hover:-translate-y-1 hover:border-white/20 transition-all duration-300 group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={org.image_url || ''} className="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 shadow-md group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]" alt={org.name} />
+            <img src={org.image_url || ''} className="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover group-hover:scale-105 transition-all duration-500 shadow-md group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]" alt={org.name} />
             <div className="flex-grow">
               <h3 className="text-2xl font-bold mb-1 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">{org.name}</h3>
               <p className="text-white text-sm font-bold mb-3 tracking-wide">{org.title}</p>

@@ -154,20 +154,12 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
               )}
             </div>
 
-            {(tournament.guests || tournament.contact_info) && (
+            {tournament.contact_info && (
               <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {tournament.guests && (
-                  <div className="flex flex-col gap-2">
-                    <p className="text-sm font-semibold text-gray-400">ゲスト・出演者</p>
-                    <p className="font-medium text-green-300">{tournament.guests}</p>
-                  </div>
-                )}
-                {tournament.contact_info && (
-                  <div className="flex flex-col gap-2">
-                    <p className="text-sm font-semibold text-gray-400">特記事項・連絡先</p>
-                    <p className="font-medium text-gray-300 text-sm leading-relaxed">{tournament.contact_info}</p>
-                  </div>
-                )}
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-semibold text-gray-400">特記事項・連絡先</p>
+                  <p className="font-medium text-gray-300 text-sm leading-relaxed">{tournament.contact_info}</p>
+                </div>
               </div>
             )}
           </section>

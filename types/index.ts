@@ -31,7 +31,6 @@ export interface Tournament {
   participation_prize?: string;
   entry_fee?: string;
   contact_info?: string;
-  guests?: string;
   format?: string;
   external_registration_url?: string;
   featured_in_hero?: boolean;
