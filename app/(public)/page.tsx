@@ -57,17 +57,20 @@ export default async function HomePage() {
         />
       </div>
 
-      {/* Wafu Kasumi & Shigure Lines Background (Home only) */}
-      <div className="wafu-lines-bg">
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-kasumi-line" />
-        <div className="wafu-shigure-line" />
-        <div className="wafu-shigure-line" />
-        <div className="wafu-shigure-line" />
+      {/* Floating Bubbles Background (Home only) */}
+      <div className="bubbles-bg">
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
+        <div className="bubble bubble-pink" />
+        <div className="bubble bubble-sky" />
       </div>
 
       <HeroSection tournaments={heroTournaments} />

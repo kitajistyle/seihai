@@ -43,7 +43,7 @@ export default function AdminLayout({
               <span className="font-black text-lg tracking-tighter uppercase text-gray-800">メニュー</span>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 hover:bg-gray-100 rounded-lg text-gray-500"
+                className="p-2 hover:bg-gray-100 rounded-lg text-gray-700"
               >
                 <X size={20} />
               </button>
@@ -61,11 +61,11 @@ export default function AdminLayout({
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 md:hidden hover:bg-gray-100 rounded-lg text-gray-500"
+              className="p-2 md:hidden hover:bg-gray-100 rounded-lg text-gray-700"
             >
               <Menu size={20} />
             </button>
-            <h2 className="font-bold text-xs text-gray-500 hidden sm:block">
+            <h2 className="font-bold text-xs text-gray-700 hidden sm:block">
               環境: <span className="text-green-600">本番 (Production)</span>
             </h2>
           </div>
@@ -73,7 +73,7 @@ export default function AdminLayout({
           <div className="flex items-center gap-4">
             <div className="text-right hidden xs:block">
               <p className="text-xs font-bold text-gray-800">管理者</p>
-              <p className="text-[10px] text-gray-400">admin@seihai.jp</p>
+              <p className="text-[10px] text-gray-700">admin@seihai.jp</p>
             </div>
             <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/50" />
           </div>
@@ -101,23 +101,23 @@ function SidebarContent({ onItemClick }: { onItemClick?: () => void }) {
         </Link>
 
         <nav className="space-y-1">
-          <h3 className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">メイン</h3>
+          <h3 className="px-4 text-[10px] font-bold text-gray-700 uppercase tracking-widest mb-4">メイン</h3>
           <AdminNavLink href="/admin" icon={<LayoutDashboard size={18} />} onClick={onItemClick}>ダッシュボード</AdminNavLink>
 
-          <h3 className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-8 mb-4">コンテンツ管理</h3>
+          <h3 className="px-4 text-[10px] font-bold text-gray-700 uppercase tracking-widest mt-8 mb-4">コンテンツ管理</h3>
           <AdminNavLink href="/admin/tournaments" icon={<Trophy size={18} />} onClick={onItemClick}>大会管理</AdminNavLink>
           <AdminNavLink href="/admin/reports" icon={<FileText size={18} />} onClick={onItemClick}>レポート管理</AdminNavLink>
           <AdminNavLink href="/admin/organizers" icon={<User size={18} />} onClick={onItemClick}>主催者管理</AdminNavLink>
           <AdminNavLink href="/admin/announcements" icon={<Bell size={18} />} onClick={onItemClick}>お知らせ管理</AdminNavLink>
 
-          <h3 className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-8 mb-4">プラットフォーム</h3>
+          <h3 className="px-4 text-[10px] font-bold text-gray-700 uppercase tracking-widest mt-8 mb-4">プラットフォーム</h3>
           <AdminNavLink href="/" icon={<Home size={18} />} onClick={onItemClick}>公開サイト</AdminNavLink>
           <AdminNavLink href="/admin/settings" icon={<Settings size={18} />} onClick={onItemClick}>設定</AdminNavLink>
         </nav>
       </div>
 
       <div className="p-6 border-t border-gray-100 bg-white">
-        <button className="flex items-center gap-3 text-gray-500 hover:text-gray-800 transition-colors text-sm font-bold w-full">
+        <button className="flex items-center gap-3 text-gray-700 hover:text-gray-900 transition-colors text-sm font-bold w-full">
           <LogOut size={18} /> ログアウト
         </button>
       </div>
@@ -130,9 +130,9 @@ function AdminNavLink({ href, icon, children, onClick }: { href: string; icon: R
     <Link 
       href={href} 
       onClick={onClick}
-      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all group"
+      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all group"
     >
-      <span className="text-gray-400 group-hover:text-[var(--color-brand-blue)] transition-colors">{icon}</span>
+      <span className="text-gray-700 group-hover:text-[var(--color-brand-blue)] transition-colors">{icon}</span>
       {children}
     </Link>
   );

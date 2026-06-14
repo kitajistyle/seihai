@@ -53,33 +53,38 @@ export default async function TournamentsPage({
           {tournaments.map((t) => (
             <div
               key={t.id}
-              className="glass-panel p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 group hover:translate-x-2 transition-transform duration-300"
+              className="glass-panel flex flex-col md:flex-row items-stretch group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
             >
-              <div className="w-full md:w-48 h-32 rounded-lg overflow-hidden shrink-0">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+              {/* 画像 + タイトルオーバーレイ */}
+              <div className="w-full md:w-72 h-44 md:h-auto shrink-0 overflow-hidden relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={t.image_url || ''} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <h3 className="absolute bottom-3 left-4 right-4 text-white font-black text-lg leading-tight drop-shadow">{t.title}</h3>
               </div>
-
-              <div className="flex-grow">
-                <h3 className="text-xl font-bold mb-2">{t.title}</h3>
-                <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-[var(--color-brand-blue)]" />
-                    開催日: {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
-                    {' '}
-                    {new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
+              {/* メタ情報 + ボタン */}
+              <div className="flex-grow px-5 py-4 flex flex-col justify-between gap-3 min-w-0">
+                <div className="text-sm text-gray-600 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
+                    <span className="font-bold text-gray-700">開催日</span>
+                    {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
+                    {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-[var(--color-brand-blue)]" />
-                    残り {t.max_participants - (t.participants || 0)}人 / 定員 {t.max_participants}人
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
+                    <span className="font-bold text-gray-700">空き枠</span>
+                    <span className={t.max_participants - (t.participants || 0) <= 5 ? 'text-red-600 font-bold' : 'text-gray-700'}>
+                      残り {t.max_participants - (t.participants || 0)}人
+                    </span>
+                    <span className="text-gray-400 text-xs">(定員 {t.max_participants}人)</span>
                   </div>
                 </div>
+                <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] active:scale-95">
+                  詳細を見る <ChevronRight className="w-4 h-4" />
+                </Link>
               </div>
-
-              <Link href={`/tournaments/${t.id}`} className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm">
-                詳細を見る
-                <ChevronRight className="w-4 h-4" />
-              </Link>
             </div>
           ))}
         </div>
