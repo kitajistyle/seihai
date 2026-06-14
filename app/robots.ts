@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin/', '/approve/'],
       },
     ],
-    sitemap: 'https://seisai.vercel.app/sitemap.xml',
-    host: 'https://seisai.vercel.app',
+    sitemap: 'https://every1-fes.vercel.app/sitemap.xml',
+    host: 'https://every1-fes.vercel.app',
   };
 }

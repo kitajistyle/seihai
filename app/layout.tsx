@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP, Outfit } from 'next/font/google';
 import './globals.css';
 
-const BASE_URL = 'https://seisai.vercel.app';
+const BASE_URL = 'https://every1-fes.vercel.app';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -71,7 +71,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'EVERY1 FES',
-  alternateName: ['seisai', 'EVERY1 FES大会プラットフォーム'],
+  alternateName: ['every1-fes', 'EVERY1 FES大会プラットフォーム'],
   url: BASE_URL,
   description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム。',
   potentialAction: {

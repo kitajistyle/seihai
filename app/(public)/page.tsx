@@ -14,16 +14,16 @@ export const metadata: Metadata = {
   },
   description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
   alternates: {
-    canonical: 'https://seisai.vercel.app',
+    canonical: 'https://every1-fes.vercel.app',
   },
   openGraph: {
     title: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
     description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
-    url: 'https://seisai.vercel.app',
+    url: 'https://every1-fes.vercel.app',
     siteName: 'EVERY1 FES',
     images: [
       {
-        url: 'https://seisai.vercel.app/seisai-bg.png',
+        url: 'https://every1-fes.vercel.app/seisai-bg.png',
         width: 1200,
         height: 630,
         alt: 'EVERY1 FES - トレーディングカードゲーム大会プラットフォーム',
