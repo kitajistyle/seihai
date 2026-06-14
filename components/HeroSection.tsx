@@ -48,9 +48,9 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
             className="flex flex-col items-center md:items-start gap-4"
           >
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-px bg-gray-300" />
-              <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">近日開催</p>
-              <div className="w-12 h-px bg-gray-300" />
+              <div className="w-12 h-px bg-gradient-to-r from-sky-300 to-pink-300" />
+              <p className="text-sm font-bold text-sky-500 uppercase tracking-widest">近日開催</p>
+              <div className="w-12 h-px bg-gradient-to-r from-pink-300 to-sky-300" />
             </div>
 
             <div className="flex flex-col self-start gap-0">
@@ -60,15 +60,15 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
                   href={`/tournaments/${t.id}`}
                   className="flex items-center justify-between py-4 sm:py-5 group relative"
                 >
-                  <div className="absolute bottom-0 left-0 h-px w-full bg-gray-200 group-hover:bg-gray-900 transition-colors duration-500" />
+                  <div className="absolute bottom-0 left-0 h-px w-full bg-gray-200 group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-pink-400 transition-all duration-500" />
 
                   <div className="flex flex-col items-start gap-2 pr-4 min-w-0">
                     <div className="flex flex-col">
                       <span className="font-bold text-gray-800 group-hover:text-gray-900 truncate transition-colors text-lg sm:text-xl">{t.title}</span>
                       <span className={`text-xs sm:text-sm font-bold px-1.5 py-1 rounded-sm shrink-0 tracking-widest ${
-                        t.status === 'open' ? 'bg-gray-900 text-white' :
+                        t.status === 'open' ? 'bg-gradient-to-r from-sky-400 to-pink-400 text-white border-0' :
                         t.status === 'closed' ? 'text-gray-400 border border-gray-300' :
-                        'text-gray-400 border border-gray-300'
+                        'text-sky-400 border border-sky-200'
                       }`}>
                         {t.status === 'open' ? '受付中' : t.status === 'closed' ? '終了' : '準備中'}
                       </span>
@@ -79,7 +79,7 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
                     </div>
                   </div>
 
-                  <ChevronRight size={20} className="text-gray-400 group-hover:text-gray-900 shrink-0 transition-all duration-300 group-hover:translate-x-1" />
+                  <ChevronRight size={20} className="text-gray-400 group-hover:text-sky-500 shrink-0 transition-all duration-300 group-hover:translate-x-1" />
                 </Link>
               ))}
             </div>

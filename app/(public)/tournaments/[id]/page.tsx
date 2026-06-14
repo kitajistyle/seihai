@@ -75,7 +75,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
   };
 
   return (
-    <article className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
+    <article className="relative min-h-screen pb-20 text-gray-700">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -89,7 +89,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             alt="Tournament Cover"
             className="w-full h-full object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
         
         <div className="absolute inset-0 flex items-end justify-center pb-12 px-6">
@@ -127,7 +127,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
         <div className="lg:col-span-3">
           <Link
             href="/tournaments"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-4"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-4"
           >
             <ArrowLeft size={16} />
             大会一覧に戻る
@@ -139,10 +139,10 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           {/* Overview Section */}
           <section className="glass-panel p-8 md:p-10">
             <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-              <div className="w-1.5 h-8 bg-[var(--color-brand-red)]" />
+              <div className="w-1.5 h-8 bg-gradient-to-b from-sky-400 to-pink-400 rounded-sm" />
               大会概要
             </h2>
-            <div className="prose prose-invert max-w-none text-gray-300 leading-loose text-lg whitespace-pre-wrap">
+            <div className="max-w-none text-gray-600 leading-loose text-lg whitespace-pre-wrap">
               {tournament.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
@@ -167,12 +167,12 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           {/* Details Grid */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-panel p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-[var(--color-brand-blue)]">
+              <div className="flex items-center gap-3 text-gray-500">
                 <MapPin className="w-6 h-6" />
-                <h3 className="font-bold text-lg text-white">開催場所</h3>
+                <h3 className="font-bold text-lg text-gray-900">開催場所</h3>
               </div>
               <div>
-                <p className="text-gray-300 mb-2">{tournament.location || 'オンライン'}</p>
+                <p className="text-gray-600 mb-2">{tournament.location || 'オンライン'}</p>
                 {tournament.location_url && (
                   <a 
                     href={tournament.location_url} 
@@ -187,23 +187,23 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             </div>
 
             <div className="glass-panel p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-[var(--color-brand-blue)]">
+              <div className="flex items-center gap-3 text-gray-500">
                 <Gift className="w-6 h-6" />
-                <h3 className="font-bold text-lg text-white">参加費・賞品</h3>
+                <h3 className="font-bold text-lg text-gray-900">参加費・賞品</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">参加費</span>
-                  <span className="font-bold text-white">{tournament.entry_fee || '無料'}</span>
+                  <span className="font-bold text-gray-900">{tournament.entry_fee || '無料'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">優勝賞品</span>
-                  <span className="font-bold text-yellow-500">{tournament.first_prize || '称号'}</span>
+                  <span className="font-bold text-yellow-600">{tournament.first_prize || '称号'}</span>
                 </div>
                 {tournament.participation_prize && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">参加賞</span>
-                    <span className="font-bold text-white">{tournament.participation_prize}</span>
+                    <span className="font-bold text-gray-900">{tournament.participation_prize}</span>
                   </div>
                 )}
               </div>
@@ -230,8 +230,8 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
         {/* Right Column: Sidebar */}
         <aside className="space-y-8">
           {/* Action Card */}
-          <section className="glass-panel p-8 text-center border-t-4 border-t-[var(--color-brand-blue)] sticky">
-            <Clock className="w-12 h-12 text-[var(--color-brand-blue)] mx-auto mb-4" />
+          <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400 sticky">
+            <Clock className="w-12 h-12 text-sky-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-4">参加申し込み</h3>
             <p className="text-sm text-gray-400 mb-8 leading-relaxed">
               {isExpired 
@@ -247,20 +247,20 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                   href={tournament.external_registration_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2"
+                  className="block w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-md"
                 >
                   大会にエントリーする
                 </a>
               ) : (
                 <a
                   href="#entry"
-                  className="block w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-black text-lg rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center justify-center"
+                  className="block w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center shadow-md"
                 >
                   大会にエントリーする
                 </a>
               )
             ) : (
-              <button disabled className="w-full py-4 bg-white/5 text-gray-500 font-bold rounded-xl cursor-not-allowed">
+              <button disabled className="w-full py-4 bg-gray-100 text-gray-400 font-bold rounded-xl cursor-not-allowed">
                 エントリー不可
               </button>
             )}
@@ -286,7 +286,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                       <img
                         src={org.image_url || `https://unavatar.io/x/${org.name}`}
                         alt={org.name}
-                        className="w-16 h-16 rounded-xl object-cover border border-white/10"
+                        className="w-16 h-16 rounded-xl object-cover border border-gray-200"
                       />
                       <div>
                         <h4 className="font-bold text-lg">{org.name}</h4>
@@ -303,7 +303,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                         href={`https://x.com/${org.x_id}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-gray-900 border border-white/10 text-white rounded-lg text-sm font-bold transition-transform hover:scale-102"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-gray-800 text-white rounded-lg text-sm font-bold transition-transform hover:scale-[1.02]"
                       >
                         𝕏 @{org.x_id} をフォロー
                       </a>

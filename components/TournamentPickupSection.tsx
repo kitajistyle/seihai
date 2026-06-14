@@ -13,7 +13,7 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-12">
           <FadeInView tag="h2" direction="left" className="text-2xl md:text-3xl font-bold flex items-center gap-4">
-            <div className="w-3 h-10 bg-gradient-to-b from-gray-900 to-gray-400 rounded-sm" />
+            <div className="w-3 h-10 bg-gradient-to-b from-sky-400 to-pink-400 rounded-sm" />
             <span className="text-gray-900">注目の大会</span>
           </FadeInView>
           {tournaments.length > 2 && (
@@ -29,7 +29,7 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
               delay={index * 0.15}
               className="glass-panel p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="w-full md:w-48 h-32 rounded-lg overflow-hidden shrink-0 shadow-lg">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={t.image_url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
@@ -46,7 +46,7 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
                   <span className="text-gray-400 text-xs"> / 定員 {t.max_participants}人</span>
                 </p>
               </div>
-              <Link href={`/tournaments/${t.id}`} className="w-full md:w-auto px-6 py-3 bg-gray-900 hover:bg-gray-700 text-white font-black rounded-lg transition-all flex items-center justify-center gap-2">
+              <Link href={`/tournaments/${t.id}`} className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm">
                 詳細を見る <ChevronRight className="w-4 h-4" />
               </Link>
             </FadeInView>

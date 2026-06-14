@@ -44,7 +44,7 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
                 </h3>
                 <div className="mt-auto flex justify-end">
                   <Link href={report.is_external ? (report.url || '#') : `/reports/${report.id}`} target={report.is_external ? "_blank" : "_self"}>
-                    <button className="w-10 h-10 bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-white hover:bg-gray-900 hover:border-transparent transition-all duration-300">
+                    <button className="w-10 h-10 bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-white hover:bg-gradient-to-br hover:from-sky-400 hover:to-pink-400 hover:border-transparent transition-all duration-300">
                       <ChevronRight className="w-5 h-5" />
                     </button>
                   </Link>

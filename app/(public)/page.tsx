@@ -48,11 +48,11 @@ export default async function HomePage() {
   return (
     <>
       {/* Fixed Background Image (Home only) */}
-      <div className="fixed inset-0 z-[-1] bg-[var(--color-bg-dark)]">
+      <div className="fixed inset-0 z-[-1] bg-white">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/seisai-bg.png"
-          className="w-220 object-contain mx-auto"
+          className="w-220 object-contain mx-auto mt-20"
           alt="Background"
         />
       </div>

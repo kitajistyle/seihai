@@ -13,7 +13,7 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
       <div className="text-center mb-16 relative">
         <FadeInView>
           <h2 className="text-4xl font-black mb-6 uppercase tracking-tighter text-gradient-premium">主催者一覧</h2>
-          <div className="w-32 h-3 bg-gradient-to-r from-gray-900 to-gray-300 mx-auto mb-6 rounded-sm" />
+          <div className="w-32 h-3 bg-gradient-to-r from-sky-300 to-pink-300 mx-auto mb-6 rounded-sm" />
           <p className="text-gray-500 mb-8 md:mb-0 font-medium tracking-widest">大会を開催する主催者たち</p>
         </FadeInView>
         {organizers.length > 2 && (

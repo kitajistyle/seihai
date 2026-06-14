@@ -75,7 +75,7 @@ export default function SearchForm({
           placeholder="大会を検索..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-[var(--color-bg-dark)] border border-white/10 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] w-full md:w-64 text-gray-200"
+          className="bg-white border border-gray-200 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:border-gray-900 w-full md:w-64 text-gray-700"
         />
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
       </div>

@@ -22,7 +22,7 @@ export default async function RankingsPage() {
 
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-blue)]" />
+          <div className="w-1 h-8 bg-gradient-to-b from-sky-400 to-pink-400 rounded-sm" />
           ランキング <span className="text-sm font-normal text-gray-500 ml-2 uppercase tracking-widest">Ranking</span>
         </h1>
       </div>
@@ -49,7 +49,7 @@ export default async function RankingsPage() {
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-bold mb-1">{player.name}</h3>
-                <p className="text-[var(--color-brand-blue)] font-mono text-sm">{player.points} PT</p>
+                <p className="text-sky-500 font-mono text-sm font-bold">{player.points} PT</p>
                 {player.x_id && (
                   <a 
                     href={`https://x.com/${player.x_id}`} 
@@ -82,7 +82,7 @@ export default async function RankingsPage() {
           <tbody className="divide-y divide-gray-100 flex flex-col md:table-row-group">
             {rankings.map((player: PlayerRank) => (
               <tr key={player.id} className="hover:bg-gray-50 transition-colors group flex items-center p-4 md:p-0 md:table-row gap-4 md:gap-0">
-                <td className="md:px-6 md:py-4 font-mono text-[var(--color-brand-blue)] font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
+                <td className="md:px-6 md:py-4 font-mono text-sky-500 font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
                 <td className="md:px-6 md:py-4 flex-1 overflow-hidden">
                   <div className="flex items-center gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

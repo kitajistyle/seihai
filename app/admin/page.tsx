@@ -24,7 +24,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-black tracking-tighter text-white mb-2 uppercase">オーバービュー</h1>
+        <h1 className="text-3xl font-black tracking-tighter text-white mb-2 uppercase">ダッシュボード</h1>
         <p className="text-gray-500">こんにちは。現在のプラットフォームの状況を確認できます。</p>
       </div>
 

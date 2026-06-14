@@ -101,7 +101,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.player_name}
             onChange={handleChange}
             placeholder="例: EVERY1 FES 太郎"
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400"
           />
         </div>
 
@@ -117,7 +117,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.email}
             onChange={handleChange}
             placeholder="example@gmail.com"
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400"
           />
         </div>
 
@@ -168,7 +168,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 disabled:bg-gray-700 disabled:cursor-not-allowed text-white font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(37,99,235,0.2)] flex items-center justify-center gap-3"
+          className="w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-md"
         >
           {isSubmitting ? (
             <>

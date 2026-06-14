@@ -50,7 +50,7 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
                 key={announcement.id}
                 className={`py-4 px-3 relative group cursor-pointer rounded-lg transition-all duration-300 hover:bg-gray-50 ${index !== announcements.length - 1 && index !== 4 ? 'border-b border-gray-100' : ''}`}
               >
-                <div className="absolute left-0 top-2 bottom-2 w-2 rounded-sm bg-gradient-to-b from-gray-900 to-gray-400 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-y-50 group-hover:scale-y-100" />
+                <div className="absolute left-0 top-2 bottom-2 w-2 rounded-sm bg-gradient-to-b from-sky-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-y-50 group-hover:scale-y-100" />
                 {isClickable ? (
                   <Link
                     href={targetUrl}
