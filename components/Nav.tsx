@@ -13,11 +13,11 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-[var(--color-bg-dark)]/80 backdrop-blur-lg border-b-2 border-white/10">
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" id="nav-brand-logo" className="flex items-center gap-2 group">
-              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい祭</span>
+              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">EVERY1 FES</span>
             </Link>
 
             <div className="hidden md:flex space-x-8">
@@ -28,8 +28,8 @@ export default function Nav() {
                   href={NAV_LINKS[item]}
                   className={`text-sm font-bold tracking-wide transition-all ${
                     pathname === NAV_LINKS[item]
-                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
-                      : 'text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]'
+                      ? 'text-[var(--color-brand-blue)] drop-shadow-[0_0_8px_rgba(2,132,199,0.15)] font-black'
+                      : 'text-gray-500 hover:text-[var(--color-brand-blue)]'
                   }`}
                 >
                   {item}
@@ -71,13 +71,13 @@ export default function Nav() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 z-50 h-full w-72 bg-[var(--color-bg-dark)] border-l border-white/10 flex flex-col md:hidden"
+              className="fixed top-0 right-0 z-50 h-full w-72 bg-white border-l border-gray-200 flex flex-col md:hidden"
             >
-              <div className="flex items-center justify-between px-6 h-16 border-b border-white/10 shrink-0">
-                <span className="text-base font-black tracking-tighter uppercase">せい祭</span>
+              <div className="flex items-center justify-between px-6 h-16 border-b border-gray-200 shrink-0">
+                <span className="text-base font-black tracking-tighter uppercase">EVERY1 FES</span>
                 <button
                   onClick={() => setIsMenuOpen(false)}
-                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
                   aria-label="メニューを閉じる"
                 >
                   <X size={20} />
@@ -91,10 +91,10 @@ export default function Nav() {
                     id={`nav-mobile-link-${item}`}
                     href={NAV_LINKS[item]}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center px-6 py-4 text-sm font-medium border-b border-white/5 transition-colors ${
+                    className={`flex items-center px-6 py-4 text-sm font-bold border-b border-gray-100 transition-colors ${
                       pathname === NAV_LINKS[item]
-                        ? 'text-white bg-white/10'
-                        : 'text-gray-300 hover:text-white hover:bg-white/5'
+                        ? 'text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/5'
+                        : 'text-gray-600 hover:text-[var(--color-brand-blue)] hover:bg-gray-50'
                     }`}
                   >
                     {item}

@@ -60,9 +60,9 @@ export default async function TournamentsPage({
   const pageRange = getPageRange(currentPage, totalPages);
 
   return (
-    <section className="relative bg-[var(--color-bg-dark)]/80 py-20 min-h-screen">
+    <section className="relative py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-8">
           <ArrowLeft size={16} />
           ホームへ戻る
         </Link>
@@ -137,7 +137,7 @@ export default async function TournamentsPage({
                   key={i}
                   href={`/tournaments?page=${p}${search ? `&search=${encodeURIComponent(search)}` : ''}${sort ? `&sort=${sort}` : ''}`}
                   className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
-                    isActive ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                    isActive ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   {p}

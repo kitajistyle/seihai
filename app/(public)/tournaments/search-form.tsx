@@ -61,7 +61,7 @@ export default function SearchForm({
         <select
           value={initialSort}
           onChange={(e) => handleSort(e.target.value)}
-          className="appearance-none bg-[var(--color-bg-dark)] border border-white/10 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] cursor-pointer text-gray-200"
+          className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:border-gray-900 cursor-pointer text-gray-700"
         >
           <option value="date_desc">開催日 (新しい順)</option>
           <option value="date_asc">開催日 (古い順)</option>

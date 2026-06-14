@@ -7,14 +7,14 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'お知らせ',
-  description: 'せい祭からの最新のお知らせ・更新情報をご確認いただけます。',
+  description: 'EVERY1 FESからの最新のお知らせ・更新情報をご確認いただけます。',
 };
 
 const typeStyles: Record<string, { badge: string; label: string }> = {
   info:    { badge: 'bg-blue-500/20 text-blue-300 border-blue-500/30',   label: 'INFO' },
   new:     { badge: 'bg-green-500/20 text-green-300 border-green-500/30', label: 'NEW' },
   warning: { badge: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30', label: '注意' },
-  success: { badge: 'bg-white/10 text-gray-300 border-white/10',          label: '完了' },
+  success: { badge: 'bg-gray-100 text-gray-600 border-gray-200',          label: '完了' },
 };
 
 function formatDate(dateStr: string) {
@@ -27,15 +27,15 @@ export default async function AnnouncementsPage() {
   const announcements = await getAnnouncements(true);
 
   return (
-    <div className="relative bg-[var(--color-bg-dark)]/80 min-h-screen py-16">
+    <div className="relative min-h-screen py-16">
       <div className="max-w-3xl mx-auto px-4">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-8">
           <ArrowLeft size={16} />
           ホームへ戻る
         </Link>
 
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white flex items-center gap-3 mb-2">
+          <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-gray-900 flex items-center gap-3 mb-2">
             <Bell size={28} className="text-[var(--color-brand-blue)]" />
             お知らせ
           </h1>
@@ -55,12 +55,12 @@ export default async function AnnouncementsPage() {
               const hasDetail = !a.url && !!a.content;
 
               const inner = (
-                <div className={`flex items-center gap-4 p-4 rounded-2xl border glass-panel transition-all ${isExternal || hasDetail ? 'hover:bg-white/8 hover:border-white/20 cursor-pointer' : ''}`}>
+                <div className={`flex items-center gap-4 p-4 rounded-2xl border glass-panel transition-all ${isExternal || hasDetail ? 'hover:shadow-md cursor-pointer' : ''}`}>
                   <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full border ${style.badge}`}>
                     {style.label}
                   </span>
                   <div className="flex-grow min-w-0">
-                    <p className="font-bold text-white text-sm leading-snug">{a.title}</p>
+                    <p className="font-bold text-gray-900 text-sm leading-snug">{a.title}</p>
                     <p className="text-[11px] text-gray-500 mt-0.5">{formatDate(a.created_at)}</p>
                   </div>
                   {isExternal && <ExternalLink size={14} className="shrink-0 text-gray-500" />}

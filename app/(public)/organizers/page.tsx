@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 export default async function OrganizersPage() {
   const organizers = await getOrganizers();
   return (
-    <section className="relative bg-[var(--color-bg-dark)]/80 max-w-7xl mx-auto px-4 py-24 min-h-screen">
-      <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8">
+    <section className="relative max-w-7xl mx-auto px-4 py-24 min-h-screen">
+      <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-8">
         <ArrowLeft size={16} />
         ホームへ戻る
       </Link>

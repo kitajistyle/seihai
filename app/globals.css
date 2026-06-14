@@ -1,60 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-dark: #050505;
-  --color-bg-card: #111111;
-  --color-brand-blue: #ffffff;
-  --color-brand-blue-dark: #a3a3a3;
-  --color-brand-red: #ffffff;
-  --color-brand-gold: #d4d4d4;
+  --color-bg-dark: #ffffff;
+  --color-bg-card: #f8fafc;
+  --color-brand-blue: #1e293b;
+  --color-brand-blue-dark: #475569;
+  --color-brand-red: #1e293b;
+  --color-brand-gold: #64748b;
 }
 
 :root {
   --background: var(--color-bg-dark);
-  --foreground: #f8fafc;
+  --foreground: #0f172a;
 }
 
 body {
   background-color: var(--color-bg-dark);
   color: var(--foreground);
   font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.02), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.02), transparent 25%);
-  background-attachment: fixed;
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.02);
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 4px 20px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
 }
 
 .glass-panel:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 2px 0 0 rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10), 0 8px 40px rgba(0, 0, 0, 0.06);
 }
 
 .text-gradient-premium {
-  background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #475569 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-blue {
-  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #e5e5e5 0%, #737373 100%);
+  background: linear-gradient(135deg, #374151 0%, #6b7280 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -76,20 +71,20 @@ body {
 }
 
 .admin-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0.75rem;
   padding: 0.75rem 1rem;
-  color: white;
+  color: #0f172a;
   font-size: 0.875rem;
   transition: all 0.2s;
 }
 
 .admin-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
   border-color: var(--color-brand-blue);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(30, 41, 59, 0.15);
 }
 
 select.admin-input {
@@ -110,12 +105,10 @@ select.admin-input {
   pointer-events: none;
 }
 
-/* Traditional Japanese mist is depicted as horizontal bands with tapered ends */
 .wafu-kasumi-line {
   position: absolute;
   height: 16px;
-  /* Soft, brush-like white gradient */
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.04), transparent);
   border-radius: 50%;
   filter: blur(4px);
   opacity: 0;
@@ -134,11 +127,10 @@ select.admin-input {
 .wafu-kasumi-line:nth-child(5) { top: 80%; width: 45vw; left: -50vw; animation-duration: 18s; animation-delay: 4s; }
 .wafu-kasumi-line:nth-child(6) { top: 83%; width: 25vw; left: -30vw; animation-duration: 20s; animation-delay: 1s; }
 
-/* Subtle vertical falling lines (like quiet rain / Shigure) */
 .wafu-shigure-line {
   position: absolute;
   width: 6px;
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.05), transparent);
   filter: blur(2px);
   opacity: 0;
   animation: shigureFall linear infinite;

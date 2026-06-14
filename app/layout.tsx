@@ -19,13 +19,13 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
-    template: '%s | せい祭',
+    default: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
+    template: '%s | EVERY1 FES',
   },
-  description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。大会参加登録、ランキング、イベントレポートを一元管理。',
-  authors: [{ name: 'せい祭運営', url: BASE_URL }],
-  creator: 'せい祭',
-  publisher: 'せい祭',
+  description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「EVERY1 FES」。大会参加登録、ランキング、イベントレポートを一元管理。',
+  authors: [{ name: 'EVERY1 FES運営', url: BASE_URL }],
+  creator: 'EVERY1 FES',
+  publisher: 'EVERY1 FES',
   robots: {
     index: true,
     follow: true,
@@ -44,23 +44,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ja_JP',
     url: BASE_URL,
-    siteName: 'せい祭',
-    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
-    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。大会参加登録、ランキング、イベントレポートを一元管理。',
+    siteName: 'EVERY1 FES',
+    title: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
+    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「EVERY1 FES」。大会参加登録、ランキング、イベントレポートを一元管理。',
     images: [
       {
-        url: '/seisai-bg.jpg',
+        url: '/seisai-bg.png',
         width: 1200,
         height: 630,
-        alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
+        alt: 'EVERY1 FES - トレーディングカードゲーム大会プラットフォーム',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
-    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。',
-    images: ['/seisai-bg.jpg'],
+    title: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
+    description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「EVERY1 FES」。',
+    images: ['/seisai-bg.png'],
   },
   verification: {
     google: 'ulYgwo65_dR5Ti_ISHyurdA33nZwzLPfQzYTTRuiWEw',
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'せい祭',
-  alternateName: ['seisai', 'せい祭大会プラットフォーム'],
+  name: 'EVERY1 FES',
+  alternateName: ['seisai', 'EVERY1 FES大会プラットフォーム'],
   url: BASE_URL,
   description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム。',
   potentialAction: {

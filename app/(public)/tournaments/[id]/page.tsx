@@ -24,17 +24,17 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const params = await props.params;
   const tournament = await getTournamentDetail(params.id);
   
-  if (!tournament) return { title: '大会が見つかりません | せい祭' };
+  if (!tournament) return { title: '大会が見つかりません | EVERY1 FES' };
 
   const description = tournament.description
-    || `せい祭で開催される「${tournament.title}」の大会詳細です。参加申し込み・ルール・景品をご確認いただけます。`;
+    || `EVERY1 FESで開催される「${tournament.title}」の大会詳細です。参加申し込み・ルール・景品をご確認いただけます。`;
   
   return {
-    title: `${tournament.title} | せい祭`,
+    title: `${tournament.title} | EVERY1 FES`,
     description,
     alternates: { canonical: `${BASE_URL}/tournaments/${tournament.id}` },
     openGraph: {
-      title: `${tournament.title} | せい祭`,
+      title: `${tournament.title} | EVERY1 FES`,
       description,
       url: `${BASE_URL}/tournaments/${tournament.id}`,
       images: tournament.image_url ? [{ url: tournament.image_url, alt: tournament.title }] : [],
@@ -59,7 +59,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
     '@context': 'https://schema.org',
     '@type': 'SportsEvent',
     name: tournament.title,
-    description: tournament.description || `せい祭で開催される「${tournament.title}」の大会詳細です。`,
+    description: tournament.description || `EVERY1 FESで開催される「${tournament.title}」の大会詳細です。`,
     url: `${BASE_URL}/tournaments/${tournament.id}`,
     startDate: tournament.date,
     location: {
@@ -68,10 +68,10 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
     },
     organizer: {
       '@type': 'Organization',
-      name: 'せい祭',
+      name: 'EVERY1 FES',
       url: BASE_URL,
     },
-    image: tournament.image_url || `${BASE_URL}/seisai-bg.jpg`,
+    image: tournament.image_url || `${BASE_URL}/seisai-bg.png`,
   };
 
   return (

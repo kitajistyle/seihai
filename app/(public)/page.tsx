@@ -10,23 +10,23 @@ import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnou
 export const metadata: Metadata = {
   // absoluteを使うことでlayout.tsxのtemplateが重複適用されるのを防ぐ
   title: {
-    absolute: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+    absolute: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
   },
-  description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
+  description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
   alternates: {
     canonical: 'https://seisai.vercel.app',
   },
   openGraph: {
-    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
-    description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
+    title: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
+    description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
     url: 'https://seisai.vercel.app',
-    siteName: 'せい祭',
+    siteName: 'EVERY1 FES',
     images: [
       {
-        url: 'https://seisai.vercel.app/seisai-bg.jpg',
+        url: 'https://seisai.vercel.app/seisai-bg.png',
         width: 1200,
         height: 630,
-        alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
+        alt: 'EVERY1 FES - トレーディングカードゲーム大会プラットフォーム',
       },
     ],
     type: 'website',
@@ -48,10 +48,10 @@ export default async function HomePage() {
   return (
     <>
       {/* Fixed Background Image (Home only) */}
-      <div className="fixed inset-0 z-[-1] bg-black">
+      <div className="fixed inset-0 z-[-1] bg-[var(--color-bg-dark)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/seisai-bg.jpg"
+          src="/seisai-bg.png"
           className="w-220 object-contain mx-auto"
           alt="Background"
         />

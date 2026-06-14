@@ -63,7 +63,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
           transition={{ delay: 0.1 }}
           className="flex justify-center mb-4"
         >
-          <Image src="/sei-thumbsup.png" alt="せい" width={120} height={150} className="drop-shadow-xl" />
+          <Image src="/shiba-character.png" alt="キャラクター" width={120} height={150} className="drop-shadow-xl" />
         </motion.div>
         <h3 className="text-2xl font-black mb-4">エントリー完了！</h3>
         <p className="text-gray-400 leading-relaxed mb-8">
@@ -100,7 +100,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             required
             value={formData.player_name}
             onChange={handleChange}
-            placeholder="例: せい祭 太郎"
+            placeholder="例: EVERY1 FES 太郎"
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
           />
         </div>
