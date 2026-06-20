@@ -72,14 +72,16 @@ export default async function TournamentsPage({
                     {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
                     {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
-                    <span className="font-bold text-gray-700">空き枠</span>
-                    <span className={t.max_participants - (t.participants || 0) <= 5 ? 'text-red-600 font-bold' : 'text-gray-700'}>
-                      残り {t.max_participants - (t.participants || 0)}人
-                    </span>
-                    <span className="text-gray-400 text-xs">(定員 {t.max_participants}人)</span>
-                  </div>
+                  {!t.external_registration_url && (
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
+                      <span className="font-bold text-gray-700">空き枠</span>
+                      <span className={t.max_participants - (t.participants || 0) <= 5 ? 'text-red-600 font-bold' : 'text-gray-700'}>
+                        残り {t.max_participants - (t.participants || 0)}人
+                      </span>
+                      <span className="text-gray-400 text-xs">(定員 {t.max_participants}人)</span>
+                    </div>
+                  )}
                 </div>
                 <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] active:scale-95">
                   詳細を見る <ChevronRight className="w-4 h-4" />

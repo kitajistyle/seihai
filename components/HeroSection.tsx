@@ -49,7 +49,10 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
           >
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-px bg-gradient-to-r from-sky-300 to-pink-300" />
-              <p className="text-sm font-bold text-sky-500 uppercase tracking-widest">近日開催</p>
+              <div className="text-center md:text-left">
+                <p className="text-sm font-bold text-sky-500 uppercase tracking-widest">9/12（土）</p>
+                <p className="text-xs text-gray-500 mt-0.5">東京都立産業貿易センター浜松町館5Fにて開催</p>
+              </div>
               <div className="w-12 h-px bg-gradient-to-r from-pink-300 to-sky-300" />
             </div>
 
