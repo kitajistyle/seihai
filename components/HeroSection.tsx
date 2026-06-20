@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Tournament } from '@/types';
-import { Calendar, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronRight, MapPin } from 'lucide-react';
 
 interface HeroSectionProps {
   tournaments?: Tournament[];
@@ -77,6 +77,12 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
                       <Calendar size={16} />
                       <span className="font-mono text-sm sm:text-base">{formatDate(t.date)}</span>
                     </div>
+                    {t.location && (
+                      <div className="flex items-center gap-2 text-gray-500 group-hover:text-gray-700 transition-colors">
+                        <MapPin size={16} />
+                        <span className="text-sm sm:text-base">{t.location}</span>
+                      </div>
+                    )}
                   </div>
 
                   <ChevronRight size={20} className="text-gray-400 group-hover:text-sky-500 shrink-0 transition-all duration-300 group-hover:translate-x-1" />
