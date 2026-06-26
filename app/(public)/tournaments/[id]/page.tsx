@@ -24,17 +24,17 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const params = await props.params;
   const tournament = await getTournamentDetail(params.id);
   
-  if (!tournament) return { title: '大会が見つかりません | EVERY1 FES' };
+  if (!tournament) return { title: '大会が見つかりません | せい祭' };
 
   const description = tournament.description
-    || `EVERY1 FESで開催される「${tournament.title}」の大会詳細です。参加申し込み・ルール・景品をご確認いただけます。`;
+    || `せい祭で開催される「${tournament.title}」の大会詳細です。参加申し込み・ルール・景品をご確認いただけます。`;
   
   return {
-    title: `${tournament.title} | EVERY1 FES`,
+    title: `${tournament.title} | せい祭`,
     description,
     alternates: { canonical: `${BASE_URL}/tournaments/${tournament.id}` },
     openGraph: {
-      title: `${tournament.title} | EVERY1 FES`,
+      title: `${tournament.title} | せい祭`,
       description,
       url: `${BASE_URL}/tournaments/${tournament.id}`,
       images: tournament.image_url ? [{ url: tournament.image_url, alt: tournament.title }] : [],
@@ -59,7 +59,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
     '@context': 'https://schema.org',
     '@type': 'SportsEvent',
     name: tournament.title,
-    description: tournament.description || `EVERY1 FESで開催される「${tournament.title}」の大会詳細です。`,
+    description: tournament.description || `せい祭で開催される「${tournament.title}」の大会詳細です。`,
     url: `${BASE_URL}/tournaments/${tournament.id}`,
     startDate: tournament.date,
     location: {
@@ -68,7 +68,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
     },
     organizer: {
       '@type': 'Organization',
-      name: 'EVERY1 FES',
+      name: 'せい祭',
       url: BASE_URL,
     },
     image: tournament.image_url || `${BASE_URL}/seisai-bg.png`,
@@ -102,10 +102,10 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                 {tournament.format || 'トーナメント'}
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white drop-shadow-2xl mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter text-white drop-shadow-2xl mb-4">
               {tournament.title}
             </h1>
-            <div className="flex items-center gap-6 text-gray-300">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-gray-300">
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-[var(--color-brand-blue)]" />
                 <span className="font-bold">
@@ -230,7 +230,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
         {/* Right Column: Sidebar */}
         <aside className="space-y-8">
           {/* Action Card */}
-          <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400 sticky">
+          <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400 sticky top-8">
             <Clock className="w-12 h-12 text-sky-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-4">参加申し込み</h3>
             <p className="text-sm text-gray-400 mb-8 leading-relaxed">
@@ -247,14 +247,14 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                   href={tournament.external_registration_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-md"
+                  className="w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-md"
                 >
                   大会にエントリーする
                 </a>
               ) : (
                 <a
                   href="#entry"
-                  className="block w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center shadow-md"
+                  className="w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 text-white font-black text-lg rounded-xl transition-all hover:scale-105 flex items-center justify-center shadow-md"
                 >
                   大会にエントリーする
                 </a>

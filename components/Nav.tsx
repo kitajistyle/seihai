@@ -13,11 +13,11 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200">
+      <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Link href="/" id="nav-brand-logo" className="flex items-center gap-2 group">
-              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">EVERY1 FES</span>
+              <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい祭</span>
             </Link>
 
             <div className="hidden md:flex space-x-8">
@@ -28,8 +28,8 @@ export default function Nav() {
                   href={NAV_LINKS[item]}
                   className={`text-sm font-bold tracking-wide transition-all ${
                     pathname === NAV_LINKS[item]
-                      ? 'text-[var(--color-brand-blue)] drop-shadow-[0_0_8px_rgba(2,132,199,0.15)] font-black'
-                      : 'text-gray-500 hover:text-[var(--color-brand-blue)]'
+                      ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.15)] font-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   {item}
@@ -39,7 +39,7 @@ export default function Nav() {
 
             <button
               id="nav-mobile-menu-toggle"
-              className="md:hidden p-2 text-gray-400"
+              className="md:hidden p-2 text-zinc-400 hover:text-white"
               onClick={() => setIsMenuOpen(true)}
               aria-label="メニューを開く"
             >
@@ -71,13 +71,13 @@ export default function Nav() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 z-50 h-full w-72 bg-white border-l border-gray-200 flex flex-col md:hidden"
+              className="fixed top-0 right-0 z-50 h-full w-72 bg-zinc-950 border-l border-zinc-800 flex flex-col md:hidden"
             >
-              <div className="flex items-center justify-between px-6 h-16 border-b border-gray-200 shrink-0">
-                <span className="text-base font-black tracking-tighter uppercase">EVERY1 FES</span>
+              <div className="flex items-center justify-between px-6 h-16 border-b border-zinc-800 shrink-0">
+                <span className="text-base font-black tracking-tighter uppercase text-white">せい祭</span>
                 <button
                   onClick={() => setIsMenuOpen(false)}
-                  className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+                  className="p-2 text-zinc-400 hover:text-white transition-colors"
                   aria-label="メニューを閉じる"
                 >
                   <X size={20} />
@@ -91,10 +91,10 @@ export default function Nav() {
                     id={`nav-mobile-link-${item}`}
                     href={NAV_LINKS[item]}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center px-6 py-4 text-sm font-bold border-b border-gray-100 transition-colors ${
+                    className={`flex items-center px-6 py-4 text-sm font-bold border-b border-zinc-900 transition-colors ${
                       pathname === NAV_LINKS[item]
-                        ? 'text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/5'
-                        : 'text-gray-600 hover:text-[var(--color-brand-blue)] hover:bg-gray-50'
+                        ? 'text-white bg-zinc-900/60'
+                        : 'text-zinc-300 hover:text-white hover:bg-zinc-900/30'
                     }`}
                   >
                     {item}

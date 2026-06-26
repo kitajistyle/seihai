@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 gap-6 bg-[var(--color-bg-dark)]">
       <Image
-        src="/shiba-character.png"
+        src="/sei-cleaning.png"
         alt="キャラクター"
         width={180}
         height={220}

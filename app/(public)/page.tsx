@@ -10,23 +10,23 @@ import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnou
 export const metadata: Metadata = {
   // absoluteを使うことでlayout.tsxのtemplateが重複適用されるのを防ぐ
   title: {
-    absolute: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
+    absolute: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
   },
-  description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
+  description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
   alternates: {
     canonical: 'https://every1-fes.vercel.app',
   },
   openGraph: {
-    title: 'EVERY1 FES | トレーディングカードゲーム大会プラットフォーム',
-    description: '「EVERY1 FES」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
+    title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
+    description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
     url: 'https://every1-fes.vercel.app',
-    siteName: 'EVERY1 FES',
+    siteName: 'せい祭',
     images: [
       {
         url: 'https://every1-fes.vercel.app/seisai-bg.png',
         width: 1200,
         height: 630,
-        alt: 'EVERY1 FES - トレーディングカードゲーム大会プラットフォーム',
+        alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
       },
     ],
     type: 'website',
@@ -48,29 +48,26 @@ export default async function HomePage() {
   return (
     <>
       {/* Fixed Background Image (Home only) */}
-      <div className="fixed inset-0 z-[-1] bg-white">
+      <div className="fixed top-0 left-0 z-[-1] w-full bg-black flex items-center justify-center pointer-events-none">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/seisai-bg.png"
-          className="w-220 object-contain mx-auto mt-20"
+          className="max-w-[450px] sm:max-w-[550px] md:max-w-[650px] aspect-square object-contain"
           alt="Background"
         />
       </div>
 
-      {/* Floating Bubbles Background (Home only) */}
-      <div className="bubbles-bg">
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
-        <div className="bubble bubble-pink" />
-        <div className="bubble bubble-sky" />
+      {/* Wafu (Japanese Style) Mist Background (Home only) */}
+      <div className="wafu-lines-bg">
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-kasumi-line" />
+        <div className="wafu-shigure-line" />
+        <div className="wafu-shigure-line" />
+        <div className="wafu-shigure-line" />
       </div>
 
       <HeroSection tournaments={heroTournaments} />

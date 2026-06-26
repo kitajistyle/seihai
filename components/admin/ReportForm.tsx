@@ -127,7 +127,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
                 onChange={handleInputChange}
                 className="admin-input w-full" 
                 required 
-                placeholder="例: 第1回 EVERY1 FES 決勝レポート"
+                placeholder="例: 第1回 せい祭 決勝レポート"
               />
             </div>
             <div className="space-y-2">

@@ -14,9 +14,11 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
         <div className="flex items-center justify-between mb-12">
           <FadeInView tag="h2" direction="left" className="text-2xl md:text-3xl font-bold flex items-center gap-4">
             <span className="text-gradient-premium">イベントレポート</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sei-peace.png" alt="peace" className="w-10 h-10 md:w-14 md:h-14 -mt-1 md:-mt-2 object-contain animate-bounce shrink-0" />
           </FadeInView>
           {reports.length > 4 && (
-            <Link href="/reports" className="text-sm text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1 shrink-0">
+            <Link href="/reports" className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-1 shrink-0">
               すべて見る <ChevronRight className="w-4 h-4" />
             </Link>
           )}
@@ -39,12 +41,12 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
                 )}
               </div>
               <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                <h3 className="text-gray-800 font-bold text-sm sm:text-base mb-4 line-clamp-3 leading-relaxed">
+                <h3 className="text-zinc-200 font-bold text-sm sm:text-base mb-4 line-clamp-3 leading-relaxed">
                   {report.title}
                 </h3>
                 <div className="mt-auto flex justify-end">
                   <Link href={report.is_external ? (report.url || '#') : `/reports/${report.id}`} target={report.is_external ? "_blank" : "_self"}>
-                    <button className="w-10 h-10 bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-white hover:bg-gradient-to-br hover:from-sky-400 hover:to-pink-400 hover:border-transparent transition-all duration-300">
+                    <button className="w-10 h-10 bg-zinc-800/80 border border-zinc-700/80 rounded-full flex items-center justify-center text-zinc-300 hover:text-black hover:bg-white hover:border-transparent transition-all duration-300 cursor-pointer">
                       <ChevronRight className="w-5 h-5" />
                     </button>
                   </Link>

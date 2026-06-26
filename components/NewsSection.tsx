@@ -35,7 +35,7 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
                   <span className="text-sm text-gray-400 font-mono tracking-wider">
                     {dateStr}
                   </span>
-                  <span className="text-base sm:text-lg text-gray-700 font-medium line-clamp-2 ml-2 sm:ml-4 group-hover:text-gray-900 transition-colors">
+                  <span className="text-base sm:text-lg text-zinc-300 font-medium line-clamp-2 ml-2 sm:ml-4 group-hover:text-white transition-colors">
                     {announcement.title}
                   </span>
                 </div>
@@ -48,9 +48,9 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
             return (
               <div
                 key={announcement.id}
-                className={`py-4 px-3 relative group cursor-pointer rounded-lg transition-all duration-300 hover:bg-gray-50 ${index !== announcements.length - 1 && index !== 4 ? 'border-b border-gray-100' : ''}`}
+                className={`py-4 px-3 relative group cursor-pointer rounded-lg transition-all duration-300 hover:bg-zinc-900/50 ${index !== announcements.length - 1 && index !== 4 ? 'border-b border-zinc-800' : ''}`}
               >
-                <div className="absolute left-0 top-2 bottom-2 w-2 rounded-sm bg-gradient-to-b from-sky-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-y-50 group-hover:scale-y-100" />
+                <div className="absolute left-0 top-2 bottom-2 w-2 rounded-sm bg-gradient-to-b from-white to-zinc-500 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-y-50 group-hover:scale-y-100" />
                 {isClickable ? (
                   <Link
                     href={targetUrl}

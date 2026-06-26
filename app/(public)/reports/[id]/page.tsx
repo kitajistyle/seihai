@@ -14,19 +14,19 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const params = await props.params;
   const data = await getReportDetail(params.id);
   
-  if (!data) return { title: '見つかりません | EVERY1 FES' };
+  if (!data) return { title: '見つかりません | せい祭' };
   
   const tournamentTitle = data.tournament ? data.tournament.title : data.report.title;
   const description = data.tournament 
-    ? `EVERY1 FES主催「${tournamentTitle}」のイベントレポートです。大会結果・上位入賞者・会場（${data.tournament.location || 'オンライン'}）の白熱した様子などの詳細をお届けします。` 
-    : 'EVERY1 FES大会のイベントレポート詳細ページです。';
+    ? `せい祭主催「${tournamentTitle}」のイベントレポートです。大会結果・上位入賞者・会場（${data.tournament.location || 'オンライン'}）の白熱した様子などの詳細をお届けします。` 
+    : 'せい祭大会のイベントレポート詳細ページです。';
 
   return {
-    title: `${data.report.title} | EVERY1 FES`,
+    title: `${data.report.title} | せい祭`,
     description,
     alternates: { canonical: `${BASE_URL}/reports/${data.report.id}` },
     openGraph: {
-      title: `${data.report.title} | EVERY1 FES`,
+      title: `${data.report.title} | せい祭`,
       description,
       images: data.report.image_url ? [{ url: data.report.image_url, alt: data.report.title }] : [],
       url: `${BASE_URL}/reports/${data.report.id}`,
@@ -51,14 +51,14 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
     '@type': 'Article',
     headline: report.title,
     description: tournament
-      ? `EVERY1 FES主催「${tournament.title}」のイベントレポート。`
-      : `EVERY1 FES大会のイベントレポート。`,
+      ? `せい祭主催「${tournament.title}」のイベントレポート。`
+      : `せい祭大会のイベントレポート。`,
     url: `${BASE_URL}/reports/${report.id}`,
     image: report.image_url,
     datePublished: report.created_at,
     publisher: {
       '@type': 'Organization',
-      name: 'EVERY1 FES',
+      name: 'せい祭',
       url: BASE_URL,
     },
   };

@@ -106,7 +106,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
                 onChange={handleInputChange}
                 className="admin-input w-full" 
                 required 
-                placeholder="例: 第1回 EVERY1 FES 予選"
+                placeholder="例: 第1回 せい祭 予選"
               />
             </div>
           </div>

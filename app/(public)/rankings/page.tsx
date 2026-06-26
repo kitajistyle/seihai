@@ -15,15 +15,15 @@ export default async function RankingsPage() {
   const rankings = await getRankings();
   return (
     <section className="relative max-w-7xl mx-auto px-4 py-20 min-h-screen">
-      <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-8">
+      <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8">
         <ArrowLeft size={16} />
         ホームへ戻る
       </Link>
 
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-          <div className="w-1 h-8 bg-gradient-to-b from-sky-400 to-pink-400 rounded-sm" />
-          ランキング <span className="text-sm font-normal text-gray-500 ml-2 uppercase tracking-widest">Ranking</span>
+          <div className="w-1 h-8 bg-gradient-to-b from-white to-zinc-650 rounded-sm" />
+          ランキング <span className="text-sm font-normal text-zinc-500 ml-2 uppercase tracking-widest">Ranking</span>
         </h1>
       </div>
 
@@ -49,7 +49,7 @@ export default async function RankingsPage() {
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-bold mb-1">{player.name}</h3>
-                <p className="text-sky-500 font-mono text-sm font-bold">{player.points} PT</p>
+                <p className="text-white font-mono text-sm font-bold">{player.points} PT</p>
                 {player.x_id && (
                   <a 
                     href={`https://x.com/${player.x_id}`} 
@@ -72,17 +72,17 @@ export default async function RankingsPage() {
 
       <div className="glass-panel overflow-hidden">
         <table className="w-full text-left whitespace-nowrap md:table block">
-          <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider hidden md:table-header-group">
+          <thead className="bg-zinc-900 text-zinc-400 text-xs uppercase tracking-wider hidden md:table-header-group">
             <tr>
               <th className="px-6 py-4 font-medium">Rank</th>
               <th className="px-6 py-4 font-medium">Player</th>
               <th className="px-6 py-4 font-medium">Points</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 flex flex-col md:table-row-group">
+          <tbody className="divide-y divide-zinc-800 flex flex-col md:table-row-group">
             {rankings.map((player: PlayerRank) => (
-              <tr key={player.id} className="hover:bg-gray-50 transition-colors group flex items-center p-4 md:p-0 md:table-row gap-4 md:gap-0">
-                <td className="md:px-6 md:py-4 font-mono text-sky-500 font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
+              <tr key={player.id} className="hover:bg-zinc-900/40 transition-colors group flex items-center p-4 md:p-0 md:table-row gap-4 md:gap-0">
+                <td className="md:px-6 md:py-4 font-mono text-white font-bold text-xl md:text-base w-8 md:w-auto text-center md:text-left">{player.rank}</td>
                 <td className="md:px-6 md:py-4 flex-1 overflow-hidden">
                   <div className="flex items-center gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -94,7 +94,7 @@ export default async function RankingsPage() {
                           href={`https://x.com/${player.x_id}`} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="inline-flex items-center gap-1.5 px-2 py-1 md:px-3 md:py-1.5 bg-gray-100 hover:bg-gray-900 border border-gray-200 rounded-lg text-[10px] md:text-xs font-medium text-gray-600 hover:text-white transition-all w-fit"
+                          className="inline-flex items-center gap-1.5 px-2 py-1 md:px-3 md:py-1.5 bg-zinc-800 hover:bg-white border border-zinc-700 text-zinc-300 hover:text-black transition-all w-fit cursor-pointer"
                         >
                           𝕏 <span className="hidden sm:inline">Follow </span>@{player.x_id}
                         </a>
@@ -102,7 +102,7 @@ export default async function RankingsPage() {
                     </div>
                   </div>
                 </td>
-                <td className="md:px-6 md:py-4 font-mono text-lg font-bold text-right shrink-0">{player.points}<span className="md:hidden text-xs text-gray-500 ml-1 font-sans font-normal block">PT</span></td>
+                <td className="md:px-6 md:py-4 font-mono text-lg font-bold text-right shrink-0">{player.points}<span className="md:hidden text-xs text-zinc-500 ml-1 font-sans font-normal block">PT</span></td>
               </tr>
             ))}
           </tbody>

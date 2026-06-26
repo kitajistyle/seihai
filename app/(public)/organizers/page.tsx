@@ -29,9 +29,9 @@ export default async function OrganizersPage() {
         {organizers.map((org) => (
           <div key={org.id} className="glass-panel p-6 flex gap-6 items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={org.image_url || ''} className="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover transition-all duration-500" alt={org.name} />
-            <div>
-              <h3 className="text-2xl font-bold mb-1">{org.name}</h3>
+            <img src={org.image_url || ''} className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl object-cover transition-all duration-500 shrink-0" alt={org.name} />
+            <div className="min-w-0">
+              <h3 className="text-xl sm:text-2xl font-bold mb-1">{org.name}</h3>
               <p className="text-[var(--color-brand-blue)] text-sm font-medium mb-3">{org.title}</p>
               <p className="text-gray-400 text-sm leading-relaxed">{org.description}</p>
             </div>

@@ -100,7 +100,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             required
             value={formData.player_name}
             onChange={handleChange}
-            placeholder="例: EVERY1 FES 太郎"
+            placeholder="例: せい祭 太郎"
             className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400"
           />
         </div>
@@ -168,7 +168,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-gradient-to-r from-sky-400 to-pink-400 hover:from-sky-500 hover:to-pink-500 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-md"
+          className="w-full py-4 bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-500 disabled:cursor-not-allowed text-black font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-md cursor-pointer"
         >
           {isSubmitting ? (
             <>
