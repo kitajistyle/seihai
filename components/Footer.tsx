@@ -33,9 +33,9 @@ export default function Footer() {
                   className="flex flex-col items-center gap-4 group cursor-pointer"
                 >
                   <div className={`w-14 h-14 rounded-2xl bg-zinc-900 flex items-center justify-center border border-zinc-800/80 transition-all duration-300 ${link.bgColor} ${link.glow} group-hover:border-zinc-400`}>
-                    <link.icon className={`w-6 h-6 transition-colors duration-300 text-zinc-400 ${link.textColor}`} />
+                    <link.icon className={`w-6 h-6 transition-colors duration-300 text-white ${link.textColor}`} />
                   </div>
-                  <span className={`text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-300 ${link.textColor}`}>
+                  <span className={`text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 ${link.textColor}`}>
                     {link.name}
                   </span>
                 </motion.div>
@@ -56,7 +56,7 @@ export default function Footer() {
               );
             })}
           </div>
-            <p className="text-zinc-500 text-xs mt-4">
+            <p className="text-white text-xs mt-4">
               © 2026 せい祭. All rights reserved.
             </p>
         </div>

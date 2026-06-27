@@ -41,7 +41,7 @@ function TextSection({ section }: { section: Section }) {
         </h3>
       )}
       {section.content && (
-        <div className="text-gray-300 leading-loose text-base whitespace-pre-wrap">
+        <div className="text-white leading-loose text-base whitespace-pre-wrap">
           {section.content}
         </div>
       )}
@@ -60,7 +60,7 @@ function ImageSection({ section }: { section: Section }) {
         className="w-full object-cover max-h-[500px]"
       />
       {section.caption && (
-        <figcaption className="text-center text-xs text-gray-500 mt-2 px-4">
+        <figcaption className="text-center text-xs text-white mt-2 px-4">
           {section.caption}
         </figcaption>
       )}
@@ -91,7 +91,7 @@ function ImageTextSection({ section }: { section: Section }) {
           </h3>
         )}
         {section.content && (
-          <p className="text-gray-300 leading-loose whitespace-pre-wrap">
+          <p className="text-white leading-loose whitespace-pre-wrap">
             {section.content}
           </p>
         )}
@@ -131,7 +131,7 @@ function CalloutSection({ section }: { section: Section }) {
           <p className={`font-black text-base ${style.heading}`}>{section.heading}</p>
         )}
         {section.content && (
-          <p className="text-gray-300 leading-loose text-sm whitespace-pre-wrap">{section.content}</p>
+          <p className="text-white leading-loose text-sm whitespace-pre-wrap">{section.content}</p>
         )}
       </div>
     </div>

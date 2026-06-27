@@ -75,7 +75,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
   };
 
   return (
-    <article className="relative min-h-screen pb-20 text-gray-700">
+    <article className="relative min-h-screen pb-20 text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -105,7 +105,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter text-white drop-shadow-2xl mb-4">
               {tournament.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-gray-300">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-white">
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-[var(--color-brand-blue)]" />
                 <span className="font-bold">
@@ -127,7 +127,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
         <div className="lg:col-span-3">
           <Link
             href="/tournaments"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-4"
+            className="inline-flex items-center gap-2 text-sm text-white hover:text-white/80 transition-colors mb-4"
           >
             <ArrowLeft size={16} />
             大会一覧に戻る
@@ -142,7 +142,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               <div className="w-1.5 h-8 bg-gradient-to-b from-sky-400 to-pink-400 rounded-sm" />
               大会概要
             </h2>
-            <div className="max-w-none text-gray-600 leading-loose text-lg whitespace-pre-wrap">
+            <div className="max-w-none text-white leading-loose text-lg whitespace-pre-wrap">
               {tournament.description || '大会の詳細情報は現在準備中です。'}
             </div>
           </section>
@@ -167,12 +167,12 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           {/* Details Grid */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-panel p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-gray-500">
+              <div className="flex items-center gap-3 text-white">
                 <MapPin className="w-6 h-6" />
-                <h3 className="font-bold text-lg text-gray-900">開催場所</h3>
+                <h3 className="font-bold text-lg text-white">開催場所</h3>
               </div>
               <div>
-                <p className="text-gray-600 mb-2">{tournament.location || 'オンライン'}</p>
+                <p className="text-white mb-2">{tournament.location || 'オンライン'}</p>
                 {tournament.location_url && (
                   <a 
                     href={tournament.location_url} 
@@ -187,23 +187,23 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
             </div>
 
             <div className="glass-panel p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3 text-gray-500">
+              <div className="flex items-center gap-3 text-white">
                 <Gift className="w-6 h-6" />
-                <h3 className="font-bold text-lg text-gray-900">参加費・賞品</h3>
+                <h3 className="font-bold text-lg text-white">参加費・賞品</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">参加費</span>
-                  <span className="font-bold text-gray-900">{tournament.entry_fee || '無料'}</span>
+                  <span className="text-white">参加費</span>
+                  <span className="font-bold text-white">{tournament.entry_fee || '無料'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">優勝賞品</span>
+                  <span className="text-white">優勝賞品</span>
                   <span className="font-bold text-yellow-600">{tournament.first_prize || '称号'}</span>
                 </div>
                 {tournament.participation_prize && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">参加賞</span>
-                    <span className="font-bold text-gray-900">{tournament.participation_prize}</span>
+                    <span className="text-white">参加賞</span>
+                    <span className="font-bold text-white">{tournament.participation_prize}</span>
                   </div>
                 )}
               </div>
@@ -219,8 +219,8 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
               </h2>
               <div className="space-y-6">
                 <div>
-                  <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">注意事項 / 連絡先</p>
-                  <p className="text-gray-400 leading-relaxed">{tournament.contact_info}</p>
+                  <p className="text-sm font-bold text-white uppercase tracking-widest mb-2">注意事項 / 連絡先</p>
+                  <p className="text-white leading-relaxed">{tournament.contact_info}</p>
                 </div>
               </div>
             </section>
@@ -233,7 +233,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400 sticky top-8">
             <Clock className="w-12 h-12 text-sky-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-4">参加申し込み</h3>
-            <p className="text-sm text-gray-400 mb-8 leading-relaxed">
+            <p className="text-sm text-white mb-8 leading-relaxed">
               {isExpired 
                 ? 'この大会はすでに終了いたしました。たくさんのご参加ありがとうございました。'
                 : tournament.status === 'open' 
@@ -260,13 +260,13 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                 </a>
               )
             ) : (
-              <button disabled className="w-full py-4 bg-gray-100 text-gray-400 font-bold rounded-xl cursor-not-allowed">
+              <button disabled className="w-full py-4 bg-zinc-800 text-zinc-500 font-bold rounded-xl cursor-not-allowed">
                 エントリー不可
               </button>
             )}
 
             {tournament.status === 'open' && !isExpired && (
-              <p className="mt-4 text-[10px] text-gray-500 flex items-center justify-center gap-1">
+              <p className="mt-4 text-[10px] text-white flex items-center justify-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
                 {tournament.external_registration_url ? '外部サイトへ移動します' : '公式フォームへ遷移します'}
               </p>
@@ -276,7 +276,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           {/* Organizers Section */}
           {tournament.organizers && tournament.organizers.length > 0 && (
             <section className="space-y-4">
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">主催者</p>
+              <p className="text-xs font-bold text-white uppercase tracking-widest mb-4 text-center">主催者</p>
               <div className="space-y-4">
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {tournament.organizers.map((org: any) => (
@@ -294,7 +294,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
                       </div>
                     </div>
                     {org.description && (
-                      <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                      <p className="text-sm text-white leading-relaxed mb-6">
                         {org.description}
                       </p>
                     )}
@@ -321,10 +321,10 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">アーカイブ</p>
+                <p className="text-xs font-bold text-white uppercase tracking-widest mb-1">アーカイブ</p>
                 <h4 className="font-bold text-sm">過去の大会レポートを見る</h4>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-[var(--color-brand-blue)] transition-colors" />
+              <ChevronRight className="w-5 h-5 text-white group-hover:text-[var(--color-brand-blue)] transition-colors" />
             </div>
           </Link>
         </aside>

@@ -66,7 +66,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
           <Image src="/shiba-character.png" alt="キャラクター" width={120} height={150} className="drop-shadow-xl" />
         </motion.div>
         <h3 className="text-2xl font-black mb-4">エントリー完了！</h3>
-        <p className="text-gray-400 leading-relaxed mb-8">
+        <p className="text-white leading-relaxed mb-8">
           {tournamentTitle} へのエントリーを受け付けました。<br />
           ご登録いただいたメールアドレス宛に確認メールをお送りします。
           メールが届かない場合は、迷惑メールフォルダもご確認ください。
@@ -90,7 +90,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor="player_name" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+          <label htmlFor="player_name" className="text-xs font-bold text-white uppercase tracking-widest">
             プレイヤー名 <span className="text-red-500">*</span>
           </label>
           <input
@@ -101,12 +101,12 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.player_name}
             onChange={handleChange}
             placeholder="例: せい祭 太郎"
-            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400"
+            className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-zinc-600"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+          <label htmlFor="email" className="text-xs font-bold text-white uppercase tracking-widest">
             メールアドレス <span className="text-red-500">*</span>
           </label>
           <input
@@ -117,16 +117,16 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.email}
             onChange={handleChange}
             placeholder="example@gmail.com"
-            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-gray-900 transition-colors placeholder:text-gray-400"
+            className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-zinc-600"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="x_id" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+          <label htmlFor="x_id" className="text-xs font-bold text-white uppercase tracking-widest">
             𝕏 (Twitter) ID
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">@</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white">@</span>
             <input
               id="x_id"
               name="x_id"
@@ -140,7 +140,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="message" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+          <label htmlFor="message" className="text-xs font-bold text-white uppercase tracking-widest">
             メッセージ / 意気込み
           </label>
           <textarea

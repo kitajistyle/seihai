@@ -41,7 +41,7 @@ export default function ReportPickupSection({ reports }: ReportPickupSectionProp
                 )}
               </div>
               <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                <h3 className="text-zinc-200 font-bold text-sm sm:text-base mb-4 line-clamp-3 leading-relaxed">
+                <h3 className="text-white font-bold text-sm sm:text-base mb-4 line-clamp-3 leading-relaxed">
                   {report.title}
                 </h3>
                 <div className="mt-auto flex justify-end">

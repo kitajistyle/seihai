@@ -51,7 +51,7 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
               <div className="w-12 h-px bg-gradient-to-r from-zinc-700 to-zinc-400" />
               <div className="text-center md:text-left">
                 <p className="text-sm font-bold text-white uppercase tracking-widest">9/12（土）</p>
-                <p className="text-xs text-zinc-400 mt-0.5">東京都立産業貿易センター浜松町館5Fにて開催</p>
+                <p className="text-xs text-white mt-0.5">東京都立産業貿易センター浜松町館5Fにて開催</p>
               </div>
               <div className="w-12 h-px bg-gradient-to-r from-zinc-400 to-zinc-700" />
             </div>
@@ -69,7 +69,7 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
                     <div className="flex flex-col">
                       <span className="font-bold text-zinc-200 group-hover:text-white truncate transition-colors text-lg sm:text-xl">{t.title}</span>
                       <span className={`text-xs sm:text-sm font-bold px-1.5 py-1 rounded-sm shrink-0 tracking-widest ${
-                        t.status === 'open' ? 'bg-gradient-to-r from-white to-zinc-300 text-black border-0 font-black' :
+                        t.status === 'open' ? 'bg-zinc-900 text-white border border-white/30 font-black' :
                         t.status === 'closed' ? 'text-zinc-500 border border-zinc-700' :
                         'text-zinc-300 border border-zinc-650'
                       }`}>

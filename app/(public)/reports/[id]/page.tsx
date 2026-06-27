@@ -64,7 +64,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
   };
 
   return (
-    <article id={`report-article-${report.id}`} className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-gray-200">
+    <article id={`report-article-${report.id}`} className="relative bg-[var(--color-bg-dark)]/80 min-h-screen pb-20 text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -108,7 +108,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
             {tournament.description && (
               <div className="mb-8 p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
                 <p className="text-sm font-semibold text-blue-300 mb-2 tracking-wider">大会概要</p>
-                <p className="text-gray-200 leading-relaxed text-sm md:text-base">{tournament.description}</p>
+                <p className="text-white leading-relaxed text-sm md:text-base">{tournament.description}</p>
               </div>
             )}
 
@@ -158,7 +158,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
               <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <p className="text-sm font-semibold text-gray-400">特記事項・連絡先</p>
-                  <p className="font-medium text-gray-300 text-sm leading-relaxed">{tournament.contact_info}</p>
+                  <p className="font-medium text-white text-sm leading-relaxed">{tournament.contact_info}</p>
                 </div>
               </div>
             )}
@@ -202,7 +202,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                         </div>
                       ) : (
                         <div>
-                          <p className="font-bold text-xl text-gray-200">{res.display_name}</p>
+                          <p className="font-bold text-xl text-white">{res.display_name}</p>
                           <p className="text-sm text-gray-500">一般参加プレイヤー</p>
                         </div>
                       )}
@@ -221,7 +221,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                     if (line.startsWith('## ')) return <h3 key={idx} className="text-2xl font-bold mt-8 mb-4 text-white">{line.replace('## ', '')}</h3>;
                     if (line.startsWith('**') && line.endsWith('**')) return <strong key={idx} className="block mt-6 mb-2 text-xl text-blue-300">{line.replace(/\*\*/g, '')}</strong>;
                     if (!line.trim()) return <br key={idx} className="my-2" />;
-                    return <p key={idx} className="mb-4 text-gray-300 leading-loose">{line}</p>;
+                    return <p key={idx} className="mb-4 text-white leading-loose">{line}</p>;
                   })}
                 </div>
               </section>
@@ -261,7 +261,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
             {report.is_external && report.url && (
               <section id="external-link-card" className="bg-gradient-to-br from-blue-600/30 to-purple-600/30 border border-blue-500/40 rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(37,99,235,0.2)]">
                  <h3 className="font-bold text-white mb-3 text-lg">外部サイトで続きを読む</h3>
-                 <p className="text-sm text-gray-300 mb-6 leading-relaxed">このレポートの完全版は主催者の公式Webサイト、または外部メディアで公開されています。</p>
+                 <p className="text-sm text-white mb-6 leading-relaxed">このレポートの完全版は主催者の公式Webサイト、または外部メディアで公開されています。</p>
                  <a href={report.url} target="_blank" rel="noopener noreferrer" id="btn-external-report" className="inline-flex items-center justify-center gap-2 w-full py-3.5 bg-blue-500 hover:bg-blue-400 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-[0_4px_20px_rgba(59,130,246,0.5)]">
                    公式記事を読む <ExternalLink className="w-5 h-5 drop-shadow" />
                  </a>

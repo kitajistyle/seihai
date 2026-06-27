@@ -20,7 +20,7 @@ const typeStyles: Record<string, { badge: string; label: string }> = {
   info:    { badge: 'bg-blue-500/20 text-blue-300 border-blue-500/30',       label: 'INFO' },
   new:     { badge: 'bg-green-500/20 text-green-300 border-green-500/30',    label: 'NEW' },
   warning: { badge: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30', label: '注意' },
-  success: { badge: 'bg-white/10 text-gray-300 border-white/10',             label: '完了' },
+  success: { badge: 'bg-white/10 text-white border-white/10',             label: '完了' },
 };
 
 function formatDate(dateStr: string) {
@@ -48,7 +48,7 @@ export default async function AnnouncementDetailPage(props: { params: Promise<{ 
       <div className="max-w-2xl mx-auto px-4">
         <Link
           href="/announcements"
-          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-white hover:text-white/80 transition-colors mb-8"
         >
           <ArrowLeft size={16} />
           お知らせ一覧に戻る
@@ -64,7 +64,7 @@ export default async function AnnouncementDetailPage(props: { params: Promise<{ 
                 <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${style.badge}`}>
                   {style.label}
                 </span>
-                <span className="flex items-center gap-1 text-xs text-gray-500">
+                <span className="flex items-center gap-1 text-xs text-white">
                   <Calendar size={11} />
                   {formatDate(announcement.created_at)}
                 </span>
@@ -77,7 +77,7 @@ export default async function AnnouncementDetailPage(props: { params: Promise<{ 
 
           {announcement.content && (
             <div className="pt-4 border-t border-white/10">
-              <div className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">
+              <div className="text-white text-sm leading-relaxed whitespace-pre-wrap">
                 {announcement.content}
               </div>
             </div>

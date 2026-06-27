@@ -32,10 +32,10 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
             const innerContent = (
               <div className="flex items-center justify-between w-full pr-4">
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-sm text-gray-400 font-mono tracking-wider">
+                  <span className="text-sm text-white font-mono tracking-wider">
                     {dateStr}
                   </span>
-                  <span className="text-base sm:text-lg text-zinc-300 font-medium line-clamp-2 ml-2 sm:ml-4 group-hover:text-white transition-colors">
+                  <span className="text-base sm:text-lg text-white font-medium line-clamp-2 ml-2 sm:ml-4 transition-colors">
                     {announcement.title}
                   </span>
                 </div>

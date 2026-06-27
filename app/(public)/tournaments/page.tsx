@@ -28,7 +28,7 @@ export default async function TournamentsPage({
   return (
     <section className="relative py-20 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-white hover:text-white transition-colors mb-8">
           <ArrowLeft size={16} />
           ホームへ戻る
         </Link>
@@ -46,8 +46,8 @@ export default async function TournamentsPage({
           {tournaments.length === 0 && (
             <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
               <Image src="/sei-cleaning.png" alt="キャラクター" width={150} height={180} className="opacity-80" />
-              <p className="text-gray-400 font-bold text-lg">現在開催中の大会はありません</p>
-              <p className="text-zinc-500 text-sm">近日公開予定ですのでお楽しみに！</p>
+              <p className="text-white font-bold text-lg">現在開催中の大会はありません</p>
+              <p className="text-white text-sm">近日公開予定ですのでお楽しみに！</p>
             </div>
           )}
           {tournaments.map((t) => (
@@ -65,25 +65,25 @@ export default async function TournamentsPage({
               </div>
               {/* メタ情報 + ボタン */}
               <div className="flex-grow px-5 py-4 flex flex-col justify-between gap-3 min-w-0">
-                <div className="text-sm text-zinc-400 space-y-1.5">
+                <div className="text-sm text-white space-y-1.5">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
-                    <span className="font-bold text-zinc-300">開催日</span>
+                    <span className="font-bold text-white">開催日</span>
                     {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
                     {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </div>
                   {!t.external_registration_url && (
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
-                      <span className="font-bold text-zinc-300">空き枠</span>
-                      <span className={t.max_participants - (t.participants || 0) <= 5 ? 'text-red-500 font-bold' : 'text-zinc-300'}>
+                      <span className="font-bold text-white">空き枠</span>
+                      <span className={t.max_participants - (t.participants || 0) <= 5 ? 'text-red-500 font-bold' : 'text-white'}>
                         残り {t.max_participants - (t.participants || 0)}人
                       </span>
-                      <span className="text-zinc-500 text-xs">(定員 {t.max_participants}人)</span>
+                      <span className="text-white text-xs">(定員 {t.max_participants}人)</span>
                     </div>
                   )}
                 </div>
-                <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-white hover:bg-zinc-200 text-black font-black rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] active:scale-95">
+                <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-black rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95">
                   詳細を見る <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>

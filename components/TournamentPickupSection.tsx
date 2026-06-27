@@ -19,7 +19,7 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
             <img src="/sei-running.png" alt="running" className="w-10 h-10 md:w-14 md:h-14 -mt-1 md:-mt-2 object-contain animate-bounce shrink-0" />
           </FadeInView>
           {tournaments.length > 2 && (
-            <Link href="/tournaments" className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-1">
+            <Link href="/tournaments" className="text-sm text-white hover:text-white transition-colors flex items-center gap-1">
               大会一覧へ <ChevronRight className="w-4 h-4" />
             </Link>
           )}
@@ -41,23 +41,23 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
               </div>
               {/* メタ情報 + ボタン */}
               <div className="flex-grow px-5 py-4 flex flex-col justify-between gap-3 min-w-0">
-                <div className="text-sm text-zinc-400 space-y-1.5">
+                <div className="text-sm text-white space-y-1.5">
                   <p className="flex items-center gap-2">
-                    <span className="font-bold text-zinc-300">開催日</span>
+                    <span className="font-bold text-white">開催日</span>
                     {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
                     {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </p>
                   {!t.external_registration_url && (
                     <p className="flex items-center gap-2">
-                      <span className="font-bold text-zinc-300">空き枠</span>
-                      <span className={t.max_participants - t.participants <= 5 ? 'text-red-500 font-bold' : 'text-zinc-300'}>
+                      <span className="font-bold text-white">空き枠</span>
+                      <span className={t.max_participants - t.participants <= 5 ? 'text-red-500 font-bold' : 'text-white'}>
                         残り {t.max_participants - t.participants}人
                       </span>
-                      <span className="text-zinc-500 text-xs">(定員 {t.max_participants}人)</span>
+                      <span className="text-white text-xs">(定員 {t.max_participants}人)</span>
                     </p>
                   )}
                 </div>
-                <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-white hover:bg-zinc-200 text-black font-black rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] active:scale-95">
+                <Link href={`/tournaments/${t.id}`} className="w-full px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white font-black rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95">
                   詳細を見る <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
