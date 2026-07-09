@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP, Outfit } from 'next/font/google';
 import './globals.css';
 
@@ -15,6 +15,11 @@ const outfit = Outfit({
   weight: ['400', '500', '700', '900'],
   variable: '--font-outfit',
 });
+
+export const viewport: Viewport = {
+  themeColor: '#000000',
+  colorScheme: 'dark',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
