@@ -20,8 +20,9 @@ export const getHeroTournaments = cache(async (): Promise<Tournament[]> => {
 const _getTournaments = cache(async (page: number, limit: number | undefined, search: string | undefined, sort: string): Promise<Tournament[]> => {
   const offset = limit ? (page - 1) * limit : 0;
 
-  const client = await db.connect();
+  let client;
   try {
+    client = await db.connect();
     let queryText = `
       SELECT
         t.*,
@@ -61,7 +62,9 @@ const _getTournaments = cache(async (page: number, limit: number | undefined, se
     console.error('Error fetching tournaments:', error);
     return [];
   } finally {
-    client.release();
+    if (client) {
+      client.release();
+    }
   }
 });
 
@@ -80,8 +83,9 @@ export function getTournaments(options?: {
 }
 
 const _getTournamentsCount = cache(async (search: string | undefined): Promise<number> => {
-  const client = await db.connect();
+  let client;
   try {
+    client = await db.connect();
     let queryText = `SELECT COUNT(*) as count FROM tournaments t`;
     const queryParams: any[] = [];
 
@@ -96,7 +100,9 @@ const _getTournamentsCount = cache(async (search: string | undefined): Promise<n
     console.error('Error fetching tournaments count:', error);
     return 0;
   } finally {
-    client.release();
+    if (client) {
+      client.release();
+    }
   }
 });
 
