@@ -1,28 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-const MAIN_DOMAIN = 'seisai.vercel.app'
-const ADMIN_DOMAIN = 'seihai-admin.vercel.app'
-
 const MUTATION_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE']
 
 export async function proxy(req: NextRequest) {
   const url = req.nextUrl
-  const host = req.headers.get('host') ?? ''
-
-  const isAdminDomain = host === ADMIN_DOMAIN
-  const isMainDomain = host === MAIN_DOMAIN
-
-  // admin ドメイン: ルートへのアクセスは /admin にリダイレクト
-  if (isAdminDomain && url.pathname === '/') {
-    return NextResponse.redirect(new URL('/admin', req.url))
-  }
-
-  // メインドメイン: /admin へのアクセスは admin ドメインにリダイレクト
-  if (isMainDomain && url.pathname.startsWith('/admin')) {
-    return NextResponse.redirect(
-      new URL(url.pathname + url.search, `https://${ADMIN_DOMAIN}`)
-    )
-  }
 
   // /api/* の認証
   if (url.pathname.startsWith('/api/')) {
