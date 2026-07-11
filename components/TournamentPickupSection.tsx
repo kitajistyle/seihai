@@ -49,11 +49,8 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
                   </p>
                   {!t.external_registration_url && (
                     <p className="flex items-center gap-2">
-                      <span className="font-bold text-white">空き枠</span>
-                      <span className={t.max_participants - t.participants <= 5 ? 'text-red-500 font-bold' : 'text-white'}>
-                        残り {t.max_participants - t.participants}人
-                      </span>
-                      <span className="text-white text-xs">(定員 {t.max_participants}人)</span>
+                      <span className="font-bold text-white">定員</span>
+                      <span className="text-white">{t.max_participants}人</span>
                     </p>
                   )}
                 </div>
