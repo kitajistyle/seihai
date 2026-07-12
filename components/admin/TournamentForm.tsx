@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { upsertTournament } from '@/lib/db/mutations';
-import { Save, ArrowLeft, Image as ImageIcon, Eye } from 'lucide-react';
+import { Save, ArrowLeft, Image as ImageIcon, Eye, Check } from 'lucide-react';
 import CloudinaryUpload from './CloudinaryUpload';
 import Link from 'next/link';
 import PreviewModal from './PreviewModal';
@@ -119,8 +119,8 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
                   key={org.id} 
                   className={`flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
                     selectedOrganizerIds.includes(org.id) 
-                      ? 'bg-zinc-200 border-zinc-350 text-black' 
-                      : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'
+                      ? 'bg-zinc-200 border-zinc-350 text-black shadow-sm' 
+                      : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-350'
                   }`}
                 >
                   <input 
@@ -132,7 +132,14 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
                   <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-white/10">
                     <img src={org.image_url || 'https://picsum.photos/seed/default/100'} alt="" className="w-full h-full object-cover" />
                   </div>
-                  <span className="text-sm font-bold truncate">{org.name}</span>
+                  <span className="text-sm font-bold truncate flex-grow">{org.name}</span>
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 border transition-all ${
+                    selectedOrganizerIds.includes(org.id)
+                      ? 'bg-zinc-900 border-zinc-900 text-white'
+                      : 'border-zinc-300 bg-white'
+                  }`}>
+                    {selectedOrganizerIds.includes(org.id) && <Check size={12} strokeWidth={3} />}
+                  </div>
                 </label>
               ))}
             </div>

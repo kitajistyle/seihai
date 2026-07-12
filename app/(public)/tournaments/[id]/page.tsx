@@ -241,9 +241,9 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
         </div>
 
         {/* Right Column: Sidebar */}
-        <aside className="space-y-8">
+        <aside className="space-y-8 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto pr-1">
           {/* Action Card */}
-          <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400 sticky top-8">
+          <section className="glass-panel p-8 text-center border-t-4 border-t-sky-400">
             <Clock className="w-12 h-12 text-sky-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-4 text-black">参加申し込み</h3>
             <p className="text-sm text-black mb-8 leading-relaxed">
