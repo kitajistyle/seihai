@@ -65,8 +65,8 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         >
           <Image src="/shiba-character.png" alt="キャラクター" width={120} height={150} className="drop-shadow-xl" />
         </motion.div>
-        <h3 className="text-2xl font-black mb-4">エントリー完了！</h3>
-        <p className="text-white leading-relaxed mb-8">
+        <h3 className="text-2xl font-black mb-4 text-black">エントリー完了！</h3>
+        <p className="text-black leading-relaxed mb-8">
           {tournamentTitle} へのエントリーを受け付けました。<br />
           ご登録いただいたメールアドレス宛に確認メールをお送りします。
           メールが届かない場合は、迷惑メールフォルダもご確認ください。
@@ -83,14 +83,14 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
 
   return (
     <div className="glass-panel p-8">
-      <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-        <Send className="w-5 h-5 text-[var(--color-brand-blue)]" />
+      <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-black">
+        <Send className="w-5 h-5 text-black" />
         エントリーフォーム
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor="player_name" className="text-xs font-bold text-white uppercase tracking-widest">
+          <label htmlFor="player_name" className="text-xs font-bold text-black uppercase tracking-widest">
             プレイヤー名 <span className="text-red-500">*</span>
           </label>
           <input
@@ -101,12 +101,12 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.player_name}
             onChange={handleChange}
             placeholder="例: せい祭 太郎"
-            className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-zinc-600"
+            className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-3 text-black focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-zinc-400"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-xs font-bold text-white uppercase tracking-widest">
+          <label htmlFor="email" className="text-xs font-bold text-black uppercase tracking-widest">
             メールアドレス <span className="text-red-500">*</span>
           </label>
           <input
@@ -117,16 +117,16 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.email}
             onChange={handleChange}
             placeholder="example@gmail.com"
-            className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-zinc-600"
+            className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-3 text-black focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-zinc-400"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="x_id" className="text-xs font-bold text-white uppercase tracking-widest">
+          <label htmlFor="x_id" className="text-xs font-bold text-black uppercase tracking-widest">
             𝕏 (Twitter) ID
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white">@</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500">@</span>
             <input
               id="x_id"
               name="x_id"
@@ -134,13 +134,13 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
               value={formData.x_id}
               onChange={handleChange}
               placeholder="sei_hai"
-              className="w-full bg-white/5 border border-white/10 rounded-lg pl-8 pr-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600"
+              className="w-full bg-zinc-50 border border-zinc-200 rounded-lg pl-8 pr-4 py-3 text-black focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-zinc-400"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="message" className="text-xs font-bold text-white uppercase tracking-widest">
+          <label htmlFor="message" className="text-xs font-bold text-black uppercase tracking-widest">
             メッセージ / 意気込み
           </label>
           <textarea
@@ -150,7 +150,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
             value={formData.message}
             onChange={handleChange}
             placeholder="意気込みなどがあれば入力してください"
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-colors placeholder:text-gray-600 resize-none"
+            className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-3 text-black focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-zinc-400 resize-none"
           />
         </div>
 
@@ -168,7 +168,7 @@ export default function TournamentRegistrationForm({ tournamentId, tournamentTit
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-4 bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-500 disabled:cursor-not-allowed text-black font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-md cursor-pointer"
+          className="w-full py-4 bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-100 disabled:text-zinc-400 disabled:cursor-not-allowed text-white font-black text-lg rounded-xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-md cursor-pointer"
         >
           {isSubmitting ? (
             <>

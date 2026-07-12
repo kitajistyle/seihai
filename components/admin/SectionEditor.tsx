@@ -59,22 +59,22 @@ export default function SectionEditor({ value, onChange, imageFolder = 'sections
       )}
 
       {value.map((section, index) => (
-        <div key={section.id} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+        <div key={section.id} className="bg-zinc-50 border border-zinc-200 rounded-xl overflow-hidden">
           {/* Section Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+          <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-100/80 border-b border-zinc-200/60">
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                 {SECTION_TYPES.find(t => t.type === section.type)?.label}
               </span>
             </div>
             <div className="flex items-center gap-1">
-              <button type="button" onClick={() => move(index, -1)} disabled={index === 0} className="p-1.5 text-gray-600 hover:text-white disabled:opacity-20 transition-colors">
+              <button type="button" onClick={() => move(index, -1)} disabled={index === 0} className="p-1.5 text-gray-500 hover:text-zinc-950 disabled:opacity-20 transition-colors">
                 <ChevronUp size={14} />
               </button>
-              <button type="button" onClick={() => move(index, 1)} disabled={index === value.length - 1} className="p-1.5 text-gray-600 hover:text-white disabled:opacity-20 transition-colors">
+              <button type="button" onClick={() => move(index, 1)} disabled={index === value.length - 1} className="p-1.5 text-gray-500 hover:text-zinc-950 disabled:opacity-20 transition-colors">
                 <ChevronDown size={14} />
               </button>
-              <button type="button" onClick={() => remove(section.id)} className="p-1.5 text-gray-600 hover:text-red-400 transition-colors ml-1">
+              <button type="button" onClick={() => remove(section.id)} className="p-1.5 text-gray-500 hover:text-red-650 transition-colors ml-1">
                 <Trash2 size={14} />
               </button>
             </div>
@@ -100,20 +100,20 @@ export default function SectionEditor({ value, onChange, imageFolder = 'sections
 
       {/* Add Section */}
       {addingType ? (
-        <div className="border border-white/10 rounded-xl p-4 space-y-2 bg-black/20">
-          <p className="text-xs font-bold text-gray-400 mb-3">追加するセクションの種類を選択</p>
+        <div className="border border-zinc-200 rounded-xl p-4 space-y-2 bg-zinc-50/50">
+          <p className="text-xs font-bold text-zinc-500 mb-3">追加するセクションの種類を選択</p>
           <div className="grid grid-cols-2 gap-2">
             {SECTION_TYPES.map(t => (
               <button
                 key={t.type}
                 type="button"
                 onClick={() => add(t.type)}
-                className="flex items-start gap-3 p-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[var(--color-brand-blue)]/50 rounded-xl text-left transition-all group"
+                className="flex items-start gap-3 p-3 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 hover:border-zinc-400 rounded-xl text-left transition-all group"
               >
-                <span className="text-[var(--color-brand-blue)] mt-0.5 shrink-0">{t.icon}</span>
+                <span className="text-zinc-900 mt-0.5 shrink-0">{t.icon}</span>
                 <div>
-                  <p className="text-xs font-bold text-white">{t.label}</p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">{t.description}</p>
+                  <p className="text-xs font-bold text-zinc-900">{t.label}</p>
+                  <p className="text-[10px] text-zinc-500 mt-0.5">{t.description}</p>
                 </div>
               </button>
             ))}
@@ -203,7 +203,7 @@ function ImageTextSectionFields({ section, update, folder }: { section: Section;
             key={pos}
             type="button"
             onClick={() => update(section.id, { image_position: pos })}
-            className={`py-1.5 rounded-lg text-[10px] font-bold border transition-all ${(section.image_position ?? 'left') === pos ? 'bg-[var(--color-brand-blue)] border-transparent text-white' : 'bg-white/5 border-white/10 text-gray-500'}`}
+            className={`py-1.5 rounded-lg text-[10px] font-bold border transition-all ${(section.image_position ?? 'left') === pos ? 'bg-zinc-200 border-zinc-350 text-black' : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'}`}
           >
             画像 {pos === 'left' ? '左' : '右'}
           </button>
@@ -253,15 +253,15 @@ function CalloutSectionFields({ section, update }: { section: Section; update: (
     <>
       <div className="grid grid-cols-3 gap-2 mb-1">
         {([
-          { value: 'info', label: '情報', color: 'bg-blue-500/20 border-blue-500/50 text-blue-300' },
-          { value: 'highlight', label: '注目', color: 'bg-yellow-500/20 border-yellow-500/50 text-yellow-300' },
-          { value: 'warning', label: '注意', color: 'bg-red-500/20 border-red-500/50 text-red-300' },
+          { value: 'info', label: '情報', color: 'bg-blue-50 border-blue-200 text-blue-700' },
+          { value: 'highlight', label: '注目', color: 'bg-amber-55 border-amber-200 text-amber-700' },
+          { value: 'warning', label: '注意', color: 'bg-red-50 border-red-200 text-red-700' },
         ] as const).map(s => (
           <button
             key={s.value}
             type="button"
             onClick={() => update(section.id, { style: s.value })}
-            className={`py-1.5 rounded-lg text-[10px] font-bold border transition-all ${(section.style ?? 'info') === s.value ? s.color : 'bg-white/5 border-white/10 text-gray-500'}`}
+            className={`py-1.5 rounded-lg text-[10px] font-bold border transition-all ${(section.style ?? 'info') === s.value ? s.color : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'}`}
           >
             {s.label}
           </button>

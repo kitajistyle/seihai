@@ -99,30 +99,30 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
         
         {/* Tournament Meta Info */}
         {tournament && (
-          <section id="tournament-info" className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-2xl hover:border-white/20 transition-colors">
-            <h2 id="tournament-info-title" className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
-              <Trophy className="w-6 h-6 text-blue-400" />
+          <section id="tournament-info" className="glass-panel p-6 md:p-8 shadow-2xl transition-colors">
+            <h2 id="tournament-info-title" className="text-xl font-bold mb-6 flex items-center gap-2 text-black">
+              <Trophy className="w-6 h-6 text-blue-600" />
               大会詳細情報
             </h2>
             
             {tournament.description && (
-              <div className="mb-8 p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                <p className="text-sm font-semibold text-blue-300 mb-2 tracking-wider">大会概要</p>
-                <p className="text-white leading-relaxed text-sm md:text-base">{tournament.description}</p>
+              <div className="mb-8 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                <p className="text-sm font-semibold text-blue-700 mb-2 tracking-wider">大会概要</p>
+                <p className="text-black leading-relaxed text-sm md:text-base">{tournament.description}</p>
               </div>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="flex flex-col gap-2">
-                <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Calendar className="w-4 h-4"/> 開催日時</p>
-                <p className="font-medium text-lg">{tournament.date}</p>
+                <p className="flex items-center text-sm font-semibold text-black gap-1"><Calendar className="w-4 h-4 text-zinc-500"/> 開催日時</p>
+                <p className="font-bold text-black text-lg">{tournament.date}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><MapPin className="w-4 h-4"/> 開催場所</p>
-                <p className="font-medium text-lg">
+                <p className="flex items-center text-sm font-semibold text-black gap-1"><MapPin className="w-4 h-4 text-zinc-500"/> 開催場所</p>
+                <p className="font-bold text-black text-lg">
                   {tournament.location || '未定'}
                   {tournament.location_url && (
-                    <a href={tournament.location_url} target="_blank" rel="noopener noreferrer" className="ml-2 inline-block text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                    <a href={tournament.location_url} target="_blank" rel="noopener noreferrer" className="ml-2 inline-block text-xs text-blue-600 hover:text-blue-700 transition-colors">
                       [MAP]
                     </a>
                   )}
@@ -130,35 +130,35 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
               </div>
               {tournament.format && (
                 <div className="flex flex-col gap-2">
-                  <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Users className="w-4 h-4"/> 形式</p>
-                  <p className="font-medium text-lg">{tournament.format}</p>
+                  <p className="flex items-center text-sm font-semibold text-black gap-1"><Users className="w-4 h-4 text-zinc-500"/> 形式</p>
+                  <p className="font-bold text-black text-lg">{tournament.format}</p>
                 </div>
               )}
               {tournament.entry_fee && (
                 <div className="flex flex-col gap-2">
-                  <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Gift className="w-4 h-4"/> 参加費</p>
-                  <p className="font-medium text-lg">{tournament.entry_fee}</p>
+                  <p className="flex items-center text-sm font-semibold text-black gap-1"><Gift className="w-4 h-4 text-zinc-500"/> 参加費</p>
+                  <p className="font-bold text-black text-lg">{tournament.entry_fee}</p>
                 </div>
               )}
               {tournament.first_prize && (
                 <div className="flex flex-col gap-2">
-                  <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Award className="w-4 h-4 text-yellow-500"/> 優勝賞品</p>
-                  <p className="font-medium text-sm leading-relaxed">{tournament.first_prize}</p>
+                  <p className="flex items-center text-sm font-semibold text-black gap-1"><Award className="w-4 h-4 text-yellow-600"/> 優勝賞品</p>
+                  <p className="font-bold text-black text-sm leading-relaxed">{tournament.first_prize}</p>
                 </div>
               )}
               {tournament.participation_prize && (
                 <div className="flex flex-col gap-2">
-                  <p className="flex items-center text-sm font-semibold text-gray-400 gap-1"><Gift className="w-4 h-4"/> 参加賞</p>
-                  <p className="font-medium text-sm leading-relaxed">{tournament.participation_prize}</p>
+                  <p className="flex items-center text-sm font-semibold text-black gap-1"><Gift className="w-4 h-4 text-zinc-500"/> 参加賞</p>
+                  <p className="font-bold text-black text-sm leading-relaxed">{tournament.participation_prize}</p>
                 </div>
               )}
             </div>
 
             {tournament.contact_info && (
-              <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-8 pt-6 border-t border-zinc-200 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm font-semibold text-gray-400">特記事項・連絡先</p>
-                  <p className="font-medium text-white text-sm leading-relaxed">{tournament.contact_info}</p>
+                  <p className="text-sm font-semibold text-black">特記事項・連絡先</p>
+                  <p className="font-medium text-black text-sm leading-relaxed">{tournament.contact_info}</p>
                 </div>
               </div>
             )}
@@ -171,30 +171,30 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
             
             {/* Winners Section */}
             {results.length > 0 && (
-              <section id="tournament-winners" className="bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
-                <h2 id="winners-title" className="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
+              <section id="tournament-winners" className="glass-panel p-6 md:p-8">
+                <h2 id="winners-title" className="text-2xl font-bold mb-6 flex items-center gap-2 text-black">
                   <Award className="w-7 h-7 text-yellow-500" />
                   大会上位入賞者
                 </h2>
                 <div className="space-y-4">
                   {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {results.map((res: any) => (
-                    <div key={res.id} id={`winner-row-${res.id}`} className="group flex items-center gap-5 bg-white/5 p-4 md:px-6 md:py-5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300">
+                    <div key={res.id} id={`winner-row-${res.id}`} className="group flex items-center gap-5 bg-zinc-50 p-4 md:px-6 md:py-5 rounded-xl border border-zinc-250 hover:bg-zinc-100 hover:border-zinc-300 transition-all duration-300">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0
                         ${res.rank === 1 ? 'bg-gradient-to-br from-yellow-300 to-yellow-600 text-black shadow-[0_0_20px_rgba(234,179,8,0.4)]' :
                           res.rank === 2 ? 'bg-gradient-to-br from-gray-200 to-gray-400 text-black shadow-[0_0_15px_rgba(156,163,175,0.3)]' :
-                          res.rank === 3 ? 'bg-gradient-to-br from-amber-600 to-orange-800 text-white shadow-[0_0_15px_rgba(180,83,9,0.3)]' : 'bg-white/10 text-gray-400'}`}>
+                          res.rank === 3 ? 'bg-gradient-to-br from-amber-600 to-orange-800 text-white shadow-[0_0_15px_rgba(180,83,9,0.3)]' : 'bg-zinc-200 text-black'}`}>
                         {res.rank}
                       </div>
                       
                       {res.players ? (
                         <div className="flex items-center gap-4 w-full">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={res.players.avatar_url || `https://i.pravatar.cc/150?u=${res.players.id}`} alt={`${res.players.name} icon`} className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-blue-400/50 transition-colors object-cover" />
+                          <img src={res.players.avatar_url || `https://i.pravatar.cc/150?u=${res.players.id}`} alt={`${res.players.name} icon`} className="w-12 h-12 rounded-full border-2 border-zinc-200 group-hover:border-zinc-350 transition-colors object-cover" />
                           <div>
-                            <p className="font-extrabold text-xl text-white">{res.players.name}</p>
+                            <p className="font-extrabold text-xl text-black">{res.players.name}</p>
                             {res.players.x_id && (
-                              <a href={`https://x.com/${res.players.x_id}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                              <a href={`https://x.com/${res.players.x_id}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1">
                                 𝕏 @{res.players.x_id}
                               </a>
                             )}
@@ -202,8 +202,8 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
                         </div>
                       ) : (
                         <div>
-                          <p className="font-bold text-xl text-white">{res.display_name}</p>
-                          <p className="text-sm text-gray-500">一般参加プレイヤー</p>
+                          <p className="font-bold text-xl text-black">{res.display_name}</p>
+                          <p className="text-sm text-zinc-500">一般参加プレイヤー</p>
                         </div>
                       )}
                     </div>
@@ -214,14 +214,14 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
 
             {/* Report Content */}
             {report.content && (
-              <section id="report-content-section" className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
-                <h2 id="report-content-title" className="text-xl font-bold mb-6 text-white tracking-widest uppercase border-b border-white/10 pb-4">Report</h2>
-                <div className="prose prose-invert prose-lg prose-blue max-w-none">
+              <section id="report-content-section" className="glass-panel p-6 md:p-8">
+                <h2 id="report-content-title" className="text-xl font-bold mb-6 text-black tracking-widest uppercase border-b border-zinc-200 pb-4">Report</h2>
+                <div className="prose prose-lg prose-blue max-w-none text-black">
                   {report.content.split('\n').map((line: string, idx: number) => {
-                    if (line.startsWith('## ')) return <h3 key={idx} className="text-2xl font-bold mt-8 mb-4 text-white">{line.replace('## ', '')}</h3>;
-                    if (line.startsWith('**') && line.endsWith('**')) return <strong key={idx} className="block mt-6 mb-2 text-xl text-blue-300">{line.replace(/\*\*/g, '')}</strong>;
+                    if (line.startsWith('## ')) return <h3 key={idx} className="text-2xl font-bold mt-8 mb-4 text-black">{line.replace('## ', '')}</h3>;
+                    if (line.startsWith('**') && line.endsWith('**')) return <strong key={idx} className="block mt-6 mb-2 text-xl text-blue-700">{line.replace(/\*\*/g, '')}</strong>;
                     if (!line.trim()) return <br key={idx} className="my-2" />;
-                    return <p key={idx} className="mb-4 text-white leading-loose">{line}</p>;
+                    return <p key={idx} className="mb-4 text-black leading-loose">{line}</p>;
                   })}
                 </div>
               </section>
@@ -229,7 +229,7 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
 
             {/* Rich Sections */}
             {report.sections && report.sections.length > 0 && (
-              <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+              <section className="glass-panel p-6 md:p-8">
                 <SectionRenderer sections={report.sections} />
               </section>
             )}
@@ -239,18 +239,18 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
           <aside id="report-sidebar" className="space-y-6">
             {/* Organizer Section */}
             {organizer && (
-              <section id="organizer-sidebar-card" className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md text-center shadow-xl">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-6">Organizer</h3>
+              <section id="organizer-sidebar-card" className="glass-panel p-6 text-center shadow-xl">
+                <h3 className="text-xs font-bold text-black uppercase tracking-[0.2em] mb-6">Organizer</h3>
                 <div className="relative w-24 h-24 mx-auto mb-4">
                   <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md animate-pulse"></div>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={organizer.image_url} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-white/20 object-cover shadow-lg" />
+                  <img src={organizer.image_url} alt={organizer.name} className="relative w-full h-full rounded-full border-2 border-zinc-200 object-cover shadow-lg" />
                 </div>
-                <p className="text-xl font-extrabold text-white mb-2">{organizer.name}</p>
-                <p className="text-sm font-semibold text-blue-400 mb-4 bg-blue-500/10 inline-block px-3 py-1 rounded-full">{organizer.title}</p>
-                <p className="text-sm text-gray-400 leading-relaxed mb-6">{organizer.description}</p>
+                <p className="text-xl font-extrabold text-black mb-2">{organizer.name}</p>
+                <p className="text-sm font-semibold text-blue-700 mb-4 bg-blue-50 inline-block px-3 py-1 rounded-full">{organizer.title}</p>
+                <p className="text-sm text-black leading-relaxed mb-6">{organizer.description}</p>
                 {organizer.x_id && (
-                  <a href={`https://x.com/${organizer.x_id}`} target="_blank" rel="noopener noreferrer" id={`btn-org-twitter-${organizer.id}`} className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#000000] hover:bg-[#111111] text-white rounded-lg text-sm font-bold transition-transform hover:scale-105 shadow-[0_4px_14px_0_rgba(255,255,255,0.1)]">
+                  <a href={`https://x.com/${organizer.x_id}`} target="_blank" rel="noopener noreferrer" id={`btn-org-twitter-${organizer.id}`} className="flex items-center justify-center gap-2 w-full py-2.5 bg-black hover:bg-zinc-800 text-white rounded-lg text-sm font-bold transition-transform hover:scale-105 shadow-md">
                     𝕏 Follow @{organizer.x_id}
                   </a>
                 )}
@@ -259,10 +259,10 @@ export default async function ReportDetailPage(props: { params: Promise<{ id: st
             
             {/* Action Card */}
             {report.is_external && report.url && (
-              <section id="external-link-card" className="bg-gradient-to-br from-blue-600/30 to-purple-600/30 border border-blue-500/40 rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(37,99,235,0.2)]">
-                 <h3 className="font-bold text-white mb-3 text-lg">外部サイトで続きを読む</h3>
-                 <p className="text-sm text-white mb-6 leading-relaxed">このレポートの完全版は主催者の公式Webサイト、または外部メディアで公開されています。</p>
-                 <a href={report.url} target="_blank" rel="noopener noreferrer" id="btn-external-report" className="inline-flex items-center justify-center gap-2 w-full py-3.5 bg-blue-500 hover:bg-blue-400 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-[0_4px_20px_rgba(59,130,246,0.5)]">
+              <section id="external-link-card" className="glass-panel p-6 text-center border-t-4 border-t-zinc-900 shadow-md">
+                 <h3 className="font-bold text-black mb-3 text-lg">外部サイトで続きを読む</h3>
+                 <p className="text-sm text-black mb-6 leading-relaxed">このレポートの完全版は主催者の公式Webサイト、または外部メディアで公開されています。</p>
+                 <a href={report.url} target="_blank" rel="noopener noreferrer" id="btn-external-report" className="inline-flex items-center justify-center gap-2 w-full py-3.5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-md">
                    公式記事を読む <ExternalLink className="w-5 h-5 drop-shadow" />
                  </a>
               </section>

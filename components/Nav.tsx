@@ -7,9 +7,29 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { NAV_ITEMS, NAV_LINKS } from '@/lib/data';
 
-export default function Nav() {
+interface NavProps {
+  hasTournaments?: boolean;
+  hasOrganizers?: boolean;
+  hasReports?: boolean;
+  hasAnnouncements?: boolean;
+}
+
+export default function Nav({
+  hasTournaments = true,
+  hasOrganizers = true,
+  hasReports = true,
+  hasAnnouncements = true,
+}: NavProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const filteredItems = NAV_ITEMS.filter((item) => {
+    if (item === '大会一覧' && !hasTournaments) return false;
+    if (item === '主催者一覧' && !hasOrganizers) return false;
+    if (item === '大会レポート' && !hasReports) return false;
+    if (item === 'お知らせ' && !hasAnnouncements) return false;
+    return true;
+  });
 
   return (
     <>
@@ -21,7 +41,7 @@ export default function Nav() {
             </Link>
 
             <div className="hidden md:flex space-x-8">
-              {NAV_ITEMS.map((item) => (
+              {filteredItems.map((item) => (
                 <Link
                   key={item}
                   id={`nav-desktop-link-${item}`}
@@ -85,7 +105,7 @@ export default function Nav() {
               </div>
 
               <div className="flex-grow overflow-y-auto py-4">
-                {NAV_ITEMS.map((item) => (
+                {filteredItems.map((item) => (
                   <Link
                     key={item}
                     id={`nav-mobile-link-${item}`}

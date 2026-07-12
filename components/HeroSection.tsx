@@ -76,12 +76,12 @@ export default function HeroSection({ tournaments = [] }: HeroSectionProps) {
                         {t.status === 'open' ? '受付中' : t.status === 'closed' ? '終了' : '準備中'}
                       </span>
                         </div>
-                    <div className="flex items-center gap-2 text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                    <div className="flex items-center gap-2 text-white group-hover:text-zinc-200 transition-colors">
                       <Calendar size={16} />
                       <span className="font-mono text-sm sm:text-base">{formatDate(t.date)}</span>
                     </div>
                     {t.location && (
-                      <div className="flex items-center gap-2 text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                      <div className="flex items-center gap-2 text-white group-hover:text-zinc-200 transition-colors">
                         <MapPin size={16} />
                         <span className="text-sm sm:text-base">{t.location}</span>
                       </div>

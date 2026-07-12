@@ -43,10 +43,10 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <Link href="/admin/organizers" className="p-2 hover:bg-white/5 rounded-lg text-gray-500">
+        <Link href="/admin/organizers" className="p-2 hover:bg-zinc-100 rounded-lg text-gray-500">
           <ArrowLeft size={20} />
         </Link>
-        <h1 className="text-2xl font-black text-white">{initialData ? '主催者を編集' : '新規主催者作成'}</h1>
+        <h1 className="text-2xl font-black text-zinc-900">{initialData ? '主催者を編集' : '新規主催者作成'}</h1>
       </div>
 
       {error && (
@@ -98,7 +98,7 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">アイコン画像 URL</label>
             <div className="flex gap-2">
-              <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500 overflow-hidden">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-zinc-500 overflow-hidden">
                 {initialData?.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={initialData.image_url} alt="Profile" className="w-full h-full object-cover" />
@@ -139,14 +139,14 @@ export default function OrganizerForm({ initialData }: OrganizerFormProps) {
         <div className="flex items-center justify-end gap-4">
           <Link 
             href="/admin/organizers"
-            className="px-6 py-2.5 text-sm font-bold text-gray-500 hover:text-white transition-colors"
+            className="px-6 py-2.5 text-sm font-bold text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             キャンセル
           </Link>
           <button 
             type="submit"
             disabled={isPending}
-            className="flex items-center gap-2 px-8 py-2.5 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-bold rounded-xl transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-8 py-2.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold rounded-xl transition-all disabled:opacity-50"
           >
             <Save size={18} /> {isPending ? '保存中...' : '主催者を保存'}
           </button>

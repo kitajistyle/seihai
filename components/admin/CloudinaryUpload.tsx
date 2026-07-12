@@ -75,7 +75,7 @@ export default function CloudinaryUpload({ onUploadSuccess, folder = 'seihai' }:
         type="button"
         onClick={handleUpload}
         disabled={!isReady || isUploading}
-        className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white text-xs font-bold rounded-lg transition-all disabled:opacity-50"
+        className="flex items-center gap-2 px-4 py-2 bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 text-black text-xs font-bold rounded-lg transition-all disabled:opacity-50"
       >
         {isUploading ? (
           <Loader2 className="w-4 h-4 animate-spin text-blue-500" />

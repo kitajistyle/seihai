@@ -50,7 +50,7 @@ export default function AnnouncementForm({ initialData }: AnnouncementFormProps)
     }
   }
 
-  const inputClass = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[var(--color-brand-blue)] transition-all placeholder:text-gray-600";
+  const inputClass = "w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all placeholder:text-zinc-400";
   const labelClass = "block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2";
 
   const linkTypeOptions: { value: 'external' | 'detail' | 'none'; label: string; desc: string; icon: React.ReactNode }[] = [
@@ -82,7 +82,7 @@ export default function AnnouncementForm({ initialData }: AnnouncementFormProps)
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <h1 className="text-2xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
+            <h1 className="text-2xl font-black tracking-tighter text-black uppercase flex items-center gap-3">
               <Bell size={22} className="text-[var(--color-brand-blue)]" />
               {initialData?.id ? 'お知らせを編集' : 'お知らせを作成'}
             </h1>
@@ -91,7 +91,7 @@ export default function AnnouncementForm({ initialData }: AnnouncementFormProps)
         <button
           type="submit"
           disabled={isPending}
-          className="flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-bold rounded-xl transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-6 py-3 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold rounded-xl transition-all disabled:opacity-50"
         >
           <Save size={16} /> {isPending ? '保存中...' : '保存'}
         </button>
@@ -136,8 +136,8 @@ export default function AnnouncementForm({ initialData }: AnnouncementFormProps)
                 onClick={() => setLinkType(opt.value)}
                 className={`flex flex-col items-start gap-2 p-4 rounded-xl border text-left transition-all ${
                   linkType === opt.value
-                    ? 'border-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/10 text-white'
-                    : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20'
+                    ? 'border-zinc-350 bg-zinc-200 text-black'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-500 hover:border-zinc-300'
                 }`}
               >
                 <div className={linkType === opt.value ? 'text-[var(--color-brand-blue)]' : ''}>

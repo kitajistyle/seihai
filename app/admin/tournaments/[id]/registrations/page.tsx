@@ -22,21 +22,21 @@ export default async function TournamentRegistrationsPage(props: { params: Promi
       <div className="flex flex-col gap-4">
         <Link 
           href="/admin/tournaments"
-          className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm w-fit"
+          className="flex items-center gap-2 text-zinc-700 hover:text-black transition-colors text-sm w-fit"
         >
           <ChevronLeft size={16} /> 大会管理へ戻る
         </Link>
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tighter text-white mb-2 uppercase">
+            <h1 className="text-2xl md:text-3xl font-black tracking-tighter text-black mb-2 uppercase">
               エントリーリスト
             </h1>
             <p className="text-[var(--color-brand-blue)] font-bold">{tournament.title}</p>
           </div>
-          <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
+          <div className="flex items-center gap-2 bg-zinc-50 px-4 py-2 rounded-xl border border-zinc-200">
             <Users size={18} className="text-[var(--color-brand-blue)]" />
-            <span className="text-xl font-black text-white">{registrations.length}</span>
-            <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">Entries</span>
+            <span className="text-xl font-black text-black">{registrations.length}</span>
+            <span className="text-zinc-500 text-xs font-bold uppercase tracking-widest">Entries</span>
           </div>
         </div>
       </div>

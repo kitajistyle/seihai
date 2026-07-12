@@ -21,18 +21,19 @@ body {
 }
 
 .glass-panel {
-  background: rgba(10, 10, 12, 0.7);
+  background: #ffffff;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
+  color: var(--color-bg-dark);
 }
 
 .glass-panel:hover {
-  background: rgba(18, 18, 20, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 35px rgba(255, 255, 255, 0.05);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 35px rgba(0, 0, 0, 0.1);
 }
 
 .text-gradient-premium {

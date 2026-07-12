@@ -92,13 +92,13 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-lg bg-[#0a0a0b] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+          className="relative w-full max-w-lg bg-white border border-zinc-200 rounded-2xl shadow-2xl overflow-hidden"
         >
-          <div className="flex items-center justify-between p-6 border-b border-white/10 bg-white/5">
-            <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+          <div className="flex items-center justify-between p-6 border-b border-zinc-200 bg-zinc-50">
+            <h2 className="text-xl font-black text-zinc-900 uppercase tracking-tighter">
               {registration ? 'エントリーを編集' : '新規エントリー追加'}
             </h2>
-            <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors">
+            <button onClick={onClose} className="text-zinc-400 hover:text-zinc-900 transition-colors">
               <X size={24} />
             </button>
           </div>
@@ -114,7 +114,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
                     required
                     value={formData.player_name}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -124,7 +124,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -135,7 +135,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
                     value={formData.x_id}
                     onChange={handleChange}
                     placeholder="sei_hai"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -144,11 +144,11 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
                     name="status"
                     value={formData.status}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all appearance-none"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all appearance-none"
                   >
-                    <option value="pending" className="bg-[#0a0a0b]">承認待ち (pending)</option>
-                    <option value="confirmed" className="bg-[#0a0a0b]">確定 (confirmed)</option>
-                    <option value="cancelled" className="bg-[#0a0a0b]">キャンセル (cancelled)</option>
+                    <option value="pending" className="bg-white">承認待ち (pending)</option>
+                    <option value="confirmed" className="bg-white">確定 (confirmed)</option>
+                    <option value="cancelled" className="bg-white">キャンセル (cancelled)</option>
                   </select>
                 </div>
                 <div className="space-y-1.5">
@@ -158,7 +158,7 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
                     rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-brand-blue)] transition-all resize-none"
+                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-400 transition-all resize-none"
                   />
                 </div>
               </div>
@@ -174,14 +174,14 @@ export default function RegistrationModal({ isOpen, onClose, onSuccess, tourname
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-6 py-3 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all"
+                className="flex-1 px-6 py-3 bg-zinc-100 hover:bg-zinc-200 border border-zinc-250 text-zinc-700 font-bold rounded-xl transition-all"
               >
                 キャンセル
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-[2] flex items-center justify-center gap-2 px-6 py-3 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 disabled:bg-gray-700 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+                className="flex-[2] flex items-center justify-center gap-2 px-6 py-3 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 disabled:bg-zinc-100 disabled:text-zinc-400 text-black font-bold rounded-xl transition-all shadow-md"
               >
                 {isSubmitting ? (
                   <Loader2 className="w-5 h-5 animate-spin" />

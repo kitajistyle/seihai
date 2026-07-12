@@ -37,9 +37,9 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={org.image_url || ''} className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl object-cover group-hover:scale-105 transition-all duration-500 shadow-md shrink-0" alt={org.name} />
             <div className="flex-grow min-w-0">
-              <h3 className="text-xl sm:text-2xl font-bold mb-1 text-white transition-all">{org.name}</h3>
-              <p className="text-white text-sm font-bold mb-3 tracking-wide">{org.title}</p>
-              <p className="text-white text-sm leading-relaxed line-clamp-2 font-medium">{org.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold mb-1 text-black transition-all">{org.name}</h3>
+              <p className="text-black text-sm font-bold mb-3 tracking-wide">{org.title}</p>
+              <p className="text-black text-sm leading-relaxed line-clamp-2 font-medium">{org.description}</p>
             </div>
           </FadeInView>
         ))}

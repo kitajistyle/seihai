@@ -107,7 +107,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
         <Link href="/admin/reports" className="p-2 hover:bg-white/5 rounded-lg text-gray-500">
           <ArrowLeft size={20} />
         </Link>
-        <h1 className="text-2xl font-black text-white">{initialData ? 'レポートを編集' : '新規レポート作成'}</h1>
+        <h1 className="text-2xl font-black text-black">{initialData ? 'レポートを編集' : '新規レポート作成'}</h1>
       </div>
 
       {error && (
@@ -151,15 +151,15 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
 
           {/* 入賞者管理セクション (大会が選択されている場合のみ) */}
           {selectedTournamentId && (
-            <div className="space-y-4 pt-6 border-t border-white/5">
+            <div className="space-y-4 pt-6 border-t border-zinc-200/50">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-[var(--color-brand-blue)] uppercase tracking-widest flex items-center gap-2">
+                <label className="text-xs font-bold text-zinc-900 uppercase tracking-widest flex items-center gap-2">
                   <Trophy size={14} /> 入賞者管理
                 </label>
                 <button 
                   type="button"
                   onClick={addResult}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-300 rounded-lg transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-xs font-bold text-zinc-700 rounded-lg transition-all"
                 >
                   <Plus size={14} /> 追加
                 </button>
@@ -170,7 +170,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
                   <p className="text-[10px] text-gray-600 italic">入賞者データはありません。「追加」ボタンで登録してください。</p>
                 )}
                 {results.sort((a,b) => a.rank - b.rank).map((res, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row gap-3 bg-white/5 p-4 rounded-xl relative group">
+                  <div key={idx} className="flex flex-col sm:flex-row gap-3 bg-zinc-50 border border-zinc-200/60 p-4 rounded-xl relative group">
                     <div className="flex items-center gap-3">
                       <div className="w-10">
                         <label className="block text-[8px] font-bold text-gray-600 uppercase mb-1">順位</label>
@@ -222,20 +222,20 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
             </div>
           )}
 
-          <div className="space-y-2 pt-6 border-t border-white/5">
+          <div className="space-y-2 pt-6 border-t border-zinc-200/50">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">レポート形式</label>
               <div className="flex gap-4 mt-2">
                 <button 
                   type="button"
                   onClick={() => setIsExternal(false)}
-                  className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold transition-all ${!isExternal ? 'bg-[var(--color-brand-blue)] border-transparent text-white' : 'bg-white/5 border-white/10 text-gray-500'}`}
+                   className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold transition-all ${!isExternal ? 'bg-zinc-200 border-zinc-350 text-black' : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'}`}
                 >
                   <FileText size={14} /> 内部コンテンツ
                 </button>
                 <button 
                   type="button"
                   onClick={() => setIsExternal(true)}
-                  className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold transition-all ${isExternal ? 'bg-blue-500 border-transparent text-white' : 'bg-white/5 border-white/10 text-gray-500'}`}
+                   className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold transition-all ${isExternal ? 'bg-zinc-200 border-zinc-350 text-black' : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'}`}
                 >
                   <LinkIcon size={14} /> 外部リンク (X, Note等)
                 </button>
@@ -245,7 +245,7 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">画像 URL *</label>
             <div className="flex gap-2">
-              <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-zinc-500">
                 <ImageIcon size={20} />
               </div>
               <div className="flex-grow space-y-2">
@@ -318,20 +318,20 @@ export default function ReportForm({ initialData, initialResults = [], tournamen
           <button 
             type="button"
             onClick={() => setShowPreview(true)}
-            className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 font-bold rounded-xl transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-250 text-zinc-700 font-bold rounded-xl transition-all"
           >
             <Eye size={18} /> プレビュー
           </button>
           <Link 
             href="/admin/reports"
-            className="px-6 py-2.5 text-sm font-bold text-gray-500 hover:text-white transition-colors"
+            className="px-6 py-2.5 text-sm font-bold text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             キャンセル
           </Link>
           <button 
             type="submit"
             disabled={isPending}
-            className="flex items-center gap-2 px-8 py-2.5 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-bold rounded-xl transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-8 py-2.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold rounded-xl transition-all disabled:opacity-50"
           >
             <Save size={18} /> {isPending ? '保存中...' : '保存する'}
           </button>

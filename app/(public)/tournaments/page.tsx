@@ -65,18 +65,18 @@ export default async function TournamentsPage({
               </div>
               {/* メタ情報 + ボタン */}
               <div className="flex-grow px-5 py-4 flex flex-col justify-between gap-3 min-w-0">
-                <div className="text-sm text-white space-y-1.5">
+                <div className="text-sm text-black space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
-                    <span className="font-bold text-white">開催日</span>
+                    <Calendar className="w-4 h-4 text-black shrink-0" />
+                    <span className="font-bold text-black">開催日</span>
                     {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
                     {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </div>
                   {!t.external_registration_url && (
                     <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
-                      <span className="font-bold text-white">定員</span>
-                      <span className="text-white">{t.max_participants}人</span>
+                      <Users className="w-4 h-4 text-black shrink-0" />
+                      <span className="font-bold text-black">定員</span>
+                      <span className="text-black">{t.max_participants}人</span>
                     </div>
                   )}
                 </div>

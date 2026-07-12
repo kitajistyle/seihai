@@ -86,7 +86,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
         <Link href="/admin/tournaments" className="p-2 hover:bg-white/5 rounded-lg text-gray-500">
           <ArrowLeft size={20} />
         </Link>
-        <h1 className="text-2xl font-black text-white">{initialData ? '大会を編集' : '新規大会作成'}</h1>
+        <h1 className="text-2xl font-black text-black">{initialData ? '大会を編集' : '新規大会作成'}</h1>
       </div>
 
       {error && (
@@ -119,8 +119,8 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
                   key={org.id} 
                   className={`flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer ${
                     selectedOrganizerIds.includes(org.id) 
-                      ? 'bg-blue-500/10 border-blue-500/50 text-white' 
-                      : 'bg-white/5 border-white/10 text-gray-500 hover:border-white/20'
+                      ? 'bg-zinc-200 border-zinc-350 text-black' 
+                      : 'bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300'
                   }`}
                 >
                   <input 
@@ -189,7 +189,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">画像 URL</label>
             <div className="flex gap-2">
-              <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-gray-500 overflow-hidden">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-2 flex items-center justify-center shrink-0 w-12 h-12 text-zinc-500 overflow-hidden">
                 {formData.image_url ? (
                   <img src={formData.image_url} alt="Icon" className="w-full h-full object-cover" />
                 ) : (
@@ -297,8 +297,8 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
                 <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${featuredInHero ? 'translate-x-5' : ''}`} />
               </div>
               <div>
-                <p className="text-sm font-bold text-white">トップページに掲載する</p>
-                <p className="text-[10px] text-gray-500">ONにするとトップのヒーローセクションに表示されます（最大3件）</p>
+                <p className="text-sm font-bold text-zinc-900">トップページに掲載する</p>
+                <p className="text-[10px] text-zinc-500">ONにするとトップのヒーローセクションに表示されます（最大3件）</p>
               </div>
             </label>
           </div>
@@ -308,20 +308,20 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
           <button 
             type="button"
             onClick={() => setShowPreview(true)}
-            className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 font-bold rounded-xl transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-250 text-zinc-700 font-bold rounded-xl transition-all"
           >
             <Eye size={18} /> プレビュー
           </button>
           <Link 
             href="/admin/tournaments"
-            className="px-6 py-2.5 text-sm font-bold text-gray-500 hover:text-white transition-colors"
+            className="px-6 py-2.5 text-sm font-bold text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             キャンセル
           </Link>
           <button 
             type="submit"
             disabled={isPending}
-            className="flex items-center gap-2 px-8 py-2.5 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-bold rounded-xl transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-8 py-2.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold rounded-xl transition-all disabled:opacity-50"
           >
             <Save size={18} /> {isPending ? '保存中...' : '変更を保存'}
           </button>

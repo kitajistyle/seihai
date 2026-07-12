@@ -55,7 +55,7 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
       <div className="flex justify-end">
         <button 
           onClick={handleAdd}
-          className="flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/80 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+          className="flex items-center gap-2 px-6 py-3 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-black font-bold rounded-xl transition-all shadow-sm"
         >
           <Plus size={18} /> 新規エントリー追加
         </button>
@@ -63,14 +63,14 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
 
       <div className="space-y-4">
         {registrations.length === 0 ? (
-          <div className="glass-panel p-12 text-center text-gray-500">
-            <Users size={48} className="mx-auto mb-4 opacity-10" />
+          <div className="glass-panel p-12 text-center text-black">
+            <Users size={48} className="mx-auto mb-4 opacity-35" />
             <p>まだエントリーはありません。</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {registrations.map((reg) => (
-              <div key={reg.id} className="glass-panel p-6 hover:border-white/20 transition-all group">
+              <div key={reg.id} className="glass-panel p-6 hover:border-zinc-300 transition-all group">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="space-y-4 flex-grow">
                     <div className="flex items-center gap-4">
@@ -78,13 +78,13 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
                         <User size={24} />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-white mb-0.5">{reg.player_name}</h3>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                        <h3 className="text-lg font-bold text-black mb-0.5">{reg.player_name}</h3>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-black">
                           <span className="flex items-center gap-1.5">
-                            <Mail size={12} /> {reg.email}
+                            <Mail size={12} className="text-zinc-500" /> {reg.email}
                           </span>
                           {reg.x_id && (
-                            <span className="flex items-center gap-1.5 text-blue-400">
+                            <span className="flex items-center gap-1.5 text-blue-600">
                               𝕏 @{reg.x_id}
                             </span>
                           )}
@@ -93,9 +93,9 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
                     </div>
 
                     {reg.message && (
-                      <div className="flex gap-3 p-4 bg-white/5 rounded-xl border border-white/5">
-                        <MessageSquare size={16} className="text-gray-500 shrink-0 mt-0.5" />
-                        <p className="text-sm text-gray-300 leading-relaxed italic">
+                      <div className="flex gap-3 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                        <MessageSquare size={16} className="text-zinc-500 shrink-0 mt-0.5" />
+                        <p className="text-sm text-black leading-relaxed italic">
                           &ldquo;{reg.message}&rdquo;
                         </p>
                       </div>
@@ -106,24 +106,24 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
                     <div className="flex items-center gap-2">
                       <button 
                         onClick={() => handleEdit(reg)}
-                        className="p-2 hover:bg-blue-500/10 text-gray-500 hover:text-blue-500 rounded-lg transition-all"
+                        className="p-2 hover:bg-blue-50 text-zinc-700 hover:text-blue-600 rounded-lg transition-all"
                         title="編集"
                       >
                         <Edit3 size={18} />
                       </button>
                       <button 
                         onClick={() => handleDelete(reg.id)}
-                        className="p-2 hover:bg-red-500/10 text-gray-500 hover:text-red-500 rounded-lg transition-all"
+                        className="p-2 hover:bg-red-50 text-zinc-750 hover:text-red-650 rounded-lg transition-all"
                         title="削除"
                       >
                         <Trash2 size={18} />
                       </button>
                     </div>
-
+ 
                     <div className="text-right">
-                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">登録日時</p>
-                      <div className="flex items-center gap-2 text-gray-400 text-xs font-mono">
-                        <Calendar size={12} />
+                      <p className="text-[10px] font-bold text-black uppercase tracking-widest mb-1">登録日時</p>
+                      <div className="flex items-center gap-2 text-black text-xs font-mono">
+                        <Calendar size={12} className="text-zinc-500" />
                         {new Date(reg.created_at).toLocaleString('ja-JP', { 
                           year: 'numeric', 
                           month: '2-digit', 
@@ -134,9 +134,9 @@ export default function RegistrationsClient({ tournamentId, initialRegistrations
                       </div>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-                      reg.status === 'confirmed' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
-                      reg.status === 'cancelled' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
-                      'bg-orange-500/10 text-orange-500 border border-orange-500/20'
+                      reg.status === 'confirmed' ? 'bg-green-100 text-green-800 border border-green-200' :
+                      reg.status === 'cancelled' ? 'bg-red-100 text-red-800 border border-red-200' :
+                      'bg-orange-100 text-orange-800 border border-orange-200'
                     }`}>
                       {reg.status === 'confirmed' ? '確定' : reg.status === 'cancelled' ? 'キャンセル' : '承認待ち'}
                     </span>

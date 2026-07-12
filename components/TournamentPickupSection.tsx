@@ -41,16 +41,18 @@ export default function TournamentPickupSection({ tournaments }: TournamentPicku
               </div>
               {/* メタ情報 + ボタン */}
               <div className="flex-grow px-5 py-4 flex flex-col justify-between gap-3 min-w-0">
-                <div className="text-sm text-white space-y-1.5">
+                <div className="text-sm text-black space-y-1.5">
                   <p className="flex items-center gap-2">
-                    <span className="font-bold text-white">開催日</span>
-                    {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
-                    {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
+                    <span className="font-bold text-black">開催日</span>
+                    <span className="text-black">
+                      {new Date(t.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', timeZone: 'Asia/Tokyo' })}
+                      {' '}{new Date(t.date).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
+                    </span>
                   </p>
                   {!t.external_registration_url && (
                     <p className="flex items-center gap-2">
-                      <span className="font-bold text-white">定員</span>
-                      <span className="text-white">{t.max_participants}人</span>
+                      <span className="font-bold text-black">定員</span>
+                      <span className="text-black">{t.max_participants}人</span>
                     </p>
                   )}
                 </div>

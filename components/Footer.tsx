@@ -13,7 +13,7 @@ export default function Footer() {
         transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
         className="absolute bottom-0 right-6 md:right-16 pointer-events-none opacity-70"
       >
-        <Image src="/sei-bow.png" alt="キャラクター" width={100} height={130} className="w-20 md:w-[100px] h-auto" />
+        <Image src="/sei-bow.png" alt="キャラクター" width={100} height={130} className="w-20 md:w-[100px] h-auto" style={{ height: 'auto' }} />
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 text-center">

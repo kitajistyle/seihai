@@ -73,9 +73,9 @@ export default async function HomePage() {
       <HeroSection tournaments={heroTournaments} />
       <NewsSection announcements={announcements} />
       {/* <RankingSection rankings={rankings} /> */}
-      <TournamentPickupSection tournaments={tournaments} />
-      <OrganizerPickupSection organizers={organizers} />
-      <ReportPickupSection reports={reports} />
+      {tournaments && tournaments.length > 0 && <TournamentPickupSection tournaments={tournaments} />}
+      {organizers && organizers.length > 0 && <OrganizerPickupSection organizers={organizers} />}
+      {reports && reports.length > 0 && <ReportPickupSection reports={reports} />}
     </>
   );
 }
