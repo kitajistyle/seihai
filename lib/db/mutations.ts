@@ -523,7 +523,8 @@ export async function approveRegistration(token: string) {
  * 出店者情報の作成・更新
  */
 export async function upsertStall(formData: any) {
-  const { id, ...rest } = formData;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, created_at, updated_at, ...rest } = formData;
   const client = await db.connect();
   try {
     if (id) {
@@ -531,7 +532,7 @@ export async function upsertStall(formData: any) {
       const values = Object.values(rest);
       const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
       await client.query(
-        `UPDATE stalls SET ${setClause} WHERE id = $${keys.length + 1}`,
+        `UPDATE stalls SET ${setClause}, "updated_at" = NOW() WHERE id = $${keys.length + 1}`,
         [...values, id]
       );
     } else {

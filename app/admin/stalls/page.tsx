@@ -65,7 +65,7 @@ export default async function AdminStallsPage() {
                   <div className="flex items-center justify-end gap-2">
                     <Link
                       href={`/admin/stalls/${stall.id}/edit`}
-                      className="p-2 text-zinc-750 hover:text-[var(--color-brand-blue)] hover:bg-zinc-100 rounded-lg transition-all"
+                      className="p-2 text-zinc-700 hover:text-[var(--color-brand-blue)] hover:bg-zinc-100 rounded-lg transition-all"
                     >
                       <Edit size={18} />
                     </Link>
@@ -73,7 +73,12 @@ export default async function AdminStallsPage() {
                       'use server';
                       await deleteStall(stall.id);
                     }}>
-                      <button className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all">
+                      <button
+                        className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                        onClick={(e) => {
+                          if (!confirm('この出店者を削除しますか？')) e.preventDefault();
+                        }}
+                      >
                         <Trash2 size={18} />
                       </button>
                     </form>
@@ -117,7 +122,12 @@ export default async function AdminStallsPage() {
                   'use server';
                   await deleteStall(stall.id);
                 }}>
-                  <button className="p-2 text-gray-500 hover:text-red-500">
+                  <button
+                    className="p-2 text-gray-500 hover:text-red-500"
+                    onClick={(e) => {
+                      if (!confirm('この出店者を削除しますか？')) e.preventDefault();
+                    }}
+                  >
                     <Trash2 size={20} />
                   </button>
                 </form>
