@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import { sql, db } from '@/lib/db';
-import { Tournament, PlayerRank, Organizer, EventReport, Registration, Announcement } from '@/types';
+import { Tournament, PlayerRank, Organizer, EventReport, Registration, Announcement, Stall } from '@/types';
 
 export const getHeroTournaments = cache(async (): Promise<Tournament[]> => {
   try {
@@ -268,6 +268,29 @@ export const getOrganizerById = cache(async (id: string) => {
     return rows[0] || null;
   } catch (error) {
     console.error('Error fetching organizer:', error);
+    return null;
+  }
+});
+
+export const getStalls = cache(async (): Promise<Stall[]> => {
+  try {
+    const { rows } = await sql`
+      SELECT * FROM stalls
+      ORDER BY display_order ASC, created_at ASC
+    `;
+    return rows as Stall[];
+  } catch (error) {
+    console.error('Error fetching stalls:', error);
+    return [];
+  }
+});
+
+export const getStallById = cache(async (id: string): Promise<Stall | null> => {
+  try {
+    const { rows } = await sql`SELECT * FROM stalls WHERE id = ${id}`;
+    return (rows[0] as Stall) || null;
+  } catch (error) {
+    console.error('Error fetching stall:', error);
     return null;
   }
 });

@@ -518,3 +518,44 @@ export async function approveRegistration(token: string) {
     client.release();
   }
 }
+
+/**
+ * 出店者情報の作成・更新
+ */
+export async function upsertStall(formData: any) {
+  const { id, ...rest } = formData;
+  const client = await db.connect();
+  try {
+    if (id) {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const setClause = keys.map((k, i) => `"${k}" = $${i + 1}`).join(', ');
+      await client.query(
+        `UPDATE stalls SET ${setClause} WHERE id = $${keys.length + 1}`,
+        [...values, id]
+      );
+    } else {
+      const keys = Object.keys(rest);
+      const values = Object.values(rest);
+      const cols = keys.map(k => `"${k}"`).join(', ');
+      const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
+      await client.query(
+        `INSERT INTO stalls (${cols}) VALUES (${placeholders})`,
+        values
+      );
+    }
+  } finally {
+    client.release();
+  }
+  revalidatePath('/');
+  revalidatePath('/admin/stalls');
+}
+
+/**
+ * 出店者の削除
+ */
+export async function deleteStall(id: string) {
+  await sql`DELETE FROM stalls WHERE id = ${id}`;
+  revalidatePath('/');
+  revalidatePath('/admin/stalls');
+}
