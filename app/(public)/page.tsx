@@ -5,7 +5,9 @@ import TournamentPickupSection from '@/components/TournamentPickupSection';
 import OrganizerPickupSection from '@/components/OrganizerPickupSection';
 import ReportPickupSection from '@/components/ReportPickupSection';
 import NewsSection from '@/components/NewsSection';
-import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnouncements } from '@/lib/db/queries';
+import MapSection from '@/components/MapSection';
+import StallPickupSection from '@/components/StallPickupSection';
+import { getTournaments, getOrganizers, getReports, getHeroTournaments, getAnnouncements, getStalls } from '@/lib/db/queries';
 
 export const metadata: Metadata = {
   // absoluteを使うことでlayout.tsxのtemplateが重複適用されるのを防ぐ
@@ -37,12 +39,13 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [tournaments, organizers, reports, heroTournaments, announcements] = await Promise.all([
+  const [tournaments, organizers, reports, heroTournaments, announcements, stalls] = await Promise.all([
     getTournaments(),
     getOrganizers(),
     getReports(5),
     getHeroTournaments(),
     getAnnouncements(true),
+    getStalls(),
   ]);
 
   return (
@@ -72,6 +75,8 @@ export default async function HomePage() {
 
       <HeroSection tournaments={heroTournaments} />
       <NewsSection announcements={announcements} />
+      <MapSection />
+      {stalls && stalls.length > 0 && <StallPickupSection stalls={stalls} />}
       {/* <RankingSection rankings={rankings} /> */}
       {tournaments && tournaments.length > 0 && <TournamentPickupSection tournaments={tournaments} />}
       {organizers && organizers.length > 0 && <OrganizerPickupSection organizers={organizers} />}
