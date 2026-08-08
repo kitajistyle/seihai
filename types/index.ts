@@ -57,6 +57,18 @@ export interface Organizer {
   image_url: string;
 }
 
+export interface Stall {
+  id: string;
+  name: string;
+  genre: string | null;
+  description: string | null;
+  image_url: string | null;
+  url: string | null;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface TournamentResult {
   id: string;
   tournament_id: string;
