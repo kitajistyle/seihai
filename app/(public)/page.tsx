@@ -75,11 +75,11 @@ export default async function HomePage() {
 
       <HeroSection tournaments={heroTournaments} />
       <NewsSection announcements={announcements} />
-      <MapSection />
       {stalls && stalls.length > 0 && <StallPickupSection stalls={stalls} />}
       {/* <RankingSection rankings={rankings} /> */}
       {tournaments && tournaments.length > 0 && <TournamentPickupSection tournaments={tournaments} />}
       {organizers && organizers.length > 0 && <OrganizerPickupSection organizers={organizers} />}
+      <MapSection />
       {reports && reports.length > 0 && <ReportPickupSection reports={reports} />}
     </>
   );
