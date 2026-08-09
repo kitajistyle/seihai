@@ -1,7 +1,8 @@
 import { getStalls } from '@/lib/db/queries';
 import { deleteStall } from '@/lib/db/mutations';
 import Link from 'next/link';
-import { Plus, Edit, Trash2, ShoppingBag, ExternalLink } from 'lucide-react';
+import { Plus, Edit, ShoppingBag, ExternalLink } from 'lucide-react';
+import DeleteButton from '@/components/admin/DeleteButton';
 
 export default async function AdminStallsPage() {
   const stalls = await getStalls();
@@ -69,19 +70,10 @@ export default async function AdminStallsPage() {
                     >
                       <Edit size={18} />
                     </Link>
-                    <form action={async () => {
-                      'use server';
-                      await deleteStall(stall.id);
-                    }}>
-                      <button
-                        className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
-                        onClick={(e) => {
-                          if (!confirm('この出店者を削除しますか？')) e.preventDefault();
-                        }}
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </form>
+                    <DeleteButton
+                      action={deleteStall.bind(null, stall.id)}
+                      confirmMessage="この出店者を削除しますか？"
+                    />
                   </div>
                 </td>
               </tr>
@@ -118,19 +110,10 @@ export default async function AdminStallsPage() {
                 >
                   <Edit size={20} />
                 </Link>
-                <form action={async () => {
-                  'use server';
-                  await deleteStall(stall.id);
-                }}>
-                  <button
-                    className="p-2 text-gray-500 hover:text-red-500"
-                    onClick={(e) => {
-                      if (!confirm('この出店者を削除しますか？')) e.preventDefault();
-                    }}
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                </form>
+                <DeleteButton
+                  action={deleteStall.bind(null, stall.id)}
+                  confirmMessage="この出店者を削除しますか？"
+                />
               </div>
             </div>
           </div>
