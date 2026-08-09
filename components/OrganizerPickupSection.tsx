@@ -45,9 +45,9 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
                   href={`https://x.com/${org.x_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 mt-2 text-xs text-white hover:underline"
+                  className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full text-xs font-bold bg-black text-white hover:bg-zinc-800 transition-all"
                 >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20.08h1.833L7.084 4.126H5.117Z"/></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20.08h1.833L7.084 4.126H5.117Z"/></svg>
                   @{org.x_id}
                 </a>
               )}
