@@ -2,6 +2,10 @@ import FadeInView from '@/components/FadeInView';
 import { Stall } from '@/types';
 import { ExternalLink, ShoppingBag } from 'lucide-react';
 
+function isXUrl(url: string) {
+  return /^https?:\/\/(www\.)?(x\.com|twitter\.com)/.test(url);
+}
+
 interface StallPickupSectionProps {
   stalls: Stall[];
 }
@@ -54,7 +58,14 @@ export default function StallPickupSection({ stalls }: StallPickupSectionProps) 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 mt-2 text-xs text-white hover:underline"
                 >
-                  <ExternalLink size={12} /> 公式サイト
+                  {isXUrl(stall.url) ? (
+                    <>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20.08h1.833L7.084 4.126H5.117Z"/></svg>
+                      X でフォロー
+                    </>
+                  ) : (
+                    <><ExternalLink size={12} /> 公式サイト</>
+                  )}
                 </a>
               )}
             </div>

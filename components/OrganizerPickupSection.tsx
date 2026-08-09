@@ -40,6 +40,17 @@ export default function OrganizerPickupSection({ organizers }: OrganizerPickupSe
               <h3 className="text-xl sm:text-2xl font-bold mb-1 text-black transition-all">{org.name}</h3>
               <p className="text-black text-sm font-bold mb-3 tracking-wide">{org.title}</p>
               <p className="text-black text-sm leading-relaxed line-clamp-2 font-medium">{org.description}</p>
+              {org.x_id && (
+                <a
+                  href={`https://x.com/${org.x_id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 mt-2 text-xs text-white hover:underline"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20.08h1.833L7.084 4.126H5.117Z"/></svg>
+                  @{org.x_id}
+                </a>
+              )}
             </div>
           </FadeInView>
         ))}
