@@ -88,7 +88,7 @@ export default async function AdminTournamentsPage() {
                 <p className="text-[10px] font-bold text-black uppercase tracking-widest mb-1">開催日時</p>
                 <div className="flex items-center gap-2 text-black text-xs">
                   <Calendar size={12} className="text-[var(--color-brand-blue)]" />
-                  {new Date(t.date).toLocaleDateString('ja-JP')}
+                  {new Date(t.date).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })}
                 </div>
               </div>
               <div>

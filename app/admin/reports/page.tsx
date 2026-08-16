@@ -51,7 +51,7 @@ export default async function AdminReportsPage() {
               </div>
               <div className="flex-grow min-w-0">
                 <p className="font-bold text-black mb-1 truncate">{r.title}</p>
-                <p className="text-[10px] text-zinc-500">{new Date(r.date).toLocaleDateString('ja-JP')}</p>
+                <p className="text-[10px] text-zinc-500">{new Date(r.date).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })}</p>
               </div>
               <Link
                 href={`/admin/reports/${r.id}/edit`}
@@ -109,7 +109,7 @@ export default async function AdminReportsPage() {
                     </div>
                     <div>
                       <p className="font-bold text-black mb-0.5">{r.title}</p>
-                      <p className="text-[10px] text-zinc-500">{new Date(r.date).toLocaleDateString()}</p>
+                      <p className="text-[10px] text-zinc-500">{new Date(r.date).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })}</p>
                     </div>
                   </div>
                 </td>

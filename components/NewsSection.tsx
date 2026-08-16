@@ -20,9 +20,13 @@ export default function NewsSection({ announcements }: NewsSectionProps) {
         <div className="flex flex-col">
           {announcements.slice(0, 5).map((announcement, index) => {
             const d = new Date(announcement.created_at || new Date());
-            const dateStr = isNaN(d.getTime())
-              ? ''
-              : `${String(d.getMonth() + 1).padStart(2, '0')}月${String(d.getDate()).padStart(2, '0')}日`;
+            const jst = isNaN(d.getTime())
+              ? null
+              : new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tokyo', month: '2-digit', day: '2-digit' })
+                  .formatToParts(d);
+            const dateStr = jst
+              ? `${jst.find(p => p.type === 'month')?.value}月${jst.find(p => p.type === 'day')?.value}日`
+              : '';
 
             const isExternal = !!announcement.url;
             const hasDetail = !announcement.url && !!announcement.content;

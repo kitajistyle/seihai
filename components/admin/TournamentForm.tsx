@@ -9,6 +9,7 @@ import Link from 'next/link';
 import PreviewModal from './PreviewModal';
 import SectionEditor from './SectionEditor';
 import { Section } from '@/types';
+import { toJstInputValue, fromJstInputValue } from '@/lib/date';
 
 interface TournamentFormProps {
   initialData?: any;
@@ -53,6 +54,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
       await upsertTournament({
         ...initialData,
         ...data,
+        date: data.date ? fromJstInputValue(data.date as string) : data.date,
         participants: parseInt(data.participants as string) || 0,
         max_participants: parseInt(data.max_participants as string) || 0,
         organizer_ids: selectedOrganizerIds,
@@ -75,6 +77,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
           type="tournament"
           data={{
             ...formData,
+            date: formData.date ? fromJstInputValue(formData.date) : formData.date,
             organizers: organizers.filter(o => selectedOrganizerIds.includes(o.id)),
             sections,
           }}
@@ -154,7 +157,7 @@ export default function TournamentForm({ initialData, organizers }: TournamentFo
               <input
                 type="datetime-local"
                 name="date"
-                defaultValue={initialData?.date ? new Date(initialData.date).toISOString().slice(0, 16) : ''}
+                defaultValue={toJstInputValue(initialData?.date)}
                 onChange={handleInputChange}
                 className="admin-input w-full"
                 required
