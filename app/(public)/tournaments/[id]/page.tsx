@@ -37,8 +37,17 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       title: `${tournament.title} | せい祭`,
       description,
       url: `${BASE_URL}/tournaments/${tournament.id}`,
-      images: tournament.image_url ? [{ url: tournament.image_url, alt: tournament.title }] : [],
+      siteName: 'せい祭',
+      images: tournament.image_url
+        ? [{ url: tournament.image_url, alt: tournament.title }]
+        : [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: tournament.title }],
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${tournament.title} | せい祭`,
+      description,
+      images: [tournament.image_url || `${BASE_URL}/og-image.png`],
     },
   };
 }
@@ -71,7 +80,7 @@ export default async function TournamentDetailPage(props: { params: Promise<{ id
       name: 'せい祭',
       url: BASE_URL,
     },
-    image: tournament.image_url || `${BASE_URL}/seisai-bg.png`,
+    image: tournament.image_url || `${BASE_URL}/og-image.png`,
   };
 
   return (

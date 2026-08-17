@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BASE_URL,
   },
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'ja_JP',
@@ -54,7 +59,7 @@ export const metadata: Metadata = {
     description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。大会参加登録、ランキング、イベントレポートを一元管理。',
     images: [
       {
-        url: '/seisai-bg.png',
+        url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
@@ -65,7 +70,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
     description: '全国で開催されるカードゲーム大会・トレーディングカードゲーム大会の情報を発信するプラットフォーム「せい祭」。',
-    images: ['/seisai-bg.png'],
+    images: [`${BASE_URL}/og-image.png`],
   },
   verification: {
     google: 'ulYgwo65_dR5Ti_ISHyurdA33nZwzLPfQzYTTRuiWEw',

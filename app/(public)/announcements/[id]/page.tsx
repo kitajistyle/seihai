@@ -10,9 +10,32 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const { id } = await props.params;
   const announcement = await getAnnouncementById(id);
   if (!announcement) return { title: '見つかりません' };
+  const description = announcement.content?.slice(0, 120) || 'せい祭からのお知らせです。';
+  const BASE_URL = 'https://every1-fes.vercel.app';
   return {
-    title: announcement.title,
-    description: announcement.content?.slice(0, 120),
+    title: `${announcement.title} | せい祭`,
+    description,
+    openGraph: {
+      title: `${announcement.title} | せい祭`,
+      description,
+      url: `${BASE_URL}/announcements/${announcement.id}`,
+      siteName: 'せい祭',
+      images: [
+        {
+          url: `${BASE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${announcement.title} | せい祭`,
+      description,
+      images: [`${BASE_URL}/og-image.png`],
+    },
   };
 }
 

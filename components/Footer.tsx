@@ -18,7 +18,14 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center gap-10">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/seisai-bg.png"
+              alt="せい祭"
+              width={36}
+              height={36}
+              className="w-9 h-9 object-contain"
+            />
             <span className="text-2xl font-black tracking-tighter uppercase text-gradient-premium tracking-widest">せい祭</span>
           </div>
           

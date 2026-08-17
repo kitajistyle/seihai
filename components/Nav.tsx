@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
@@ -36,7 +37,14 @@ export default function Nav({
       <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <Link href="/" id="nav-brand-logo" className="flex items-center gap-2 group">
+            <Link href="/" id="nav-brand-logo" className="flex items-center gap-2.5 group">
+              <Image
+                src="/seisai-bg.png"
+                alt="せい祭"
+                width={32}
+                height={32}
+                className="w-8 h-8 object-contain transition-transform group-hover:scale-110"
+              />
               <span className="text-xl font-black tracking-tighter uppercase text-gradient-premium">せい祭</span>
             </Link>
 
@@ -94,7 +102,16 @@ export default function Nav({
               className="fixed top-0 right-0 z-50 h-full w-72 bg-zinc-950 border-l border-zinc-800 flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between px-6 h-16 border-b border-zinc-800 shrink-0">
-                <span className="text-base font-black tracking-tighter uppercase text-white">せい祭</span>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/seisai-bg.png"
+                    alt="せい祭"
+                    width={28}
+                    height={28}
+                    className="w-7 h-7 object-contain"
+                  />
+                  <span className="text-base font-black tracking-tighter uppercase text-white">せい祭</span>
+                </div>
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   className="p-2 text-zinc-400 hover:text-white transition-colors"
