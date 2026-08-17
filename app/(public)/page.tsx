@@ -16,16 +16,16 @@ export const metadata: Metadata = {
   },
   description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。大会参加登録・イベントレポート・主催者情報をご確認いただけます。',
   alternates: {
-    canonical: 'https://every1-fes.vercel.app',
+    canonical: 'https://seisai.vercel.app',
   },
   openGraph: {
     title: 'せい祭 | トレーディングカードゲーム大会プラットフォーム',
     description: '「せい祭」は全国のカードゲーム大会・トレーディングカードゲーム大会の情報を一元管理するプラットフォームです。',
-    url: 'https://every1-fes.vercel.app',
+    url: 'https://seisai.vercel.app',
     siteName: 'せい祭',
     images: [
       {
-        url: 'https://every1-fes.vercel.app/og-image.png',
+        url: 'https://seisai.vercel.app/og-image.png',
         width: 1200,
         height: 630,
         alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',

@@ -18,7 +18,7 @@ import {
 import TournamentRegistrationForm from '@/components/TournamentRegistrationForm';
 import SectionRenderer from '@/components/SectionRenderer';
 
-const BASE_URL = 'https://every1-fes.vercel.app';
+const BASE_URL = 'https://seisai.vercel.app';
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const params = await props.params;

@@ -11,7 +11,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
   const announcement = await getAnnouncementById(id);
   if (!announcement) return { title: '見つかりません' };
   const description = announcement.content?.slice(0, 120) || 'せい祭からのお知らせです。';
-  const BASE_URL = 'https://every1-fes.vercel.app';
+  const BASE_URL = 'https://seisai.vercel.app';
   return {
     title: `${announcement.title} | せい祭`,
     description,

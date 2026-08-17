@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getTournaments, getReports } from '@/lib/db/queries';
 
-const BASE_URL = 'https://every1-fes.vercel.app';
+const BASE_URL = 'https://seisai.vercel.app';
 
 export const revalidate = 3600; // 1時間ごとに再生成
 

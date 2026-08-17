@@ -7,7 +7,7 @@ import { Trophy, Calendar, MapPin, Gift, Users, Award, ExternalLink, ArrowLeft }
 import Link from 'next/link';
 import SectionRenderer from '@/components/SectionRenderer';
 
-const BASE_URL = 'https://every1-fes.vercel.app';
+const BASE_URL = 'https://seisai.vercel.app';
 
 // Generate dynamic SEO metadata
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {

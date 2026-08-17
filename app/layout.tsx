@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP, Outfit } from 'next/font/google';
 import './globals.css';
 
-const BASE_URL = 'https://every1-fes.vercel.app';
+const BASE_URL = 'https://seisai.vercel.app';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
