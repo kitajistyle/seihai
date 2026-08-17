@@ -27,13 +27,24 @@ export default async function OrganizersPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {organizers.map((org) => (
-          <div key={org.id} className="glass-panel p-6 flex gap-6 items-center">
+          <div key={org.id} className="glass-panel p-6 flex gap-6 items-center hover:-translate-y-1 transition-all duration-300">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={org.image_url || ''} className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl object-cover transition-all duration-500 shrink-0" alt={org.name} />
-            <div className="min-w-0">
-              <h3 className="text-xl sm:text-2xl font-bold mb-1">{org.name}</h3>
-              <p className="text-black text-sm font-medium mb-3">{org.title}</p>
-              <p className="text-gray-600 text-sm leading-relaxed">{org.description}</p>
+            <img src={org.image_url || ''} className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl object-cover transition-all duration-500 shrink-0 shadow-md" alt={org.name} />
+            <div className="flex-grow min-w-0">
+              <h3 className="text-xl sm:text-2xl font-bold mb-1 text-black">{org.name}</h3>
+              <p className="text-black text-sm font-bold mb-3 tracking-wide">{org.title}</p>
+              <p className="text-black text-sm leading-relaxed font-medium mb-3">{org.description}</p>
+              {org.x_id && (
+                <a
+                  href={`https://x.com/${org.x_id.replace(/^@/, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-1 px-4 py-2 rounded-full text-xs font-bold bg-black text-white hover:bg-zinc-800 transition-all shadow-sm"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20.08h1.833L7.084 4.126H5.117Z"/></svg>
+                  @{org.x_id.replace(/^@/, '')}
+                </a>
+              )}
             </div>
           </div>
         ))}
