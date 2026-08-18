@@ -30,7 +30,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       description,
       images: data.report.image_url
         ? [{ url: data.report.image_url, alt: data.report.title }]
-        : [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: data.report.title }],
+        : [{ url: `${BASE_URL}/og-image-v2.png`, width: 1200, height: 630, alt: data.report.title }],
       url: `${BASE_URL}/reports/${data.report.id}`,
       siteName: 'せい祭',
       type: 'article',
@@ -39,7 +39,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       card: 'summary_large_image',
       title: `${data.report.title} | せい祭`,
       description,
-      images: [data.report.image_url || `${BASE_URL}/og-image.png`],
+      images: [data.report.image_url || `${BASE_URL}/og-image-v2.png`],
     },
   };
 }

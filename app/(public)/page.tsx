@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: 'せい祭',
     images: [
       {
-        url: 'https://seisai.vercel.app/og-image.png',
+        url: 'https://seisai.vercel.app/og-image-v2.png',
         width: 1200,
         height: 630,
         alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',

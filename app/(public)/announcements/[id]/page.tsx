@@ -22,7 +22,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       siteName: 'せい祭',
       images: [
         {
-          url: `${BASE_URL}/og-image.png`,
+          url: `${BASE_URL}/og-image-v2.png`,
           width: 1200,
           height: 630,
           alt: 'せい祭 - トレーディングカードゲーム大会プラットフォーム',
@@ -34,7 +34,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
       card: 'summary_large_image',
       title: `${announcement.title} | せい祭`,
       description,
-      images: [`${BASE_URL}/og-image.png`],
+      images: [`${BASE_URL}/og-image-v2.png`],
     },
   };
 }
